@@ -13,17 +13,19 @@ import ufrn.com.comercioeaj.models.Produtos;
 import ufrn.com.comercioeaj.models.Usuarios;
 import ufrn.com.comercioeaj.services.FileStorageService;
 import ufrn.com.comercioeaj.services.ProdutosService;
+import ufrn.com.comercioeaj.services.UsuariosService;
 
 import java.security.Principal;
 import java.util.List;
 
 @Controller
-public class ProdutosControllers {
+public class ProdutosController {
 
+    UsuariosService usuariosService;
     ProdutosService produtosService;
     private final FileStorageService fileStorageService;
 
-    public ProdutosControllers(ProdutosService produtosService, FileStorageService fileStorageService) {
+    public ProdutosController(ProdutosService produtosService, FileStorageService fileStorageService) {
         this.produtosService = produtosService;
         this.fileStorageService = fileStorageService;
     }
@@ -70,4 +72,11 @@ public class ProdutosControllers {
 
         return "produtos/catalogo.html";
     }
+
+    @RequestMapping(value = {"/gerenciar-produtos", "/produtos"}, method = RequestMethod.GET)
+    public String getProdutos(Model model, Principal principal) {
+
+        return "produtos/gerenciar-produtos.html";
+    }
+
 }

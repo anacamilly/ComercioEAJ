@@ -12,9 +12,7 @@ import ufrn.com.comercioeaj.services.UsuariosService;
 @Controller
 public class UsuariosController {
 
-
     UsuariosService service;
-
 
     public UsuariosController(UsuariosService service) {
         this.service = service;

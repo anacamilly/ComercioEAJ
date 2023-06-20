@@ -51,6 +51,14 @@ public class Usuarios implements UserDetails {
         }
     }
 
+    public Boolean getIsVendedor() {
+        return isVendedor;
+    }
+
+    public void setIsVendedor(Boolean vendedor) {
+        isVendedor = vendedor;
+    }
+
     @Override
     public String getPassword() {
         return this.senha;
