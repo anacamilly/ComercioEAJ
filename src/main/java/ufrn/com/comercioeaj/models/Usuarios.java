@@ -22,7 +22,6 @@ import java.util.Collections;
 @AllArgsConstructor
 @Data
 public class Usuarios implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

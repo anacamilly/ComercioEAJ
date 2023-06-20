@@ -8,10 +8,17 @@
 </head>
 <body>
 <div class="container mt-5">
+
+    <nav th:replace="/fragments/navbar.html ::nav"></nav>
+
     <h1 class="text-center">Detalhes do Produto</h1>
     <div class="card mt-5">
-        <img class="card-img-top img-fluid" th:src="@{'/images/' + ${produto.imagemUri}}" alt="..." >
+        <!-- Exibir informações do vendedor -->
+        <h5 class="mt-4">Informações do Vendedor</h5>
+        <p class="card-text"><strong>Razão Social:</strong> <span th:text="${produto.id_vendedor.razao}"></span></p>
+        <img class="img-fluid" th:src="@{'/images/' + ${produto.id_vendedor.imagemUri}}" alt="Imagem do Vendedor">
         <div class="card-body">
+            <img class="card-img-top img-fluid" th:src="@{'/images/' + ${produto.imagemUri}}" alt="..." >
             <h5 class="card-title" th:text="${produto.titulo}"></h5>
             <p class="card-text" th:text="${produto.descricao}"></p>
             <p class="card-text" th:text="${produto.categoria}"></p>

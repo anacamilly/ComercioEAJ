@@ -77,14 +77,18 @@ public class ProdutosController {
 
     @GetMapping("/detalhes-produto/{id}")
     public String getDetalhesProduto(@PathVariable Long id, Model model) {
-        Optional<Produtos> optionalProduto = produtosService.findById(id);
+        Optional<Produtos> produtoOptional = produtosService.findById(id);
 
-        if (optionalProduto.isEmpty()) {
+        if (produtoOptional.isEmpty()) {
             return "error"; // Página de erro caso o produto não seja encontrado
         }
 
-        Produtos produto = optionalProduto.get();
+        Produtos produto = produtoOptional.get();
+        Usuarios vendedor = produto.getId_vendedor(); // Obter o objeto vendedor do produto
+
         model.addAttribute("produto", produto);
+        model.addAttribute("vendedor", vendedor); // Adicionar o objeto vendedor ao modelo
+
         return "produtos/detalhes-produto"; // Nome do arquivo HTML
     }
 
