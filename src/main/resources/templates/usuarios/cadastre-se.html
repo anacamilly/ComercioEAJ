@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de usuários</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center mt-5">Cadastre-se</h1>
+    <form method="post" th:action="@{/salvar}" th:object="${usuario}" class="mt-5">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" id="nome" th:field="*{nome}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="cpf" class="form-label">E-mail:</label>
+            <input type="text" id="cpf" th:field="*{email}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="login" class="form-label">Login:</label>
+            <input type="text" id="login" th:field="*{login}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="senha" class="form-label">Senha:</label>
+            <input type="password" id="senha" th:field="*{senha}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Vendedor:</label><br>
+            <div class="form-check form-check-inline">
+                <input type="radio" id="vendSim" th:field="*{isVendedor}" value="true" class="form-check-input">
+                <label for="vendSim" class="form-check-label">Sim</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" id="vendNao" th:field="*{isVendedor}" value="false" class="form-check-input" checked>
+                <label for="vendNao" class="form-check-label">Não</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
