@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.sql.Date;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -27,7 +30,17 @@ public class Usuarios implements UserDetails {
     String email;
     String login;
     String senha;
+    Date data_nascimento;
+    Date data_cadastro;
     Boolean isVendedor;
+
+    // 2 etapa - Vendedor
+    String imagemUri;
+    String razao;
+    String biografia;
+    String whatsapp;
+    String instagram;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
