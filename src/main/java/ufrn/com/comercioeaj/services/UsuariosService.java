@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ufrn.com.comercioeaj.models.Produtos;
 import ufrn.com.comercioeaj.models.Usuarios;
 import ufrn.com.comercioeaj.repositories.UsuariosRepository;
 
@@ -25,6 +26,10 @@ public class UsuariosService implements UserDetailsService {
     public void create(Usuarios u){
         u.setSenha(encoder.encode(u.getSenha()));
         this.repository.save(u);
+    }
+
+    public Usuarios editar(Usuarios u){
+        return repository.saveAndFlush(u);
     }
 
     @Override
