@@ -17,6 +17,7 @@ import ufrn.com.comercioeaj.services.UsuariosService;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProdutosController {
@@ -25,9 +26,10 @@ public class ProdutosController {
     ProdutosService produtosService;
     private final FileStorageService fileStorageService;
 
-    public ProdutosController(ProdutosService produtosService, FileStorageService fileStorageService) {
+    public ProdutosController(ProdutosService produtosService, UsuariosService usuariosService,FileStorageService fileStorageService) {
         this.produtosService = produtosService;
         this.fileStorageService = fileStorageService;
+        this.usuariosService = usuariosService;
     }
 
     @GetMapping("/cadastro-produto")
@@ -72,6 +74,20 @@ public class ProdutosController {
 
         return "produtos/catalogo.html";
     }
+
+    @GetMapping("/detalhes-produto/{id}")
+    public String getDetalhesProduto(@PathVariable Long id, Model model) {
+        Optional<Produtos> optionalProduto = produtosService.findById(id);
+
+        if (optionalProduto.isEmpty()) {
+            return "error"; // Página de erro caso o produto não seja encontrado
+        }
+
+        Produtos produto = optionalProduto.get();
+        model.addAttribute("produto", produto);
+        return "produtos/detalhes-produto"; // Nome do arquivo HTML
+    }
+
 
     @RequestMapping(value = {"/gerenciar-produtos", "/produtos"}, method = RequestMethod.GET)
     public String getProdutos(Model model, Principal principal) {

@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface ProdutosRepository extends JpaRepository<Produtos, Long> {
     List<Produtos> findByDeletedIsNull();
+
+
     Produtos findByIdAndDeletedIsNull(Long id);
 }

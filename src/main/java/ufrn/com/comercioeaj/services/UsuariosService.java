@@ -28,6 +28,7 @@ public class UsuariosService implements UserDetailsService {
         this.repository.save(u);
     }
 
+
     public Usuarios editar(Usuarios u){
         return repository.saveAndFlush(u);
     }

@@ -11,26 +11,28 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5" th:each="produtos : ${listarProdutos}" th:object="${produtos}">
-                <div class="card h-100">
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <img class="card-img-top" th:src="@{'/images/' + *{imagemUri}}" alt="..." />
-                            <h5 class="fw-bolder" th:text="*{titulo}"></h5>
-                            <div class="justify-content-center small text-dark mb-2">
-                                ID: <div class="bi-star-fill" th:text="*{id}"></div><br/>
-                                Categoria: <div class="bi-star-fill" th:text="*{categoria}"></div><br/>
+            <div class="col mb-5" th:each="produto : ${listarProdutos}" th:object="${produto}">
+                <a th:href="@{'/detalhes-produto/' + ${produto.id}}">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <img class="card-img-top" th:src="@{'/images/' + ${produto.imagemUri}}" alt="..." />
+                                <h5 class="fw-bolder" th:text="${produto.titulo}"></h5>
+                                <div class="justify-content-center small text-dark mb-2">
+                                    ID: <div class="bi-star-fill" th:text="${produto.id}"></div><br/>
+                                    Categoria: <div class="bi-star-fill" th:text="${produto.categoria}"></div><br/>
+                                </div>
+                                R$ <p th:text="${produto.preco}"></p>
                             </div>
-                            R$ <p th:text="*{preco}"></p>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a class="btn btn-outline-dark mt-auto">Entrar em Contato</a>
+                            </div>
                         </div>
                     </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center">
-                            <a class="btn btn-outline-dark mt-auto">Entrar em Contato</a>
-                        </div>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
