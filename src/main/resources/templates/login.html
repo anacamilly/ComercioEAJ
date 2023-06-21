@@ -1,43 +1,61 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>ComercioEAJ - Login</title>
-    <link th:href="@{/css/login-style.css}" rel="stylesheet" type="text/css" />
-    <script th:src="@{/js/script.js}" defer></script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-</head>
-<body class="login-page">
-<!--Mensagem de atualização -->
-<div th:if="${mensagem}" class="container mt-5">
-    <p th:text="${mensagem}" class="alert alert-success"></p>
-</div>
+<!doctype html>
 
-<div class="container">
-    <div class="row justify-content-center align-items-center vh-100">
-        <div class="col-md-6">
-            <h1 class="text-center mb-4">ComercioEAJ</h1>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Faça login ou cadastre-se</h5>
-                    <form th:action="@{/login}" method="post">
-                        <div class="mb-3">
-                            <input type="text" name="username" class="form-control" placeholder="Username" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" name="password" class="form-control" placeholder="Password" required>
-                        </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Entrar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <p class="text-center mt-3">Não tem uma conta? <a th:href="@{/cadastre-se}">Cadastre-se</a></p>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>CodePen - Animated Login Form using Html &amp; CSS Only</title>
+
+  <link rel="stylesheet" href="./login.css">
+
+</head>
+
+<body> <!-- partial:index.partial.html -->
+
+<section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+
+  <div class="signin">
+
+    <div class="content">
+
+      <img src="./logo-eaj-tracado.png" alt="Logo" width="190" height="100">
+
+      <h2>Sign In</h2>
+
+      <form class="form" th:action="@{/login}" method="post">
+
+        <div class="inputBox">
+
+          <input type="text" name="username" class="form-control" required> <i>Username</i>
+
         </div>
+
+        <div class="inputBox">
+
+          <input type="password" name="password" class="form-control" required> <i>Password</i>
+
+        </div>
+
+        <div class="links"> <a href="#">Forgot Password</a> <a th:href="@{/cadastre-se}">Signup</a>
+
+        </div>
+
+        <div class="inputBox">
+
+          <input type="submit" value="Login">
+
+        </div>
+
+      </form>
+
     </div>
-</div>
+
+  </div>
+
+</section> <!-- partial -->
+
 </body>
+
 </html>

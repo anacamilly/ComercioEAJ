@@ -1,9 +1,6 @@
 package ufrn.com.comercioeaj.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -26,7 +23,10 @@ public class Usuarios implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String nome;
+
+    @Column(unique=true)
     String email;
+    @Column(unique=true)
     String login;
     String senha;
     Date data_nascimento;
@@ -37,7 +37,9 @@ public class Usuarios implements UserDetails {
     String imagemUri;
     String razao;
     String biografia;
+    @Column(unique=true)
     String whatsapp;
+    @Column(unique=true)
     String instagram;
 
 

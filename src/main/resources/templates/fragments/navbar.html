@@ -1,13 +1,22 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary" th:fragment="nav">
+<nav class="navbar navbar-expand-lg navbar-light bg-white" th:fragment="nav">
+  <!-- Container wrapper -->
   <div class="container-fluid">
-    <a class="navbar-brand" th:href="@{/}">ComercioEAJ</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Navbar brand -->
+    <a class="navbar-brand mt-2 mt-lg-0" href="#">
+      <img src="./logo.jpeg" height="50" alt="MDB Logo" loading="lazy" />
+    </a>
+
+    <!-- Toggle button -->
+    <button th:href="@{/}" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav mr-auto">
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" th:href="@{/home}">Home</a>
+          <a class="nav-link" th:href="@{/home}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" th:href="@{/catalogo-produtos}">Catálogo</a>
@@ -24,18 +33,27 @@
             <li><a class="dropdown-item" th:href="@{/gerenciar-produtos}">Gerenciar Produtos</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/logout}">Sair</a>
+      </ul>
+
+      <!-- Right elements -->
+      <ul class="navbar-nav flex-row">
+        <li class="nav-item me-3 me-lg-1" th:if="${#authentication.isAuthenticated()}">
+          <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+            <img th:src="@{'/images/' + ${#authentication.principal.imagemUri}}" alt="Profile Image" class="rounded-circle" height="22" loading="lazy" />
+            <strong class="d-none d-sm-block ms-1" th:text="${#authentication.principal.nome}"></strong>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" th:href="@{/meu-perfil}">Meu perfil</a></li>
+            <li><a class="dropdown-item" href="">a</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" th:href="@{/logout}">Sair</a></li>
+          </ul>
         </li>
       </ul>
-      <ul class="navbar-nav">
-        <li class="nav-item" th:if="${#authentication.isAuthenticated()}">
-          <div class="nav-link">
-            <span th:text="${#authentication.principal.nome}"></span>
-            <img class="profile-image rounded-circle" height="25" width="25" th:src="@{'/images/' + ${#authentication.principal.imagemUri}}" alt="Profile Image">
-          </div>
-        </li>
-      </ul>
+      <!-- Right elements -->
     </div>
   </div>
 </nav>
