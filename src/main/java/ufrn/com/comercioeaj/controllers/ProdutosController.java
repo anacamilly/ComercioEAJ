@@ -53,7 +53,7 @@ public class ProdutosController {
             // Definir o ID do usuário no objeto Produtos
             Usuarios vendedor = new Usuarios();
             vendedor.setId(idUsuarioLogado);
-            p.setId_vendedor(vendedor);
+            p.setVendedor(vendedor);
 
             p.setImagemUri(file.getOriginalFilename());
             produtosService.editar(p);
@@ -84,7 +84,7 @@ public class ProdutosController {
         }
 
         Produtos produto = produtoOptional.get();
-        Usuarios vendedor = produto.getId_vendedor(); // Obter o objeto vendedor do produto
+        Usuarios vendedor = produto.getVendedor(); // Obter o objeto vendedor do produto
 
         model.addAttribute("produto", produto);
         model.addAttribute("vendedor", vendedor); // Adicionar o objeto vendedor ao modelo
@@ -93,8 +93,23 @@ public class ProdutosController {
     }
 
 
-    @RequestMapping(value = {"/gerenciar-produtos", "/produtos"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/meus-produtos", "/produtos"}, method = RequestMethod.GET)
     public String getProdutos(Model model, Principal principal) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof Usuarios) {
+            Usuarios usuarioLogado = (Usuarios) authentication.getPrincipal();
+            Long usuarioId = usuarioLogado.getId();
+
+            // Utilize o ID do usuário logado para obter todos os produtos associados a ele
+            List<Produtos> produtosDoUsuarioLogado = produtosService.buscarProdutosPorUsuarioId(usuarioId);
+
+            // Adicione a lista de produtos do usuário logado ao modelo
+            model.addAttribute("produtos", produtosDoUsuarioLogado);
+        } else {
+            // A autenticação não é válida ou o principal não é do tipo Usuarios
+            // Lide com essa situação adequadamente
+        }
 
         return "produtos/gerenciar-produtos.html";
     }

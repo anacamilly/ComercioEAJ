@@ -2,6 +2,7 @@ package ufrn.com.comercioeaj.services;
 
 import org.springframework.stereotype.Service;
 import ufrn.com.comercioeaj.models.Produtos;
+import ufrn.com.comercioeaj.models.Usuarios;
 import ufrn.com.comercioeaj.repositories.ProdutosRepository;
 
 import java.time.LocalDate;
@@ -23,6 +24,11 @@ public class ProdutosService {
     public List<Produtos> listarProdutos() {
         return repository.findByDeletedIsNull();
     }
+
+    public List<Produtos> buscarProdutosPorUsuarioId(Long usuarioId) {
+        return repository.findByVendedor_Id(usuarioId);
+    }
+
 
     public Optional<Produtos> buscarProdutoPorId(Long id) {
         return repository.findById(id);

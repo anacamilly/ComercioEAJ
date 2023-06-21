@@ -33,6 +33,6 @@ public class Produtos {
 
     @ManyToOne
     @JoinColumn(name = "id_vendedor")
-    private Usuarios id_vendedor;
+    private Usuarios vendedor;
 
 }
