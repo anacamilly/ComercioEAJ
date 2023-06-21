@@ -5,6 +5,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
+<style>
+    .btn-success {
+        background-color: #1bd741;
+        border-color: #1bd741;
+    }
+    .btn-success:hover {
+        background-color: #1bd741;
+        border-color: #1bd741;
+    }
+</style>
 <body>
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 
@@ -26,10 +36,11 @@
                             </div>
                         </div>
                         <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center">
-                                <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp}" class="btn btn-outline-dark mt-auto">Entrar em Contato</a>
-                            </div>
+                        <div class="col-md-10 text-center">
+                            <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp}" class="btn btn-success mt-auto btncolor">
+                                <img src="/whats.png" alt="Whats" class="mr-2" width="25" height="25">
+                                Entrar em Contato
+                            </a>
                         </div>
                     </div>
                 </a>

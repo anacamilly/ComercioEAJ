@@ -15,8 +15,8 @@
     <div class="card mt-5">
         <!-- Exibir informações do vendedor -->
         <h5 class="mt-4">Informações do Vendedor</h5>
-        <p class="card-text"><strong>Razão Social:</strong> <span th:text="${produto.id_vendedor.razao}"></span></p>
-        <img class="img-fluid" th:src="@{'/images/' + ${produto.id_vendedor.imagemUri}}" alt="Imagem do Vendedor">
+        <p class="card-text"><strong>Razão Social:</strong> <span th:text="${produto.vendedor.razao}"></span></p>
+        <img class="img-fluid" th:src="@{'/images/' + ${produto.vendedor.imagemUri}}" alt="Imagem do Vendedor">
         <div class="card-body">
             <img class="card-img-top img-fluid" th:src="@{'/images/' + ${produto.imagemUri}}" alt="..." >
             <h5 class="card-title" th:text="${produto.titulo}"></h5>
