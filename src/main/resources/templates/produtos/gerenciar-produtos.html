@@ -16,7 +16,7 @@
         <div class="card">
             <div class="position-relative">
                 <img th:src="@{'/images/' + ${produto.imagemUri}}" class="card-img-top" alt="Imagem do Produto">
-                <a th:href="@{'/editar-foto/'+*{produto.id}}" class="btn btn-primary btn-edit-image">Editar Imagem</a>
+                <a th:href="@{'/produtos/editar-foto/'+*{produto.id}}" class="btn btn-primary btn-edit-image">Editar Imagem</a>
             </div>
             <div class="card-body">
                 <h5 class="card-title" th:text="${produto.titulo}"></h5>
@@ -27,11 +27,11 @@
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
                     <td class="card-body">
-                        <a th:href="@{'/editar/'+*{produto.id}}" class="btn btn-warning">
+                        <a th:href="@{'/produtos/editar/'+*{produto.id}}" class="btn btn-warning">
                             <img src="https://img.icons8.com/material-sharp/24/undefined/edit--v1.png" alt="Edit" />
                             Editar
                         </a>
-                        <a th:href="@{'/excluir/'+*{produto.id}}" class="btn btn-danger">
+                        <a th:href="@{'/produtos/excluir/'+*{produto.id}}" class="btn btn-danger">
                             <img src="https://img.icons8.com/ios-glyphs/30/undefined/filled-trash.png" alt="Delete" />
                             Excluir
                         </a>

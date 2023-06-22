@@ -21,7 +21,7 @@
                     <h5 class="card-title" th:text="${vendedor.razao}"></h5>
                     <h5 class="card-title" th:text="${vendedor.biografia}"></h5>
                     <p class="card-text" th:text="${vendedor.instagram}"></p>
-                    <a th:href="@{'/perfil-vendedor/' + ${vendedor.id}}" class="btn btn-primary">Ver perfil</a>
+                    <a th:href="@{'/vendedores/perfil/' + ${vendedor.id}}" class="btn btn-primary">Ver perfil</a>
                 </div>
             </div>
         </div>

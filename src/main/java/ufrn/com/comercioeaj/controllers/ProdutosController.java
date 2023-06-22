@@ -35,14 +35,14 @@ public class ProdutosController {
         this.usuariosService = usuariosService;
     }
 
-    @GetMapping("/cadastro-produto")
+    @GetMapping("/produtos/cadastro")
     public String getCadastrarProduto(Model model) {
         Produtos p = new Produtos();
         model.addAttribute("produto", p);
         return "produtos/cadastro.html";
     }
 
-    @PostMapping("/salvar-produto")
+    @PostMapping("/produtos/salvar")
     public String doSalvar(@ModelAttribute @Valid Produtos p, Errors errors, @RequestParam(name = "file", required = false) MultipartFile file, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
             return "produtos/cadastro.html";
@@ -75,7 +75,7 @@ public class ProdutosController {
     }
 
 
-    @RequestMapping(value = {"/catalogo-produtos"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/produtos/catalogo"}, method = RequestMethod.GET)
     public String getCatalogo(Model model, Principal principal) {
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
         List<Produtos> produtosList = produtosService.listarProdutos();
@@ -85,7 +85,7 @@ public class ProdutosController {
         return "produtos/catalogo.html";
     }
 
-    @GetMapping("/detalhes-produto/{id}")
+    @GetMapping("/produtos/detalhes/{id}")
     public String getDetalhesProduto(@PathVariable Long id, Model model) {
         Optional<Produtos> produtoOptional = produtosService.findById(id);
 
@@ -129,7 +129,7 @@ public class ProdutosController {
         return "produtos/gerenciar-produtos.html";
     }
 
-    @GetMapping(value = "/excluir/{id}")
+    @GetMapping(value = "/produtos/excluir/{id}")
     public String doExcluirProduto(@PathVariable long id, RedirectAttributes redirectAttributes){
 
         redirectAttributes.addFlashAttribute("mensagem", "Produto excluido com sucesso.");
@@ -151,7 +151,7 @@ public class ProdutosController {
 
         return "produtos/editar";
     }
-    @GetMapping("/editar-foto/{id}")
+    @GetMapping("/produtos/editar-foto/{id}")
     public String getEditarFoto(@PathVariable(name = "id") Long id, Model model){
 
         Optional<Produtos> produto = produtosService.findById(id);
@@ -165,7 +165,7 @@ public class ProdutosController {
         return "produtos/editar-imagem.html";
     }
 
-    @GetMapping("/buscar-produto")
+    @GetMapping("/produtos/buscar")
     public String buscarProduto(@RequestParam("q") String query, Model model) {
         List<Produtos> produtosEncontrados = produtosService.buscarPorNome(query);
 

@@ -35,7 +35,7 @@ public class VendedoresController {
         return "vendedores/lista.html";
     }
 
-    @GetMapping("/perfil-vendedor/{id}")
+    @GetMapping("/vendedores/perfil/{id}")
     public String getPerfilVendedor(@PathVariable Long id, Model model) {
         Optional<Usuarios> vendedorOptional = service.findById(id);
 
