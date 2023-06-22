@@ -37,7 +37,7 @@
                         </div>
                         <!-- Product actions-->
                         <div class="col-md-10 text-center">
-                            <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp}" class="btn btn-success mt-auto btncolor">
+                            <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp} + '&text=Olá,+eu+vi+este+produto:+' + ${produto.titulo} + '+no+site+Com%C3%A9rcio+EAJ.+Gostaria+de+saber+se+ele+ainda+est%C3%A1+dispon%C3%ADvel.'" class="btn btn-success mt-auto btncolor">
                                 <img src="/whats.png" alt="Whats" class="mr-2" width="25" height="25">
                                 Entrar em Contato
                             </a>
