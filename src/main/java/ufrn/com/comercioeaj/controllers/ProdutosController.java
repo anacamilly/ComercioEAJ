@@ -129,4 +129,18 @@ public class ProdutosController {
         return "redirect:/meus-produtos";
     }
 
+    @GetMapping("/editar/{id}")
+    public String getEditarPage(@PathVariable(name = "id") Long id, Model model){
+
+        Optional<Produtos> produto = produtosService.findById(id);
+
+        if (produto.isPresent()){
+            model.addAttribute("produto", produto.get());
+        }else{
+            return "redirect:/meus-produtos";
+        }
+
+        return "produtos/editar";
+    }
+
 }
