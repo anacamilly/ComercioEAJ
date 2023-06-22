@@ -32,6 +32,9 @@ public class UsuariosService implements UserDetailsService {
         this.repository.save(u);
     }
 
+    public Optional<Usuarios> findById(Long id) {
+        return repository.findById(String.valueOf(id));
+    }
 
     public Usuarios editar(Usuarios u){
         return repository.saveAndFlush(u);

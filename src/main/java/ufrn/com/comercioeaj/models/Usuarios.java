@@ -34,7 +34,6 @@ public class Usuarios implements UserDetails {
     Date data_cadastro;
     Boolean isVendedor;
 
-    Boolean verified;
 
     // 2 etapa - Vendedor
     String imagemUri;
@@ -44,7 +43,6 @@ public class Usuarios implements UserDetails {
     String whatsapp;
     @Column(unique=true)
     String instagram;
-
 
 
     @Override
