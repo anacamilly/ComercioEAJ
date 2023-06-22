@@ -14,7 +14,10 @@
     <!-- Iterar sobre os produtos e exibi-los como cards -->
     <div class="col-md-4" th:each="produto : ${produtos}">
         <div class="card">
-        <img th:src="@{'/images/' + ${produto.imagemUri}}" class="card-img-top" alt="Imagem do Produto">
+            <div class="position-relative">
+                <img th:src="@{'/images/' + ${produto.imagemUri}}" class="card-img-top" alt="Imagem do Produto">
+                <a th:href="@{'/editar-foto/'+*{produto.id}}" class="btn btn-primary btn-edit-image">Editar Imagem</a>
+            </div>
             <div class="card-body">
                 <h5 class="card-title" th:text="${produto.titulo}"></h5>
                 <p class="card-text" th:text="${produto.descricao}"></p>

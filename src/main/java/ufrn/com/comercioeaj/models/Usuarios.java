@@ -34,6 +34,8 @@ public class Usuarios implements UserDetails {
     Date data_cadastro;
     Boolean isVendedor;
 
+    Boolean verified;
+
     // 2 etapa - Vendedor
     String imagemUri;
     String razao;

@@ -1,5 +1,6 @@
 package ufrn.com.comercioeaj.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,12 +12,15 @@ import ufrn.com.comercioeaj.repositories.UsuariosRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UsuariosService implements UserDetailsService {
 
     UsuariosRepository repository;
     BCryptPasswordEncoder encoder;
+
+
 
     public UsuariosService(UsuariosRepository repository, BCryptPasswordEncoder encoder) {
         this.repository = repository;
@@ -42,6 +46,4 @@ public class UsuariosService implements UserDetailsService {
             throw new UsernameNotFoundException("Username not found");
         }
     }
-
-
 }

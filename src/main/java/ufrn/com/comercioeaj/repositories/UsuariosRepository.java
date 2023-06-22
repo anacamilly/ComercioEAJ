@@ -11,4 +11,5 @@ public interface UsuariosRepository extends JpaRepository<Usuarios, String> {
     Optional<Usuarios> findUsuarioByLogin(String login);
 
     List<Usuarios> findByIsVendedorTrue();
+
 }

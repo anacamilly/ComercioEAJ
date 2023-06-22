@@ -41,12 +41,10 @@ public class ProdutosController {
     }
 
     @PostMapping("/salvar-produto")
-    public String doSalvar(@ModelAttribute @Valid Produtos p, Errors errors, @RequestParam(name = "file") MultipartFile file, RedirectAttributes redirectAttributes) {
-
+    public String doSalvar(@ModelAttribute @Valid Produtos p, Errors errors, @RequestParam(name = "file", required = false) MultipartFile file, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
             return "produtos/cadastro.html";
         } else {
-
             // Obter o ID do usuário logado
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Long idUsuarioLogado = ((Usuarios) authentication.getPrincipal()).getId();
@@ -56,15 +54,24 @@ public class ProdutosController {
             vendedor.setId(idUsuarioLogado);
             p.setVendedor(vendedor);
 
-            p.setImagemUri(file.getOriginalFilename());
-            produtosService.editar(p);
-            fileStorageService.save(file);
+            if (file != null && !file.isEmpty()) {
+                p.setImagemUri(file.getOriginalFilename());
+                fileStorageService.save(file);
+            } else {
+                // Manter o valor existente do campo imagemUri
+                Optional<Produtos> existingProduct = produtosService.findById(p.getId());
+                if (existingProduct.isPresent()) {
+                    p.setImagemUri(existingProduct.get().getImagemUri());
+                }
+            }
 
+            produtosService.editar(p);
             redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
             produtosService.salvarProduto(p);
             return "redirect:/meus-produtos";
         }
     }
+
 
     @RequestMapping(value = {"/catalogo-produtos"}, method = RequestMethod.GET)
     public String getCatalogo(Model model, Principal principal) {
@@ -142,6 +149,18 @@ public class ProdutosController {
 
         return "produtos/editar";
     }
+    @GetMapping("/editar-foto/{id}")
+    public String getEditarFoto(@PathVariable(name = "id") Long id, Model model){
 
+        Optional<Produtos> produto = produtosService.findById(id);
+
+        if (produto.isPresent()){
+            model.addAttribute("produto", produto.get());
+        }else{
+            return "redirect:/meus-produtos";
+        }
+
+        return "produtos/editar-imagem.html";
+    }
 
 }
