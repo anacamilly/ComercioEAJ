@@ -21,6 +21,20 @@
                 <p class="card-text">Categoria: <span th:text="${produto.categoria}"></span></p>
                 <p class="card-text">Preço: <span th:text="${produto.preco}"></span></p>
             </div>
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                    <td class="card-body">
+                        <a th:href="@{'/editar/'+*{produto.id}}" class="btn btn-warning">
+                            <img src="https://img.icons8.com/material-sharp/24/undefined/edit--v1.png" alt="Edit" />
+                            Editar
+                        </a>
+                        <a th:href="@{'/excluir/'+*{produto.id}}" class="btn btn-danger">
+                            <img src="https://img.icons8.com/ios-glyphs/30/undefined/filled-trash.png" alt="Delete" />
+                            Excluir
+                        </a>
+                    </td>
+                </div>
+                </div>
         </div>
     </div>
 </div>

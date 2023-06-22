@@ -34,16 +34,16 @@ public class ProdutosService {
         return repository.findById(id);
     }
 
-    public void deletarProduto(Long id) {
+    public void excluirProduto(Long id) {
         Produtos produtos = repository.findByIdAndDeletedIsNull(id);
         if(produtos != null){
             produtos.setDeleted(LocalDate.now());
             repository.save(produtos);
         }
-
     }
 
     public Produtos editar(Produtos p){
+
         return repository.saveAndFlush(p);
     }
 

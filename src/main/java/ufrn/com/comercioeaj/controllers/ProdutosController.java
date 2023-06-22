@@ -18,6 +18,7 @@ import ufrn.com.comercioeaj.services.UsuariosService;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProdutosController {
@@ -61,7 +62,7 @@ public class ProdutosController {
 
             redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
             produtosService.salvarProduto(p);
-            return "redirect:/catalogo-produtos";
+            return "redirect:/meus-produtos";
         }
     }
 
@@ -101,17 +102,31 @@ public class ProdutosController {
             Usuarios usuarioLogado = (Usuarios) authentication.getPrincipal();
             Long usuarioId = usuarioLogado.getId();
 
-            // Utilize o ID do usuário logado para obter todos os produtos associados a ele
+            // Utilize the logged-in user's ID to retrieve all products associated with them
             List<Produtos> produtosDoUsuarioLogado = produtosService.buscarProdutosPorUsuarioId(usuarioId);
 
-            // Adicione a lista de produtos do usuário logado ao modelo
-            model.addAttribute("produtos", produtosDoUsuarioLogado);
+            // Filter out the products that have a non-null value for the "deleted" field
+            List<Produtos> produtosAtivos = produtosDoUsuarioLogado.stream()
+                    .filter(produto -> produto.getDeleted() == null)
+                    .collect(Collectors.toList());
+
+            // Add the list of active products to the model
+            model.addAttribute("produtos", produtosAtivos);
         } else {
-            // A autenticação não é válida ou o principal não é do tipo Usuarios
-            // Lide com essa situação adequadamente
+            // The authentication is not valid or the principal is not of type Usuarios
+            // Handle this situation accordingly
         }
 
         return "produtos/gerenciar-produtos.html";
+    }
+
+    @GetMapping(value = "/excluir/{id}")
+    public String doExcluirProduto(@PathVariable long id, RedirectAttributes redirectAttributes){
+
+        redirectAttributes.addFlashAttribute("mensagem", "Produto excluido com sucesso.");
+
+        produtosService.excluirProduto(id);
+        return "redirect:/meus-produtos";
     }
 
 }
