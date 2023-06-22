@@ -19,10 +19,13 @@ public class VendedoresController {
     private final UsuariosRepository usuariosRepository;
     private final UsuariosService service;
 
+    private final ProdutosService produtosService;
 
-    public VendedoresController(UsuariosRepository usuariosRepository, UsuariosService service) {
+
+    public VendedoresController(UsuariosRepository usuariosRepository, UsuariosService service, ProdutosService produtosService) {
         this.usuariosRepository = usuariosRepository;
         this.service = service;
+        this.produtosService = produtosService;
     }
 
     @GetMapping("/vendedores")
@@ -40,9 +43,14 @@ public class VendedoresController {
             return "error"; // Página de erro caso o vendedor não seja encontrado
         }
 
+
         Usuarios vendedor = vendedorOptional.get();
+        List<Produtos> produtos = produtosService.listarProdutosVendedor(id);
+
 
         model.addAttribute("vendedor", vendedor);
+
+        model.addAttribute("listaProdutos", produtos);
 
         return "vendedores/perfil-vendedor";
 

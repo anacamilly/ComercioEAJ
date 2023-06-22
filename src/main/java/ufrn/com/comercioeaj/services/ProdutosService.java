@@ -25,6 +25,9 @@ public class ProdutosService {
         return repository.findByDeletedIsNull();
     }
 
+    public List<Produtos> listarProdutosVendedor(Long id) {
+        return repository.findByVendedorIdPerfil(id);
+    }
 
 
     public List<Produtos> buscarProdutosPorUsuarioId(Long usuarioId) {
