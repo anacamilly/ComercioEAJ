@@ -20,7 +20,7 @@
                     <h5 class="card-title" th:text="${vendedor.razao}"></h5>
                     <h5 class="card-title" th:text="${vendedor.biografia}"></h5>
                     <p class="card-text" th:text="${vendedor.instagram}"></p>
-                    <a href="#" class="btn btn-primary">Entrar em Contato</a>
+                    <a th:href="@{'/perfil-vendedor/' + ${vendedor.id}}" class="btn btn-primary">Ver perfil</a>
                 </div>
             </div>
         </div>

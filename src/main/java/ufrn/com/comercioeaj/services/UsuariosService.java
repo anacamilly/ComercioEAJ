@@ -43,7 +43,5 @@ public class UsuariosService implements UserDetailsService {
         }
     }
 
-    public List<Usuarios> listAll(){
-        return  repository.findAll();
-    }
+
 }

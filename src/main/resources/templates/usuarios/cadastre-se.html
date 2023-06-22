@@ -16,7 +16,7 @@
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">E-mail:</label>
-            <input type="text" id="email" th:field="*{email}" class="form-control">
+            <input type="email" id="email" th:field="*{email}" class="form-control">
         </div>
         <div class="mb-3">
             <label for="login" class="form-label">Login:</label>
@@ -56,11 +56,22 @@
             <label for="biografia">Biografia:</label>
             <input type="text" id="biografia" th:field="*{biografia}" class="form-control">
 
+
+
             <label for="whatsapp">Número de WhatsApp:</label>
             <input type="text" id="whatsapp" th:field="*{whatsapp}" class="form-control">
 
-            <label for="instagram">Instagram:</label>
-            <input type="text" id="instagram" th:field="*{instagram}" class="form-control">
+
+
+                <label for="validationDefaultUsername" class="form-label">Instagram</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                    <input placeholder="username" th:field="*{instagram}" type="text" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required>
+                </div>
+
+
+
+
         </div>
 
         <button type="submit" class="btn btn-primary">Cadastrar</button>
