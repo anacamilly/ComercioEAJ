@@ -1,6 +1,8 @@
 package ufrn.com.comercioeaj.controllers;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -162,5 +164,15 @@ public class ProdutosController {
 
         return "produtos/editar-imagem.html";
     }
+
+    @GetMapping("/buscar-produto")
+    public String buscarProduto(@RequestParam("q") String query, Model model) {
+        List<Produtos> produtosEncontrados = produtosService.buscarPorNome(query);
+
+        model.addAttribute("produtos", produtosEncontrados);
+        return "produtos/resultado-busca.html";
+    }
+
+
 
 }

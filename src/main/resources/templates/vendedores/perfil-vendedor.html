@@ -26,6 +26,21 @@
 
     <h2>Produtos do Vendedor</h2>
 
+    <div class="row">
+        <!-- Loop through products of the vendor -->
+        <div class="col-md-4" th:each="produto : ${listaProdutos}">
+            <div class="card mb-3">
+                <img class="card-img-top" th:src="@{'/images/' + ${produto.imagemUri}}" alt="Product Image" />
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${produto.titulo}"></h5>
+                    <p class="card-text" th:text="${produto.descricao}"></p>
+                    <p class="card-text" th:text="${produto.categoria}"></p>
+                    <p class="card-text" th:text="${produto.preco}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

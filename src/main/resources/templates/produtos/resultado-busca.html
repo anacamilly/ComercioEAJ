@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado da Busca</title>
+</head>
+<body>
+<h1>Resultado da Busca</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Descrição</th>
+        <th>Preço</th>
+    </tr>
+    <th:block th:each="produto : ${produtos}">
+        <tr>
+            <td th:text="${produto.id}"></td>
+            <td th:text="${produto.titulo}"></td>
+            <td th:text="${produto.descricao}"></td>
+            <td th:text="${produto.preco}"></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>
