@@ -169,9 +169,19 @@ public class ProdutosController {
     public String buscarProduto(@RequestParam("q") String query, Model model) {
         List<Produtos> produtosEncontrados = produtosService.buscarPorNome(query);
 
-        model.addAttribute("produtos", produtosEncontrados);
-        return "produtos/resultado-busca.html";
+        if (produtosEncontrados.isEmpty()) {
+            model.addAttribute("mensagem", "Ops! Não encontramos produtos com o nome " + query + " por favor, tente realizar outra busca!");
+            return "produtos/catalogo.html";
+        } else {
+            model.addAttribute("produtos", produtosEncontrados);
+            return "produtos/resultado-busca.html";
+        }
     }
+
+
+
+
+
 
 
 
