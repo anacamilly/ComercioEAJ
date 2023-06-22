@@ -138,7 +138,7 @@ public class ProdutosController {
         return "redirect:/meus-produtos";
     }
 
-    @GetMapping("/editar/{id}")
+    @GetMapping("/produtos/editar/{id}")
     public String getEditarPage(@PathVariable(name = "id") Long id, Model model){
 
         Optional<Produtos> produto = produtosService.findById(id);
