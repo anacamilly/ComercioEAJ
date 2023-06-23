@@ -15,8 +15,8 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> {
-                    //auth.requestMatchers("/index", "/", "/home", "/produtos/catalogo", "/vendedores", "/produtos", "/produtos/cadastro").hasRole("VEND");
-                    //auth.requestMatchers("/index").hasRole("COMP");
+                    auth.requestMatchers("/meus-produtos", "/produtos", "/produtos/cadastro", "/produtos/editar-foto/{id}", "/produtos/editar/{id}", "/produtos/excluir/{id}", "/produtos/salvar").hasRole("VEND");
+                    //auth.requestMatchers("/").hasRole("COMP");
                     auth.anyRequest().permitAll();
                 })
                 .formLogin(login -> login.loginPage("/login").permitAll())
