@@ -15,14 +15,14 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/index", "/", "/home", "/produtos/catalogo", "/vendedores", "/produtos", "/produtos/cadastro").hasRole("VEND");
-                    auth.requestMatchers("/index", "/", "/home", "/proodutos/catalogo", "/vendedores").hasRole("COMP");
+                    //auth.requestMatchers("/index", "/", "/home", "/produtos/catalogo", "/vendedores", "/produtos", "/produtos/cadastro").hasRole("VEND");
+                    //auth.requestMatchers("/index").hasRole("COMP");
                     auth.anyRequest().permitAll();
                 })
                 .formLogin(login -> login.loginPage("/login").permitAll())
                 .logout(logout -> logout.logoutUrl("/logout"))
                 .build();
-        // return http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll()).httpBasic(httpSecurityHttpBasicConfigurer -> httpSecurityHttpBasicConfigurer.disable()).build();
+        //return http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll()).httpBasic(httpSecurityHttpBasicConfigurer -> httpSecurityHttpBasicConfigurer.disable()).build();
     }
 
     @Bean

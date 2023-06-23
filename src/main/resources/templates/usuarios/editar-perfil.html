@@ -36,7 +36,7 @@
             <input type="date" id="dataNascimento" th:field="*{dataNascimento}" class="form-control">
             <p th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}" class="text-danger"></p>
         </div>
-        <input type="hidden" id="dataNascimento" th:field="*{senha}" class="form-control">
+        <input type="hidden" id="senha" th:field="*{senha}" class="form-control">
         <div class="mb-3">
             <label class="form-label">Vendedor:</label><br>
             <div class="form-check form-check-inline">

@@ -1,31 +1,27 @@
-$(document).ready(function() {
-    $('.telefone').inputmask('+55 (99) 9999-9999');
-});
-
-function mostrarCamposAdicionais() {
+ function mostrarCamposAdicionais() {
     var vendSim = document.getElementById("vendSim");
     var camposAdicionais = document.getElementById("camposAdicionais");
 
     if (vendSim.checked) {
-        camposAdicionais.style.display = "block";
-    } else {
-        camposAdicionais.style.display = "none";
-    }
+    camposAdicionais.style.display = "block";
+} else {
+    camposAdicionais.style.display = "none";
+}
 }
 
-function validarSenhas() {
+    function validarSenhas() {
     var senha = document.getElementById("senha").value;
     var senhaConfirmacao = document.getElementById("senhaConfirmacao").value;
 
     if (senha !== senhaConfirmacao) {
-        alert("As senhas devem ser iguais!");
-        return false;
-    }
+    alert("As senhas devem ser iguais!");
+    return false;
+}
 
     return true;
 }
 
-window.addEventListener("DOMContentLoaded", function () {
+/*window.addEventListener("DOMContentLoaded", function () {
     var imagemInput = document.getElementById("imagem");
     var imagemPreview = document.getElementById("imagemPreview");
     var btnAbrirRecorte = document.getElementById("btnAbrirRecorte");
@@ -74,4 +70,4 @@ function convertToMultipartFile(blob) {
     formData.append("file", blob, fileName);
 
     return formData;
-}
+}*/

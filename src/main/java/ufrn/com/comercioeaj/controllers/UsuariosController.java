@@ -79,7 +79,7 @@ public class UsuariosController {
         return "usuarios/cadastre-se";
     }
 
-    @PostMapping("/salvar")
+    @PostMapping("/cadastre-se/salvar")
     public String doSalvarUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file") MultipartFile file, RedirectAttributes redirectAttributes){
         u.setImagemUri(file.getOriginalFilename());
         service.editar(u);

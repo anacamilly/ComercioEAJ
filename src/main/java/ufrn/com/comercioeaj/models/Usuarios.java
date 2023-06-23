@@ -39,9 +39,7 @@ public class Usuarios implements UserDetails {
     String imagemUri;
     String razao;
     String biografia;
-    @Column(unique=true)
     String whatsapp;
-    @Column(unique=true)
     String instagram;
 
 
@@ -52,14 +50,6 @@ public class Usuarios implements UserDetails {
         }else{
             return Collections.singletonList(new SimpleGrantedAuthority("ROLE_COMP"));
         }
-    }
-
-    public Boolean getIsVendedor() {
-        return isVendedor;
-    }
-
-    public void setIsVendedor(Boolean vendedor) {
-        isVendedor = vendedor;
     }
 
     @Override
