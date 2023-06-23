@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil do Usuário</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 20px auto 0;
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="/fragments/navbar.html ::nav"></nav>
+<div class="container mt-5">
+    <h1>Perfil do Usuário</h1>
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top profile-image" th:src="@{'/images/' + ${usuario.imagemUri}}" alt="Perfil" />
+                <div class="card-body">
+                    <h5 class="card-title">Informações do Usuário</h5>
+                    <p class="card-text">Nome: <span th:text="${usuario.nome}"></span></p>
+                    <p class="card-text">Email: <span th:text="${usuario.email}"></span></p>
+                    <p class="card-text">Login: <span th:text="${usuario.login}"></span></p>
+                    <p class="card-text">Data de Nascimento: <span th:text="${usuario.dataNascimento}"></span></p>
+                </div>
+                <!--<div class="card-footer">
+                    <a class="btn btn-primary" th:href="@{'/meu-perfil/editar/'+*{usuario.id}}">Editar</a>
+                </div>-->
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div th:if="${usuario.isVendedor}">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Informações do Vendedor</h5>
+                        <p class="card-text">Razão Social: <span th:text="${usuario.razao}"></span></p>
+                        <p class="card-text">Biografia: <span th:text="${usuario.biografia}"></span></p>
+                        <p class="card-text">WhatsApp: <span th:text="${usuario.whatsapp}"></span></p>
+                        <p class="card-text">Instagram: <span th:text="${usuario.instagram}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>

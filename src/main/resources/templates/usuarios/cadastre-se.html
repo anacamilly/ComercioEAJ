@@ -32,6 +32,10 @@
             <input type="password" id="senhaConfirmacao" class="form-control">
         </div>
         <div class="mb-3">
+            <label for="imagem" class="form-label">Imagem:</label>
+            <input type="file" id="imagem" name="file" class="form-control">
+        </div>
+        <div class="mb-3">
             <label class="form-label">Vendedor:</label><br>
             <div class="form-check form-check-inline">
                 <input type="radio" id="vendSim" th:field="*{isVendedor}" value="true" class="form-check-input" onclick="mostrarCamposAdicionais()">
@@ -44,9 +48,6 @@
         </div>
 
         <div id="camposAdicionais" class="form-group" style="display: none;">
-            <label for="imagem" class="form-label">Imagem:</label>
-            <input type="file" id="imagem" name="file" class="form-control">
-
             <img id="imagemPreview" src="" alt="Imagem" style="display: none;">
             <button type="button" id="btnAbrirRecorte" class="btn btn-primary" style="display: none;">Recortar Imagem</button>
             <input type="hidden" id="coordenadasCorte" name="coordenadasCorte">

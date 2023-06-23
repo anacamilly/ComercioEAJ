@@ -36,6 +36,15 @@ public class UsuariosService implements UserDetailsService {
         return repository.findById(String.valueOf(id));
     }
 
+    public Usuarios atualizar(Usuarios u){
+
+        return repository.saveAndFlush(u);
+    }
+
+    public Optional<Usuarios> findByEmail(String email) {
+        return Optional.ofNullable(repository.findByEmail(email));
+    }
+
     public Usuarios editar(Usuarios u){
         return repository.saveAndFlush(u);
     }

@@ -3,6 +3,8 @@ package ufrn.com.comercioeaj.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,8 @@ import ufrn.com.comercioeaj.models.Usuarios;
 import ufrn.com.comercioeaj.services.FileStorageService;
 import ufrn.com.comercioeaj.services.UsuariosService;
 
+import java.util.Optional;
+
 @Controller
 public class UsuariosController {
 
@@ -25,6 +29,22 @@ public class UsuariosController {
 
     public UsuariosController(UsuariosService service) {
         this.service = service;
+    }
+
+    @GetMapping("/meu-perfil")
+    public String doPerfil(Model model) {
+        // Obter o objeto Authentication do Spring Security
+        // Obter o ID do usuário logado
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long idUsuarioLogado = ((Usuarios) authentication.getPrincipal()).getId();
+
+        // Exemplo fictício de obtenção das informações do usuário com base no id
+        Optional<Usuarios> usuario = service.findById(idUsuarioLogado);
+
+        model.addAttribute("usuario", usuario.orElse(null));
+
+
+        return "usuarios/meu-perfil";
     }
 
     @GetMapping("/cadastre-se")

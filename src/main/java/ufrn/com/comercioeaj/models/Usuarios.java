@@ -30,8 +30,8 @@ public class Usuarios implements UserDetails {
     @Column(unique=true)
     String login;
     String senha;
-    Date data_nascimento;
-    Date data_cadastro;
+    Date dataNascimento;
+    Date dataCadastro;
     Boolean isVendedor;
 
 
