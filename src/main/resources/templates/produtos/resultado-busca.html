@@ -4,37 +4,79 @@
     <meta charset="UTF-8">
     <title>Resultado da Busca</title>
     <!-- Incluir os arquivos CSS do Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
     <style>
-        .card {
-            margin-bottom: 20px;
+        .btn-success {
+            background-color: #1bd741;
+            border-color: #1bd741;
+        }
+        .btn-success:hover {
+            background-color: #1bd741;
+            border-color: #1bd741;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Resultado da Busca</h1>
+<nav th:replace="/fragments/navbar.html ::nav"></nav>
+<div class="container px-4 px-lg-5 mt-5">
+    <form action="/produtos/buscar" method="GET" class="d-flex">
+        <input class="form-control me-2" type="search" name="q" placeholder="Buscar produto" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+    <div class="container">
+        <h1>Resultado da Busca</h1>
+
+        <!-- Verificar se há produtos a serem exibidos -->
+        <th:block th:if="${produtos != null}">
+            <div class="row">
+                <th:block th:each="produto : ${produtos}">
+                    <div class="col-md-4">
+                        <div class="card ">
+                            <div class="card-body">
+                                <img class="card-img-top" th:src="@{'/images/' + ${produto.imagemUri}}" alt="imagem do produto">
+                                <h5 class="card-title fw-bolder" th:text="${produto.titulo}" style="text-decoration: none;"></h5>
+                                <p class="card-description" th:text="${produto.descricao}"></p>
 
 
-    <!-- Verificar se há produtos a serem exibidos -->
-    <th:block th:if="${produtos != null}">
-        <div class="row">
-            <th:block th:each="produto : ${produtos}">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${produto.titulo}"></h5>
-                            <p class="card-text" th:text="${produto.descricao}"></p>
-                            <p class="card-text" th:text="${produto.preco}"></p>
-                            <a href="#" class="btn btn-primary">Entrar em contato</a>
+                                <div class="col-md-16 d-flex justify-content-center">
+                                    <div class="row justify-text-center text-muted">
+                                        <div class="col">R$</div>
+                                        <div class="col"><span th:text="${produto.preco}"></span></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-16 d-flex justify-content-center">
+
+                                    <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp} + '&text=Olá,+eu+vi+este+produto:+' + ${produto.titulo} + '+no+site+Com%C3%A9rcio+EAJ. Gostaria+de+saber+se+ele+ainda+est%C3%A1+dispon%C3%ADvel.'" class="btn btn-success mt-auto btncolor">
+                                        <img src="/whats.png" alt="Whats" class="mr-2" width="25" height="25">
+                                        Entrar em Contato
+                                    </a>
+                                </div>
+                                <br>
+
+                                <div class="col-md-16 d-flex justify-content-center">
+                                    <a th:href="@{'/produtos/detalhes/' + ${produto.id}}" class="btn btn-outline-secondary">
+                                        <span>Ver mais informações</span>
+
+                                    </a>
+                                </div>
+
+
+                            </div>
+
+
                         </div>
+                        <br>
                     </div>
-                </div>
-            </th:block>
-        </div>
-    </th:block>
+                </th:block>
+            </div>
+
+        </th:block>
+
+    </div>
 </div>
 <!-- Incluir os arquivos JavaScript do Bootstrap -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
