@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="estilo.css">
 </head>
 <style>
     .btn-success {
@@ -19,57 +19,58 @@
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 
 <section class="py-5">
-
-
     <div class="container px-4 px-lg-5 mt-5">
         <form action="/produtos/buscar" method="GET" class="d-flex">
             <input class="form-control me-2" type="search" name="q" placeholder="Buscar produto" aria-label="Search">
-
             <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
 
-
+        <br><br><br>
 
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-
             <!-- Verificar se há produtos a serem exibidos -->
             <th:block th:if="${listarProdutos != null}">
                 <div class="col mb-5" th:each="produto : ${listarProdutos}" th:object="${produto}">
                     <a th:href="@{'/produtos/detalhes/' + ${produto.id}}">
                         <div class="card h-100">
-                            <div class="card-body p-4">
+                            <div class="card-body p-4 align-items-center">
                                 <div class="text-center">
-                                    <img class="card-img-top" th:src="@{'/images/' + ${produto.imagemUri}}" alt="..." />
+                                    <img class="card-img-top" th:src="@{'/images/' + ${produto.imagemUri}}" alt="...">
                                     <h5 class="fw-bolder" th:text="${produto.titulo}"></h5>
-                                    <div class="justify-content-center small text-dark mb-2">
-                                        ID: <div class="bi-star-fill" th:text="${produto.id}"></div><br/>
-                                        Categoria: <div class="bi-star-fill" th:text="${produto.categoria}"></div><br/>
+
+                                    <div class="d-flex flex-column small text-muted mb-2">
+                                        <div class="row">
+                                            <div class="col">R$</div>
+                                            <div class="col"><span th:text="${produto.preco}"></span></div>
+                                        </div>
                                     </div>
-                                    R$ <p th:text="${produto.preco}"></p>
+
+
+                                    <!-- Product actions -->
+                                    <div class="col-md-16 d-flex justify-content-center">
+                                        <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp} + '&text=Olá,+eu+vi+este+produto:+' + ${produto.titulo} + '+no+site+Com%C3%A9rcio+EAJ. Gostaria+de+saber+se+ele+ainda+est%C3%A1+dispon%C3%ADvel.'" class="btn btn-success mt-auto btncolor">
+                                            <img src="/whats.png" alt="Whats" class="mr-2" width="25" height="25">
+                                            Entrar em Contato
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="col-md-10 text-center">
-                                <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp} + '&text=Olá,+eu+vi+este+produto:+' + ${produto.titulo} + '+no+site+Com%C3%A9rcio+EAJ.+Gostaria+de+saber+se+ele+ainda+est%C3%A1+dispon%C3%ADvel.'" class="btn btn-success mt-auto btncolor">
-                                    <img src="/whats.png" alt="Whats" class="mr-2" width="25" height="25">
-                                    Entrar em Contato
-                                </a>
+
                             </div>
                         </div>
                     </a>
                 </div>
             </th:block>
-
-            <!-- Verificar se há uma mensagem a ser exibida -->
-            <th:block th:if="${mensagem != null}">
-                <div class="col-md-12">
-                    <div class="alert alert-info" role="alert" th:text="${mensagem}"></div>
-                </div>
-            </th:block>
         </div>
+
+        <!-- Verificar se há uma mensagem a ser exibida -->
+        <th:block th:if="${mensagem != null}">
+            <div class="col-md-12">
+                <div class="alert alert-info" role="alert" th:text="${mensagem}"></div>
+            </div>
+        </th:block>
     </div>
 </section>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
