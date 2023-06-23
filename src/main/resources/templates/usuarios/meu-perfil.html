@@ -30,9 +30,9 @@
                     <p class="card-text">Login: <span th:text="${usuario.login}"></span></p>
                     <p class="card-text">Data de Nascimento: <span th:text="${usuario.dataNascimento}"></span></p>
                 </div>
-                <!--<div class="card-footer">
-                    <a class="btn btn-primary" th:href="@{'/meu-perfil/editar/'+*{usuario.id}}">Editar</a>
-                </div>-->
+                <div class="card-footer">
+                    <a class="btn btn-primary" th:href="@{'/meu-perfil/atualizar/'+*{usuario.id}}">Editar</a>
+                </div>
             </div>
         </div>
         <div class="col-md-8">

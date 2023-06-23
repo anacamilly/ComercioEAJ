@@ -7,12 +7,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ufrn.com.comercioeaj.models.Produtos;
 import ufrn.com.comercioeaj.models.Usuarios;
 import ufrn.com.comercioeaj.services.FileStorageService;
 import ufrn.com.comercioeaj.services.UsuariosService;
@@ -45,6 +43,31 @@ public class UsuariosController {
 
 
         return "usuarios/meu-perfil";
+    }
+
+    @GetMapping("/meu-perfil/atualizar/{id}")
+    public String doAtualizarPerfil(@PathVariable(name = "id") Long id, Model model) {
+        Optional<Usuarios> usuarios = service.findById(id);
+
+        if (usuarios.isPresent()){
+            model.addAttribute("usuario", usuarios.get());
+        }else{
+            return "redirect:/meu-perfil";
+        }
+
+        return "usuarios/editar-perfil";
+    }
+
+    @PostMapping("/meu-perfil/atualizar/salvar")
+    public String doSalvarPerfilUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file") MultipartFile file, RedirectAttributes redirectAttributes){
+        u.setImagemUri(file.getOriginalFilename());
+        service.editar(u);
+        fileStorageService.save(file);
+
+        redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
+        service.create(u);
+
+        return "redirect:/meu-perfil";
     }
 
     @GetMapping("/cadastre-se")

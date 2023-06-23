@@ -2,8 +2,6 @@ $(document).ready(function() {
     $('.telefone').inputmask('+55 (99) 9999-9999');
 });
 
-
-var fotoRecortada = null;
 function mostrarCamposAdicionais() {
     var vendSim = document.getElementById("vendSim");
     var camposAdicionais = document.getElementById("camposAdicionais");

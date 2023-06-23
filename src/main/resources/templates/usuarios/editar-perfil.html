@@ -9,8 +9,13 @@
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 <div class="container mt-5">
 
-    <form th:action="@{/meu-perfil/atualizar}" th:object="${usuario}" method="post">
+    <form th:action="@{/meu-perfil/atualizar/salvar}" th:object="${usuario}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}">
+        <div class="mb-3">
+            <label for="imagem" class="form-label">Imagem:</label>
+            <input type="file" id="imagem" name="file" class="form-control">
+            <p th:if="${#fields.hasErrors('imagemUri')}" th:errors="*{imagemUri}" class="text-danger"></p>
+        </div>
         <div class="mb-3">
             <label for="nome" class="form-label">Nome:</label>
             <input type="text" id="nome" th:field="*{nome}" class="form-control">
@@ -31,11 +36,47 @@
             <input type="date" id="dataNascimento" th:field="*{dataNascimento}" class="form-control">
             <p th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}" class="text-danger"></p>
         </div>
+        <input type="hidden" id="dataNascimento" th:field="*{senha}" class="form-control">
+        <div class="mb-3">
+            <label class="form-label">Vendedor:</label><br>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="isVendedor" th:field="*{isVendedor}" class="form-check-input" onclick="mostrarCamposAdicionais()">
+                <label for="isVendedor" class="form-check-label">Sou vendedor</label>
+            </div>
+        </div>
+        <div id="camposAdicionais" class="form-group" style="display: none;">
+            <label for="razao">Razão Social:</label>
+            <input type="text" id="razao" th:field="*{razao}" class="form-control">
+
+            <label for="biografia">Biografia:</label>
+            <input type="text" id="biografia" th:field="*{biografia}" class="form-control">
+
+            <label for="whatsapp">Número de WhatsApp:</label>
+            <input type="text" id="whatsapp" th:field="*{whatsapp}" class="form-control telefone" placeholder="+55 (84)">
+
+            <label for="validationDefaultUsername" class="form-label">Instagram</label>
+            <div class="input-group">
+                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                <input placeholder="username" th:field="*{instagram}" type="text" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required>
+            </div>
+        </div>
         <button type="submit" class="btn btn-primary">Finalizar Edição</button>
     </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
+<script>
+    function mostrarCamposAdicionais() {
+        var isVendedor = document.getElementById("isVendedor");
+        var camposAdicionais = document.getElementById("camposAdicionais");
+
+        if (isVendedor.checked) {
+            camposAdicionais.style.display = "block";
+        } else {
+            camposAdicionais.style.display = "none";
+        }
+    }
+</script>
 </body>
 </html>
