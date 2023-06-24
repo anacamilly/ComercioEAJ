@@ -82,6 +82,19 @@ public class UsuariosController {
         redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
         return "redirect:/meu-perfil";
     }
+    @GetMapping("/usuario/alterar-foto/{id}")
+    public String getEditarFoto(@PathVariable(name = "id") Long id, Model model){
+
+        Optional<Usuarios> usuario = service.findById(id);
+
+        if (usuario.isPresent()){
+            model.addAttribute("usuario", usuario.get());
+        }else{
+            return "redirect:/meu-perfil";
+        }
+
+        return "/usuarios/alterar-imagem.html";
+    }
 
     @GetMapping("/cadastre-se")
     public String doCadastrarUsuario(Model model){

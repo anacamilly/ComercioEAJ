@@ -11,11 +11,7 @@
 
     <form th:action="@{/meu-perfil/atualizar/salvar}" th:object="${usuario}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}">
-        <div class="mb-3">
-            <label for="imagem" class="form-label">Imagem:</label>
-            <input type="file" id="imagem" name="file" class="form-control">
-            <p th:if="${#fields.hasErrors('imagemUri')}" th:errors="*{imagemUri}" class="text-danger"></p>
-        </div>
+
         <div class="mb-3">
             <label for="nome" class="form-label">Nome:</label>
             <input type="text" id="nome" th:field="*{nome}" class="form-control">

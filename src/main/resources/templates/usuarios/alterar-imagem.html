@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+<nav th:replace="/fragments/navbar.html ::nav"></nav>
+<div class="container mt-5">
+
+    <form th:action="@{/meu-perfil/atualizar/salvar}" th:object="${usuario}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" id="nome" th:field="*{nome}" class="form-control">
+        <input type="hidden" id="email" th:field="*{email}" class="form-control">
+        <input type="hidden" id="login" th:field="*{login}" class="form-control">
+        <input type="hidden" id="dataNascimento" th:field="*{dataNascimento}" class="form-control">
+        <input type="hidden" id="senha" th:field="*{senha}" class="form-control">
+        <input type="hidden" id="isVendedor" th:field="*{isVendedor}" class="form-check-input" onclick="mostrarCamposAdicionais()">
+        <div id="camposAdicionais" class="form-group" style="display: none;">
+            <label for="razao">Razão Social:</label>
+            <input type="hidden" id="razao" th:field="*{razao}" class="form-control">
+
+            <label for="biografia">Biografia:</label>
+            <input type="hidden" id="biografia" th:field="*{biografia}" class="form-control">
+
+            <label for="whatsapp">Número de WhatsApp:</label>
+            <input type="hidden" id="whatsapp" th:field="*{whatsapp}" class="form-control telefone" placeholder="+55 (84)">
+
+            <label for="validationDefaultUsername" class="form-label">Instagram</label>
+            <div class="input-group">
+                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                <input placeholder="username" th:field="*{instagram}" type="hidden" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required>
+            </div>
+        </div>
+
+
+
+        <div class="mb-3">
+            <label for="imagem" class="form-label">Imagem:</label>
+            <input type="file" id="imagem" name="file" class="form-control">
+            <p th:if="${#fields.hasErrors('imagemUri')}" th:errors="*{imagemUri}" class="text-danger"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Finalizar edição</button>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -23,6 +23,8 @@
         <div class="col-md-4">
             <div class="card">
                 <img class="card-img-top profile-image" th:src="@{'/images/' + ${usuario.imagemUri}}" alt="Perfil" />
+                <a th:href="@{'/usuario/alterar-foto/'+*{usuario.id}}" class="btn btn-primary btn-edit-image">Editar Imagem</a>
+
                 <div class="card-body">
                     <h5 class="card-title">Informações do Usuário</h5>
                     <p class="card-text">Nome: <span th:text="${usuario.nome}"></span></p>
