@@ -7,6 +7,13 @@
 </head>
 <body>
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
+<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/eaj.png" class="d-block w-100" alt="...">
+    </div>
+  </div>
+</div>
 <!--Mensagem de atualização -->
 <div th:if="${mensagem}" class="container mt-5">
   <p th:text="${mensagem}" class="alert alert-success"></p>
