@@ -2,7 +2,7 @@
   <!-- Container wrapper -->
   <div class="container-fluid">
     <!-- Navbar brand -->
-    <a class="navbar-brand mt-2 mt-lg-0"  th:href="@{/}">
+    <a class="navbar-brand mt-2 mt-lg-0" th:href="@{/}">
       <img src="/logo.jpeg" height="50" alt="Comércio EAJ" loading="lazy" />
     </a>
 
@@ -24,16 +24,16 @@
         <li class="nav-item">
           <a class="nav-link" th:href="@{/vendedores}">Vendedores</a>
         </li>
-        <div  th:if="${#authorization.expression('isAuthenticated()')}">
-        <li class="nav-item dropdown" th:if="${#authentication.principal.isVendedor}">
-          <a class="nav-link dropdown-toggle" th:href="@{/produtos}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Produtos
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" th:href="@{/produtos/cadastro}">Cadastrar produtos</a></li>
-            <li><a class="dropdown-item" th:href="@{/meus-produtos}">Gerenciar Produtos</a></li>
-          </ul>
-        </li>
+        <div th:if="${#authorization.expression('isAuthenticated()')}">
+          <li class="nav-item dropdown" th:if="${#authentication.principal.isVendedor}">
+            <a class="nav-link dropdown-toggle" th:href="@{/produtos}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Produtos
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{/produtos/cadastro}">Cadastrar produtos</a></li>
+              <li><a class="dropdown-item" th:href="@{/meus-produtos}">Gerenciar Produtos</a></li>
+            </ul>
+          </li>
         </div>
       </ul>
 
@@ -57,6 +57,18 @@
         </ul>
       </div>
       <!-- Right elements -->
+    </div>
+  </div>
+  <div th:unless="${#authorization.expression('isAuthenticated()')}">
+    <div class="ms-auto">
+      <ul class="navbar-nav flex-row">
+        <li class="nav-item me-2 d-flex align-items-center">
+          <a class="btn btn-dark" onclick="location.href='/login'">Login</a>
+        </li>
+        <li class="nav-item me-2 d-flex align-items-center">
+          <a class="btn btn-outline-dark text-nowrap" onclick="location.href='/cadastre-se'">Cadastre-se</a>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
