@@ -14,6 +14,7 @@ public interface ProdutosRepository extends JpaRepository<Produtos, Long> {
     List<Produtos> findByTituloContainingIgnoreCase(String nome);
 
 
+
     List<Produtos> findByDeletedIsNull();
 
     List<Produtos> findByVendedor_Id(Long usuarioId);

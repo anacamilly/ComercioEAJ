@@ -59,14 +59,20 @@ public class UsuariosController {
     }
 
     @PostMapping("/meu-perfil/atualizar/salvar")
-    public String doSalvarPerfilUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file") MultipartFile file, RedirectAttributes redirectAttributes){
-        u.setImagemUri(file.getOriginalFilename());
+    public String doSalvarPerfilUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file", required = false) MultipartFile file, RedirectAttributes redirectAttributes){
+        if (file != null && !file.isEmpty()) {
+            u.setImagemUri(file.getOriginalFilename());
+            fileStorageService.save(file);
+        } else {
+            // Manter o valor existente do campo imagemUri
+            Optional<Usuarios> existingUser = service.findById(u.getId());
+            if (existingUser.isPresent()) {
+                u.setImagemUri(existingUser.get().getImagemUri());
+            }
+        }
+
         service.editar(u);
-        fileStorageService.save(file);
-
         redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
-        service.create(u);
-
         return "redirect:/meu-perfil";
     }
 

@@ -33,6 +33,7 @@ public class UsuariosService implements UserDetailsService {
     }
 
     public Optional<Usuarios> findById(Long id) {
+
         return repository.findById(String.valueOf(id));
     }
 
@@ -63,5 +64,6 @@ public class UsuariosService implements UserDetailsService {
 
         return repository.findByNomeContainingIgnoreCaseAndIsVendedorIsTrue(nome);
     }
+
 
 }
