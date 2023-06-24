@@ -42,7 +42,6 @@ public class Usuarios implements UserDetails {
     String whatsapp;
     String instagram;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.isVendedor){
