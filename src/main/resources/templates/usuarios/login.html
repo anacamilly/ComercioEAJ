@@ -22,23 +22,25 @@
 
       <img src="./logo-eaj-tracado.png" alt="Logo" width="190" height="100">
 
-      <h2>Sign In</h2>
+      <h2>Entrar</h2>
 
       <form class="form" th:action="@{/login}" method="post">
 
         <div class="inputBox">
 
-          <input type="text" name="username" class="form-control" required> <i>Username</i>
+          <input type="text" name="username" class="form-control" required> <i>Login</i>
 
         </div>
 
         <div class="inputBox">
 
-          <input type="password" name="password" class="form-control" required> <i>Password</i>
+          <input type="password" name="password" class="form-control" required> <i>Senha</i>
 
         </div>
 
-        <div class="links"> <a href="#">Forgot Password</a> <a th:href="@{/cadastre-se}">Signup</a>
+        <div class="links"> <a href="#">Esqueci minha senha</a>
+
+          <a th:href="@{/cadastre-se}">Criar conta</a>
 
         </div>
 
