@@ -41,7 +41,6 @@ public class UsuariosController {
 
         model.addAttribute("usuario", usuario.orElse(null));
 
-
         return "usuarios/meu-perfil";
     }
 
@@ -71,14 +70,21 @@ public class UsuariosController {
             }
         }
 
-        service.editar(u);
+        Usuarios updatedUser = service.editar(u);
+
+        // Atualizar as informações do usuário no objeto Principal do Authentication
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuarios principalUser = (Usuarios) authentication.getPrincipal();
+        principalUser.setNome(updatedUser.getNome());
+        principalUser.setImagemUri(updatedUser.getImagemUri());
+        // Atualize outras informações necessárias
+
         redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
         return "redirect:/meu-perfil";
     }
 
     @GetMapping("/cadastre-se")
     public String doCadastrarUsuario(Model model){
-
         Usuarios u = new Usuarios();
         model.addAttribute("usuario", u);
 
