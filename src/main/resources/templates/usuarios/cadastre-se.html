@@ -35,6 +35,10 @@
             <input type="date" id="dataNascimento" th:field="*{dataNascimento}"  class="form-control">
         </div>
         <div class="mb-3">
+            <label for="imagem" class="form-label">Imagem:</label>
+            <input type="file" id="imagem" name="file" class="form-control">
+        </div>
+        <div class="mb-3">
             <label class="form-label">Vendedor:</label><br>
             <div class="form-check form-check-inline">
                 <input type="radio" id="vendSim" th:field="*{isVendedor}" value="true" class="form-check-input" onclick="mostrarCamposAdicionais()">
@@ -47,9 +51,6 @@
         </div>
 
         <div id="camposAdicionais" class="form-group" style="display: none;">
-            <label for="imagem" class="form-label">Imagem:</label>
-            <input type="file" id="imagem" name="file" class="form-control">
-
             <label for="razao">Razão Social:</label>
             <input type="text" id="razao" th:field="*{razao}" class="form-control">
 
