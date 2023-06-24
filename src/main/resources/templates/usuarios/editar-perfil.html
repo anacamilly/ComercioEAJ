@@ -18,6 +18,11 @@
             <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></p>
         </div>
         <div class="mb-3">
+            <label for="nome" class="form-label">Como você gostaria de ser chamado:</label>
+            <input type="text" id="nomeSocial" th:field="*{nomeSocial}" class="form-control">
+            <p th:if="${#fields.hasErrors('nomeSocial')}" th:errors="*{nomeSocial}" class="text-danger"></p>
+        </div>
+        <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
             <input type="email" id="email" th:field="*{email}" class="form-control">
             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></p>

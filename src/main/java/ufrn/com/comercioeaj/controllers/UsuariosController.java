@@ -75,7 +75,7 @@ public class UsuariosController {
         // Atualizar as informações do usuário no objeto Principal do Authentication
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuarios principalUser = (Usuarios) authentication.getPrincipal();
-        principalUser.setNome(updatedUser.getNome());
+        principalUser.setNomeSocial(updatedUser.getNomeSocial());
         principalUser.setImagemUri(updatedUser.getImagemUri());
         // Atualize outras informações necessárias
 
