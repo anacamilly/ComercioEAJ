@@ -31,8 +31,8 @@ public class ComercioEajApplication implements WebMvcConfigurer {
                                 Date.valueOf(LocalDate.parse("2003-09-25", DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
                                 Date.valueOf(LocalDate.parse("2003-09-25", DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
                                 true,
-                                "", "Lojinha", "Lojinha ", "84 9999-9999", "@lojinha")
-                        ).collect(Collectors.toList());
+                                "livro.png", "Lojinha", "Lojinha ", "84 9999-9999", "@lojinha")
+                ).collect(Collectors.toList());
 
                 for (var e : users) {
                     System.out.println(e);
