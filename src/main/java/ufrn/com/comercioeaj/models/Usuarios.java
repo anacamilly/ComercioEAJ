@@ -25,6 +25,8 @@ public class Usuarios implements UserDetails {
     Long id;
     String nome;
 
+    String nomeSocial;
+
     @Column(unique=true)
     String email;
     @Column(unique=true)

@@ -27,7 +27,7 @@ public class ComercioEajApplication implements WebMvcConfigurer {
             return args -> {
 
                 List<Usuarios> users = Stream.of(
-                        new Usuarios(1L, "user", "camilly@teste.com", "admin", encoder.encode("admin"),
+                        new Usuarios(1L, "user","Camilly", "camilly@teste.com", "admin", encoder.encode("admin"),
                                 Date.valueOf(LocalDate.parse("2003-09-25", DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
                                 Date.valueOf(LocalDate.parse("2003-09-25", DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
                                 true,

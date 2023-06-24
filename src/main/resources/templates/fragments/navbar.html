@@ -45,8 +45,9 @@
         <ul class="navbar-nav flex-row">
           <li class="nav-item me-3 me-lg-1">
             <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+             Bem-vindo(a), <strong class="d-none d-sm-block ms-1" th:text="${#authentication.principal.nomeSocial}"></strong>
               <img th:src="@{'/images/' + ${#authentication.principal.imagemUri}}" alt="Profile Image" class="rounded-circle" height="22" loading="lazy" />
-              <strong class="d-none d-sm-block ms-1" th:text="${#authentication.principal.nome}"></strong>
+
             </a>
           </li>
           <li class="nav-item dropdown">
