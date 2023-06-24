@@ -24,6 +24,7 @@
         <li class="nav-item">
           <a class="nav-link" th:href="@{/vendedores}">Vendedores</a>
         </li>
+        <div  th:if="${#authorization.expression('isAuthenticated()')}">
         <li class="nav-item dropdown" th:if="${#authentication.principal.isVendedor}">
           <a class="nav-link dropdown-toggle" th:href="@{/produtos}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Produtos
@@ -33,25 +34,28 @@
             <li><a class="dropdown-item" th:href="@{/meus-produtos}">Gerenciar Produtos</a></li>
           </ul>
         </li>
+        </div>
       </ul>
 
       <!-- Right elements -->
-      <ul class="navbar-nav flex-row">
-        <li class="nav-item me-3 me-lg-1" th:if="${#authentication.isAuthenticated()}">
-          <a class="nav-link d-sm-flex align-items-sm-center" href="#">
-            <img th:src="@{'/images/' + ${#authentication.principal.imagemUri}}" alt="Profile Image" class="rounded-circle" height="22" loading="lazy" />
-            <strong class="d-none d-sm-block ms-1" th:text="${#authentication.principal.nome}"></strong>
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" th:href="@{/meu-perfil}">Meu perfil</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" th:href="@{/logout}">Sair</a></li>
-          </ul>
-        </li>
-      </ul>
+      <div th:if="${#authorization.expression('isAuthenticated()')}">
+        <ul class="navbar-nav flex-row">
+          <li class="nav-item me-3 me-lg-1">
+            <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+              <img th:src="@{'/images/' + ${#authentication.principal.imagemUri}}" alt="Profile Image" class="rounded-circle" height="22" loading="lazy" />
+              <strong class="d-none d-sm-block ms-1" th:text="${#authentication.principal.nome}"></strong>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" th:href="@{/meu-perfil}">Meu perfil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" th:href="@{/logout}">Sair</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
       <!-- Right elements -->
     </div>
   </div>
