@@ -44,18 +44,30 @@
       <div th:if="${#authorization.expression('isAuthenticated()')}">
         <ul class="navbar-nav flex-row">
           <li class="nav-item me-3 me-lg-1">
-            <a class="nav-link d-sm-flex align-items-sm-center" href="#">
-             Bem-vindo(a), <strong class="d-none d-sm-block ms-1" th:text="${#authentication.principal.nomeSocial}"></strong>
-              <img th:src="@{'/images/' + ${#authentication.principal.imagemUri}}" alt="Profile Image" class="rounded-circle" height="22" loading="lazy" />
-
+            <a class="nav-link d-sm-flex align-items-sm-center" th:href="@{/meu-perfil}">
+              Bem-vindo(a),
+              <strong class="d-none d-sm-block ms-1" th:text="${#authentication.principal.nomeSocial}"></strong>
+              <img th:src="@{'/images/' + ${#authentication.principal.imagemUri}}" alt="Profile Image" class="rounded-circle ms-1" height="25" width="25" loading="lazy" />
             </a>
           </li>
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" th:href="@{/meu-perfil}">Meu perfil</a></li>
+              <li>
+                <a class="dropdown-item" th:href="@{/meu-perfil}" style="outline: none;">
+                  <img src="/perfil.png" width="20" height="20" alt="Perfil"> Meu perfil
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" th:href="@{/meu-perfil/configuracoes}" style="outline: none;">
+                  <img src="/configuração.png" width="20" height="20"> Configurações
+                </a>
+              </li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" th:href="@{/logout}">Sair</a></li>
+              <a class="dropdown-item" th:href="@{/logout}" style="outline: none;">
+                <img src="/sair.png" width="20" height="20"> Sair
+              </a>
             </ul>
           </li>
         </ul>
