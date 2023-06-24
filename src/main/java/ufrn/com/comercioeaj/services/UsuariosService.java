@@ -58,4 +58,10 @@ public class UsuariosService implements UserDetailsService {
             throw new UsernameNotFoundException("Username not found");
         }
     }
+
+    public List<Usuarios> buscarVendedor(String nome) {
+
+        return repository.findByNomeContainingIgnoreCaseAndIsVendedorIsTrue(nome);
+    }
+
 }

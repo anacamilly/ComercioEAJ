@@ -57,8 +57,8 @@ public class ProdutosService {
         return repository.findById(id);
     }
     public List<Produtos> buscarPorNome(String nome) {
+
         return repository.findByTituloContainingIgnoreCase(nome);
     }
-
 
 }

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado da Busca</title>
+    <!-- Incluir os arquivos CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+    <style>
+        .btn-success {
+            background-color: #1bd741;
+            border-color: #1bd741;
+        }
+        .btn-success:hover {
+            background-color: #1bd741;
+            border-color: #1bd741;
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="/fragments/navbar.html ::nav"></nav>
+<div class="container px-4 px-lg-5 mt-5">
+    <form action="/vendedor/buscar" method="GET" class="d-flex">
+        <input class="form-control me-2" type="search" name="q" placeholder="Buscar vendedor" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+    <div class="container">
+        <h1>Resultado da Busca</h1>
+
+        <th:block th:if="${vendedores != null}">
+            <div class="row">
+                <th:block th:each="vendedor : ${vendedores}">
+                    <div class="col-md-4">
+                        <div class="card ">
+                            <div class="card-body">
+                                <img class="card-img-top" th:src="@{'/images/' + ${vendedor.imagemUri}}" alt="imagem do produto">
+                                <h5 class="card-title fw-bolder" th:text="${vendedor.nome}" style="text-decoration: none;"></h5>
+                                <div class="col-md-16 d-flex justify-content-center">
+                                <div class="row justify-text-center text-muted">
+                                    <div class="col">Instagram:</div>
+                                    <div class="col"><span th:text="${vendedor.instagram}"></span></div>
+                                </div>
+                                </div>
+
+
+                                    <div class="col-md-16 d-flex justify-content-center">
+
+
+                                    <div class="row justify-text-center text-muted">
+                                        <div class="col">Biografia:</div>
+                                        <div class="col"><span th:text="${vendedor.biografia}"></span></div>
+                                    </div>
+
+                                </div>
+
+
+                                <br>
+
+                                <div class="col-md-16 d-flex justify-content-center">
+                                    <a th:href="@{'/vendedores/perfil/' + ${vendedor.id}}" class="btn btn-outline-secondary">
+                                        <span>Ver Perfil</span>
+
+                                    </a>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                        <br>
+                    </div>
+                </th:block>
+            </div>
+
+        </th:block>
+
+    </div>
+</div>
+<!-- Incluir os arquivos JavaScript do Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

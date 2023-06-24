@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import ufrn.com.comercioeaj.models.Produtos;
 import ufrn.com.comercioeaj.models.Usuarios;
 import ufrn.com.comercioeaj.repositories.UsuariosRepository;
@@ -55,5 +56,18 @@ public class VendedoresController {
         return "vendedores/perfil-vendedor";
 
     }
+    @GetMapping("/vendedor/buscar")
+    public String buscarVendedor(@RequestParam("q") String query, Model model) {
+        List<Usuarios> vendedorEncontrados = service.buscarVendedor(query);
+
+        if (vendedorEncontrados.isEmpty()) {
+            model.addAttribute("mensagem", "Ops! Não encontramos nenhum vendedor com o nome " + query + ". Por favor, tente realizar outra busca!");
+            return "vendedores/lista";
+        } else {
+            model.addAttribute("vendedores", vendedorEncontrados);
+            return "vendedores/resultado-busca";
+        }
+    }
+
 
 }
