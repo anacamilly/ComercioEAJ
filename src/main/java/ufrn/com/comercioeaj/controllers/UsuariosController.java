@@ -124,4 +124,23 @@ public class UsuariosController {
         service.excluirConta(id);
         return "redirect:/logout";
     }
+
+
+    @GetMapping("/meu-perfil/configuracoes")
+    public String getConfiguracoes(Model model) {
+
+
+        // Obter o objeto Authentication do Spring Security
+        // Obter o ID do usuário logado
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long idUsuarioLogado = ((Usuarios) authentication.getPrincipal()).getId();
+
+        // Exemplo fictício de obtenção das informações do usuário com base no id
+        Optional<Usuarios> usuario = service.findById(idUsuarioLogado);
+
+        model.addAttribute("usuario", usuario.orElse(null));
+
+        return "/usuarios/conta-configuracoes.html";
+    }
+
 }

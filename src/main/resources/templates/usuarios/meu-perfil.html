@@ -20,30 +20,8 @@
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 <div class="container mt-5">
     <h1>Perfil do Usuário</h1>
-    <!-- Botão para abrir a janela modal -->
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">Apagar permanentemente minha conta</button>
 
     <!-- Janela modal de confirmação -->
-    <div class="modal" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar exclusão de conta</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Tem certeza que deseja apagar sua conta permanentemente?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <!-- Altere o link abaixo para o caminho correto em sua aplicação -->
-                    <a class="btn btn-danger" th:href="@{'/usuario/excluir/'+*{usuario.id}}">Apagar</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="modal-overlay" th:if="${mensagem}">
         <div class="modal-content">
@@ -89,6 +67,7 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
