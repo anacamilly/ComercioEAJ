@@ -17,12 +17,16 @@ import ufrn.com.comercioeaj.services.FileStorageService;
 import ufrn.com.comercioeaj.services.ProdutosService;
 import ufrn.com.comercioeaj.services.UsuariosService;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
+import org.apache.commons.io.FilenameUtils;
 
 @Controller
 public class ProdutosController {
@@ -45,7 +49,7 @@ public class ProdutosController {
     }
 
     @PostMapping("/produtos/cadastro/salvar")
-    public String doSalvarCadastro(@ModelAttribute @Valid Produtos p, Errors errors, @RequestParam(name = "file", required = false) MultipartFile file, RedirectAttributes redirectAttributes) {
+    public String doSalvarCadastro(@ModelAttribute @Valid Produtos p, Errors errors, @RequestParam(name = "file", required = false) MultipartFile file, @RequestParam(name = "croppedImage", required = false) String croppedImage, RedirectAttributes redirectAttributes) throws IOException {
         if (errors.hasErrors()) {
             return "produtos/cadastro.html";
         } else {
@@ -53,20 +57,24 @@ public class ProdutosController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Long idUsuarioLogado = ((Usuarios) authentication.getPrincipal()).getId();
 
-            // Definir o ID do usuário no objeto Produtos
+            // Definir o ID do usuário no objeto Produto
             Usuarios vendedor = new Usuarios();
             vendedor.setId(idUsuarioLogado);
             p.setVendedor(vendedor);
 
-            if (file != null && !file.isEmpty()) {
-                p.setImagemUri(file.getOriginalFilename());
-                fileStorageService.save(file);
-            } else {
-                // Manter o valor existente do campo imagemUri
-                Optional<Produtos> existingProduct = produtosService.findById(p.getId());
-                if (existingProduct.isPresent()) {
-                    p.setImagemUri(existingProduct.get().getImagemUri());
-                }
+            if (croppedImage != null && !croppedImage.isEmpty()) {
+                // A imagem foi cortada, salve-a diretamente
+                byte[] imageData = decodeBase64Image(croppedImage);
+                String fileExtension = getFileExtension(file);
+                String imageName = generateUniqueFileName(fileExtension);
+                String imagePath = fileStorageService.saveCroppedImage(imageData, imageName);
+                p.setImagemUri(imagePath);
+            } else if (file != null && !file.isEmpty()) {
+                // A imagem não foi cortada, salve-a normalmente
+                String fileExtension = getFileExtension(file);
+                String imageName = generateUniqueFileName(fileExtension);
+                String imagePath = fileStorageService.save2(file, imageName);
+                p.setImagemUri(imagePath);
             }
 
             p.setData_cadastro(Date.valueOf(LocalDate.now()));
@@ -75,6 +83,23 @@ public class ProdutosController {
             produtosService.salvarProduto(p);
             return "redirect:/meus-produtos";
         }
+    }
+
+    private String getFileExtension(MultipartFile file) {
+        String originalFileName = file.getOriginalFilename();
+        return FilenameUtils.getExtension(originalFileName);
+    }
+
+    private String generateUniqueFileName(String fileExtension) {
+        String uniqueFileName = UUID.randomUUID().toString();
+        return uniqueFileName + "." + fileExtension;
+    }
+
+
+    private byte[] decodeBase64Image(String croppedImage) {
+        String[] parts = croppedImage.split(",");
+        String imageDataString = parts[1];
+        return Base64.getDecoder().decode(imageDataString);
     }
 
 
@@ -93,8 +118,10 @@ public class ProdutosController {
             p.setVendedor(vendedor);
 
             if (file != null && !file.isEmpty()) {
-                p.setImagemUri(file.getOriginalFilename());
-                fileStorageService.save(file);
+                String fileExtension = getFileExtension(file);
+                String imageName = generateUniqueFileName(fileExtension);
+                String imagePath = fileStorageService.save2(file, imageName);
+                p.setImagemUri(imagePath);
             } else {
                 // Manter o valor existente do campo imagemUri
                 Optional<Produtos> existingProduct = produtosService.findById(p.getId());
@@ -213,12 +240,4 @@ public class ProdutosController {
             return "produtos/resultado-busca.html";
         }
     }
-
-
-
-
-
-
-
-
 }
