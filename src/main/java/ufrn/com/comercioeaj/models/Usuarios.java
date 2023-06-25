@@ -36,10 +36,10 @@ public class Usuarios implements UserDetails {
     Date dataNascimento;
     Date dataCadastro;
     Boolean isVendedor;
+    String imagemUri;
 
 
     // 2 etapa - Vendedor
-    String imagemUri;
     String razao;
     String biografia;
     String whatsapp;
