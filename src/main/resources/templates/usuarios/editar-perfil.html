@@ -39,10 +39,14 @@
         </div>
         <input type="hidden" id="senha" th:field="*{senha}" class="form-control">
         <div class="mb-3">
-            <label class="form-label">Vendedor:</label><br>
+            <label class="form-label">Sou vendedor:</label><br>
             <div class="form-check form-check-inline">
-                <input type="checkbox" id="isVendedor" th:field="*{isVendedor}" class="form-check-input" onclick="mostrarCamposAdicionais()">
-                <label for="isVendedor" class="form-check-label">Sou vendedor</label>
+                <input type="radio" id="isVendedor" value="true" th:field="*{isVendedor}" class="form-check-input" onclick="mostrarCamposAdicionais()">
+                <label for="isVendedor" class="form-check-label">Sim</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" id="vendNao" th:field="*{isVendedor}" value="false" class="form-check-input" onclick="mostrarCamposAdicionais()" checked>
+                <label for="vendNao" class="form-check-label">Não</label>
             </div>
         </div>
         <div id="camposAdicionais" class="form-group" style="display: none;">
