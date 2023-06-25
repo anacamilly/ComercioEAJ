@@ -9,12 +9,13 @@
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 <div class="container mt-5">
 
-    <form th:action="@{/produtos/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/produtos/editar/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}">
         <input type="hidden" id="titulo" th:field="*{titulo}" class="form-control">
         <input type="hidden" id="descricao" th:field="*{descricao}" class="form-control">
         <input type="hidden" id="preco" th:field="*{preco}" class="form-control">
         <input type="hidden" id="disponibilidade" th:field="*{disponibilidade}" class="form-check-input">
+        <input type="hidden" id="data_cadastro" th:field="*{data_cadastro}" class="form-check-input">
         <div class="mb-3">
             <label for="categoria" class="form-label"></label>
             <select id="categoria" th:field="*{categoria}" class="form-select" hidden>

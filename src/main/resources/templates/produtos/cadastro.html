@@ -9,7 +9,7 @@
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 
 <div class="container mt-5">
-    <form th:action="@{/produtos/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/produtos/cadastro/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="titulo" class="form-label">Título:</label>
             <input type="text" id="titulo" th:field="*{titulo}" class="form-control">

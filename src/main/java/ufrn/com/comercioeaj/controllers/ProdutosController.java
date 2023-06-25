@@ -18,6 +18,8 @@ import ufrn.com.comercioeaj.services.ProdutosService;
 import ufrn.com.comercioeaj.services.UsuariosService;
 
 import java.security.Principal;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,8 +44,8 @@ public class ProdutosController {
         return "produtos/cadastro.html";
     }
 
-    @PostMapping("/produtos/salvar")
-    public String doSalvar(@ModelAttribute @Valid Produtos p, Errors errors, @RequestParam(name = "file", required = false) MultipartFile file, RedirectAttributes redirectAttributes) {
+    @PostMapping("/produtos/cadastro/salvar")
+    public String doSalvarCadastro(@ModelAttribute @Valid Produtos p, Errors errors, @RequestParam(name = "file", required = false) MultipartFile file, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
             return "produtos/cadastro.html";
         } else {
@@ -67,6 +69,7 @@ public class ProdutosController {
                 }
             }
 
+            p.setData_cadastro(Date.valueOf(LocalDate.now()));
             produtosService.editar(p);
             redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
             produtosService.salvarProduto(p);
@@ -74,6 +77,39 @@ public class ProdutosController {
         }
     }
 
+
+    @PostMapping("/produtos/editar/salvar")
+    public String doSalvarEditar(@ModelAttribute @Valid Produtos p, Errors errors, @RequestParam(name = "file", required = false) MultipartFile file, RedirectAttributes redirectAttributes) {
+        if (errors.hasErrors()) {
+            return "produtos/cadastro.html";
+        } else {
+            // Obter o ID do usuário logado
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Long idUsuarioLogado = ((Usuarios) authentication.getPrincipal()).getId();
+
+            // Definir o ID do usuário no objeto Produtos
+            Usuarios vendedor = new Usuarios();
+            vendedor.setId(idUsuarioLogado);
+            p.setVendedor(vendedor);
+
+            if (file != null && !file.isEmpty()) {
+                p.setImagemUri(file.getOriginalFilename());
+                fileStorageService.save(file);
+            } else {
+                // Manter o valor existente do campo imagemUri
+                Optional<Produtos> existingProduct = produtosService.findById(p.getId());
+                if (existingProduct.isPresent()) {
+                    p.setImagemUri(existingProduct.get().getImagemUri());
+                }
+            }
+
+            p.setData_atualizacao(Date.valueOf(LocalDate.now()));
+            produtosService.editar(p);
+            redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
+            produtosService.salvarProduto(p);
+            return "redirect:/meus-produtos";
+        }
+    }
 
     @RequestMapping(value = {"/produtos/catalogo"}, method = RequestMethod.GET)
     public String getCatalogo(Model model, Principal principal) {

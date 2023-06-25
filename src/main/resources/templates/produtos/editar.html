@@ -9,7 +9,7 @@
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 <div class="container mt-5">
 
-    <form th:action="@{/produtos/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/produtos/editar/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}">
         <div class="mb-3">
             <label for="titulo" class="form-label">Título:</label>
@@ -26,6 +26,7 @@
             <input type="text" id="preco" th:field="*{preco}" class="form-control">
             <p th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}" class="text-danger"></p>
         </div>
+        <input type="hidden" id="dataCadastro" th:field="*{data_cadastro}" class="form-control">
         <div class="mb-3">
             <label for="categoria" class="form-label">Categoria:</label>
             <select id="categoria" th:field="*{categoria}" class="form-select">
