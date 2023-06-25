@@ -20,7 +20,7 @@
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 <div class="container mt-5">
     <h1>Perfil do Usuário</h1>
-    <a class="btn btn-danger" th:href="@{'/usuario/excluir/'+*{usuario.id}}" onclick="return confirm('Are you sure you want to delete your account?')">Delete Account</a>
+    <a class="btn btn-danger" th:href="@{'/usuario/excluir/'+*{usuario.id}}" onclick="return confirm('Tem certeza que deseja desativar sua conta?')">Desativar minha conta</a>
     <div class="modal-overlay" th:if="${mensagem}">
         <div class="modal-content">
             <button class="btn text-white btn-close" onclick="closeModal()" style="margin-top: 10px; margin-right: 10px;"></button>
