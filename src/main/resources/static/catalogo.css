@@ -6,3 +6,23 @@
     background-color: #1bd741;
     border-color: #1bd741;
 }
+.a-decor{
+    text-decoration: none;
+    color: inherit;
+}
+.circle {
+    width: 35px;
+    height: 35px;
+}
+.vendedor-info {
+    margin-bottom: 10px;
+}
+.vendedor-info p {
+    margin-top: 5px;
+}
+.product-title {
+    font-size: 16px;
+}
+.text-start img {
+    margin-bottom: 10px;
+}
