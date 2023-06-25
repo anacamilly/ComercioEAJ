@@ -3,19 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="stylesheet" href="./catalogo.css">
-    <style>
-        .btn-success {
-            background-color: #1bd741;
-            border-color: #1bd741;
-        }
-        .btn-success:hover {
-            background-color: #1bd741;
-            border-color: #1bd741;
-        }
-    </style>
+    <link href="/catalogo.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
 </head>
-<body>
+<body class="back">
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 
 <section class="py-5">
@@ -31,30 +22,33 @@
             <!-- Verificar se há produtos a serem exibidos -->
             <th:block th:if="${listarProdutos != null}">
                 <div class="col mb-5" th:each="produto : ${listarProdutos}" th:object="${produto}">
-                    <a th:href="@{'/produtos/detalhes/' + ${produto.id}}">
-                        <div class="card h-100">
-                            <div class="card-body p-4 align-items-center">
-                                <div class="text-center">
+                    <a th:href="@{'/produtos/detalhes/' + ${produto.id}}" class="card-link a-decor">
+                        <div class="card h-100 rounded-3 border-0">
+                            <div class="card-body p-2 align-items-center">
+                                <div class="d-flex align-items-start vendedor-info">
+                                    <img class="img-fluid rounded-circle me-3 circle" th:src="@{'/images/' + ${produto.vendedor.imagemUri}}" alt="Imagem do Vendedor">
+                                    <p class="card-text"><span th:text="${produto.vendedor.razao}"></span></p>
+                                </div>
+                                <div class="text-start">
                                     <img class="card-img-top" th:src="@{'/images/' + ${produto.imagemUri}}" alt="imagem do produto">
-                                    <h5 class="fw-bolder" th:text="${produto.titulo}"></h5>
+                                    <h5 class="fw-bolder product-title" th:text="${produto.titulo}"></h5>
 
                                     <div class="d-flex flex-column small text-muted mb-2">
                                         <div class="row">
-                                            <div class="col">R$</div>
-                                            <div class="col"><span th:text="${produto.preco}"></span></div>
+                                            <div class="col">
+                                                <span class="fw-bold" style="font-size: 18px;">R$ <span th:text="${produto.preco}"></span></span>
+                                            </div>
                                         </div>
                                     </div>
 
-
                                     <!-- Product actions -->
                                     <div class="col-md-16 d-flex justify-content-center">
-                                        <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp} + '&text=Olá,+eu+vi+este+produto:+' + ${produto.titulo} + '+no+site+Com%C3%A9rcio+EAJ. Gostaria+de+saber+se+ele+ainda+est%C3%A1+dispon%C3%ADvel.'" class="btn btn-success mt-auto btncolor">
+                                        <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp} + '&text=Olá,+eu+vi+este+produto:+' + ${produto.titulo} + '+no+site+Com%C3%A9rcio+EAJ. Gostaria+de+saber+se+ele+ainda+est%C3%A1+dispon%C3%ADvel.'" class="btn btn-success mt-auto btncolor w-100">
                                             <img src="/whats.png" alt="Whats" class="mr-2" width="25" height="25">
                                             Entrar em Contato
                                         </a>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </a>
