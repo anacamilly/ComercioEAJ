@@ -10,6 +10,7 @@ import ufrn.com.comercioeaj.models.Produtos;
 import ufrn.com.comercioeaj.models.Usuarios;
 import ufrn.com.comercioeaj.repositories.UsuariosRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,7 +20,6 @@ public class UsuariosService implements UserDetailsService {
 
     UsuariosRepository repository;
     BCryptPasswordEncoder encoder;
-
 
 
     public UsuariosService(UsuariosRepository repository, BCryptPasswordEncoder encoder) {
@@ -65,5 +65,11 @@ public class UsuariosService implements UserDetailsService {
         return repository.findByNomeContainingIgnoreCaseAndIsVendedorIsTrue(nome);
     }
 
-
+    public void excluirConta(Long id) {
+        Usuarios usuarios = repository.findByIdAndDeletedIsNull(id);
+        if(usuarios != null){
+            usuarios.setDeleted(LocalDate.now());
+            repository.save(usuarios);
+        }
+    }
 }

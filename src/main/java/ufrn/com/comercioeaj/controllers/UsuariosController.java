@@ -115,4 +115,13 @@ public class UsuariosController {
 
         return "redirect:/login";
     }
+
+    @GetMapping(value = "/usuario/excluir/{id}")
+    public String doExcluirConta(@PathVariable long id, RedirectAttributes redirectAttributes){
+
+        redirectAttributes.addFlashAttribute("mensagem", "Conta excluida com sucesso.");
+
+        service.excluirConta(id);
+        return "redirect:/logout";
+    }
 }

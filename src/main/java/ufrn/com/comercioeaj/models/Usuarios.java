@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -36,6 +37,7 @@ public class Usuarios implements UserDetails {
     Date dataCadastro;
     Boolean isVendedor;
 
+    private LocalDate deleted;
 
     // 2 etapa - Vendedor
     String imagemUri;
