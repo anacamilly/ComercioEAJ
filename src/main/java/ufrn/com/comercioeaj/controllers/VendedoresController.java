@@ -31,7 +31,7 @@ public class VendedoresController {
 
     @GetMapping("/vendedores")
     public String getVendedores(Model model) {
-        List<Usuarios> vendedores = usuariosRepository.findByIsVendedorTrueAndDeletedNull();
+        List<Usuarios> vendedores = usuariosRepository.findByIsVendedorTrue();
         model.addAttribute("vendedores", vendedores);
         return "vendedores/lista.html";
     }

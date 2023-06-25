@@ -27,7 +27,7 @@ public class UsuariosService implements UserDetailsService {
         this.encoder = encoder;
     }
 
-    public void create(Usuarios u){
+    public void create(Usuarios u) {
         u.setSenha(encoder.encode(u.getSenha()));
         this.repository.save(u);
     }
@@ -37,7 +37,7 @@ public class UsuariosService implements UserDetailsService {
         return repository.findById(String.valueOf(id));
     }
 
-    public Usuarios atualizar(Usuarios u){
+    public Usuarios atualizar(Usuarios u) {
 
         return repository.saveAndFlush(u);
     }
@@ -46,16 +46,16 @@ public class UsuariosService implements UserDetailsService {
         return Optional.ofNullable(repository.findByEmail(email));
     }
 
-    public Usuarios editar(Usuarios u){
+    public Usuarios editar(Usuarios u) {
         return repository.saveAndFlush(u);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Usuarios> user = repository.findUsuarioByLogin(username);
-        if (user.isPresent()){
+        if (user.isPresent()) {
             return user.get();
-        }else{
+        } else {
             throw new UsernameNotFoundException("Username not found");
         }
     }
@@ -66,10 +66,8 @@ public class UsuariosService implements UserDetailsService {
     }
 
     public void excluirConta(Long id) {
-        Usuarios usuarios = repository.findByIdAndDeletedIsNull(id);
-        if(usuarios != null){
-            usuarios.setDeleted(LocalDate.now());
-            repository.save(usuarios);
-        }
+        repository.deleteUsuariosById(id);
     }
+
 }
+

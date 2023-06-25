@@ -37,7 +37,6 @@ public class Usuarios implements UserDetails {
     Date dataCadastro;
     Boolean isVendedor;
 
-    private LocalDate deleted;
 
     // 2 etapa - Vendedor
     String imagemUri;
