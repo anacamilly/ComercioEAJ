@@ -30,8 +30,16 @@
               Produtos
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" th:href="@{/produtos/cadastro}">Cadastrar produtos</a></li>
-              <li><a class="dropdown-item" th:href="@{/meus-produtos}">Gerenciar Produtos</a></li>
+              <li>
+                <a class="dropdown-item" th:href="@{/produtos/cadastro}" style="outline: none;">
+                  <img src="/adicionar-produto.png" width="19" height="20" alt="Perfil"> Cadastrar produtos
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" th:href="@{/meus-produtos}" style="outline: none;">
+                  <img src="/produtos.png" width="19" height="20" alt="Perfil"> Gerenciar produtos
+                </a>
+              </li>
             </ul>
           </li>
         </div>

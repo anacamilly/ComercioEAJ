@@ -110,7 +110,7 @@ public class UsuariosController {
         service.editar(u);
         fileStorageService.save(file);
 
-        redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
+        redirectAttributes.addFlashAttribute("mensagem", "Usuário cadastrado com sucesso.");
         service.create(u);
 
         return "redirect:/login";
