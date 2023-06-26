@@ -243,8 +243,16 @@ public class ProdutosController {
     }
 
     @GetMapping("/produtos/buscar")
-    public String buscarProduto(@RequestParam("q") String query, Model model) {
-        List<Produtos> produtosEncontrados = produtosService.buscarPorNome(query);
+    public String buscarProduto(@RequestParam("q") String query,
+                                @RequestParam(name = "categoria", required = false) String categoria,
+                                Model model) {
+        List<Produtos> produtosEncontrados;
+
+        if (categoria != null && !categoria.isEmpty()) {
+            produtosEncontrados = produtosService.buscarPorNomeECategoria(query, categoria);
+        } else {
+            produtosEncontrados = produtosService.buscarPorNome(query);
+        }
 
         if (produtosEncontrados.isEmpty()) {
             model.addAttribute("mensagem", "Ops! Não encontramos produtos com o nome " + query + " por favor, tente realizar outra busca!");
@@ -254,4 +262,5 @@ public class ProdutosController {
             return "produtos/resultado-busca.html";
         }
     }
+
 }
