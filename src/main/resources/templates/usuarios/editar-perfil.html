@@ -56,8 +56,9 @@
             <label for="biografia">Biografia:</label>
             <input type="text" id="biografia" th:field="*{biografia}" class="form-control">
 
-            <label for="whatsapp">Número de WhatsApp:</label>
-            <input type="text" id="whatsapp" th:field="*{whatsapp}" class="form-control telefone" placeholder="+55 (84)">
+            <label for="phone-input">WhatsApp:</label>
+            <input type="text" id="phone-input" th:field="*{whatsapp}" class="form-control" oninput="maskPhone(this)">
+
 
             <label for="validationDefaultUsername" class="form-label">Instagram</label>
             <div class="input-group">
@@ -82,6 +83,32 @@
             camposAdicionais.style.display = "none";
         }
     }
+    function maskPhone(input) {
+        // Remove todos os caracteres que não são dígitos
+        var phoneNumber = input.value.replace(/\D/g, '');
+
+        // Remove espaços, o sinal de adição (+), parênteses e hífen
+        phoneNumber = phoneNumber.replace(/[+\s()-]/g, '');
+
+        // Define o formato da máscara
+        var phoneNumberMask = '+__ (__) _____-____';
+
+        // Itera sobre os caracteres da máscara e substitui os "_" pelos dígitos do número de telefone
+        var maskedPhoneNumber = '';
+        var j = 0;
+        for (var i = 0; i < phoneNumberMask.length; i++) {
+            if (phoneNumberMask.charAt(i) === '_') {
+                maskedPhoneNumber += phoneNumber.charAt(j) || '_';
+                j++;
+            } else {
+                maskedPhoneNumber += phoneNumberMask.charAt(i);
+            }
+        }
+
+        // Atualiza o valor do campo de entrada com a máscara aplicada
+        input.value = maskedPhoneNumber;
+    }
+
 </script>
 </body>
 </html>

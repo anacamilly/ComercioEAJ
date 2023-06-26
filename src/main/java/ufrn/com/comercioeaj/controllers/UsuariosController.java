@@ -57,6 +57,11 @@ public class UsuariosController {
 
     @PostMapping("/meu-perfil/atualizar/salvar")
     public String doSalvarPerfilUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file", required = false) MultipartFile file, RedirectAttributes redirectAttributes){
+        String whatsapp = u.getWhatsapp().replaceAll("[\\s()+-]", "");
+
+        // Define o número de telefone modificado no objeto de usuário
+        u.setWhatsapp(whatsapp);
+
         if (file != null && !file.isEmpty()) {
             u.setImagemUri(file.getOriginalFilename());
             fileStorageService.save(file);
