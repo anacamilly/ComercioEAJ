@@ -1,5 +1,8 @@
 package ufrn.com.comercioeaj.services;
 
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import ufrn.com.comercioeaj.models.Produtos;
 import ufrn.com.comercioeaj.models.Usuarios;
@@ -16,6 +19,9 @@ public class ProdutosService {
     public ProdutosService(ProdutosRepository produtosRepository) {
         this.repository = produtosRepository;
     }
+
+
+
 
     public void salvarProduto(Produtos p) {
         repository.save(p);
