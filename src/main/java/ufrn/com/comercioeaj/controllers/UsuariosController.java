@@ -1,5 +1,6 @@
 package ufrn.com.comercioeaj.controllers;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +14,10 @@ import ufrn.com.comercioeaj.models.Usuarios;
 import ufrn.com.comercioeaj.services.FileStorageService;
 import ufrn.com.comercioeaj.services.UsuariosService;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class UsuariosController {
@@ -56,7 +60,7 @@ public class UsuariosController {
     }
 
     @PostMapping("/meu-perfil/atualizar/salvar")
-    public String doSalvarPerfilUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file", required = false) MultipartFile file, RedirectAttributes redirectAttributes){
+    public String doSalvarPerfilUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file", required = false) MultipartFile file,  @RequestParam(name = "croppedImage", required = false) String croppedImage, RedirectAttributes redirectAttributes) throws IOException {
         String whatsapp = u.getWhatsapp().replaceAll("[\\s()+-]", "");
 
         // Define o número de telefone modificado no objeto de usuário
@@ -73,6 +77,21 @@ public class UsuariosController {
             }
         }
 
+        if (croppedImage != null && !croppedImage.isEmpty()) {
+            // A imagem foi cortada, salve-a diretamente
+            byte[] imageData = decodeBase64Image(croppedImage);
+            String fileExtension = getFileExtension(file);
+            String imageName = generateUniqueFileName(fileExtension);
+            String imagePath = fileStorageService.saveCroppedImage(imageData, imageName);
+            u.setImagemUri(imagePath);
+        } else if (file != null && !file.isEmpty()) {
+            // A imagem não foi cortada, salve-a normalmente
+            String fileExtension = getFileExtension(file);
+            String imageName = generateUniqueFileName(fileExtension);
+            String imagePath = fileStorageService.save2(file, imageName);
+            u.setImagemUri(imagePath);
+        }
+
         Usuarios updatedUser = service.editar(u);
 
         // Atualizar as informações do usuário no objeto Principal do Authentication
@@ -85,6 +104,24 @@ public class UsuariosController {
         redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
         return "redirect:/meu-perfil";
     }
+
+    private String getFileExtension(MultipartFile file) {
+        String originalFileName = file.getOriginalFilename();
+        return FilenameUtils.getExtension(originalFileName);
+    }
+
+    private String generateUniqueFileName(String fileExtension) {
+        String uniqueFileName = UUID.randomUUID().toString();
+        return uniqueFileName + "." + fileExtension;
+    }
+
+
+    private byte[] decodeBase64Image(String croppedImage) {
+        String[] parts = croppedImage.split(",");
+        String imageDataString = parts[1];
+        return Base64.getDecoder().decode(imageDataString);
+    }
+
     @GetMapping("/usuario/alterar-foto/{id}")
     public String getEditarFoto(@PathVariable(name = "id") Long id, Model model){
 
