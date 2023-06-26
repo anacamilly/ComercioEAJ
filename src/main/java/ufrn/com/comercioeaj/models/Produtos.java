@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class Produtos {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String imagemUri;
     String titulo;
