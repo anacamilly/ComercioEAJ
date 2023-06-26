@@ -1,8 +1,6 @@
 package ufrn.com.comercioeaj.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -106,6 +104,11 @@ public class UsuariosController {
 
     @PostMapping("/cadastre-se/salvar")
     public String doSalvarUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file") MultipartFile file, RedirectAttributes redirectAttributes){
+        String whatsapp = u.getWhatsapp().replaceAll("[\\s()+-]", "");
+
+        // Define o número de telefone modificado no objeto de usuário
+        u.setWhatsapp(whatsapp);
+
         u.setImagemUri(file.getOriginalFilename());
         service.editar(u);
         fileStorageService.save(file);

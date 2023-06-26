@@ -1,8 +1,6 @@
 package ufrn.com.comercioeaj.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,10 +9,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
