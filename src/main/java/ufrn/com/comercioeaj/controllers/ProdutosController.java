@@ -105,7 +105,7 @@ public class ProdutosController {
 
 
     @PostMapping("/produtos/editar/salvar")
-    public String doSalvarEditar(@ModelAttribute @Valid Produtos p, Errors errors, @RequestParam(name = "file", required = false) MultipartFile file, RedirectAttributes redirectAttributes) {
+    public String doSalvarEditar(@ModelAttribute @Valid Produtos p, Errors errors, @RequestParam(name = "file", required = false) MultipartFile file, @RequestParam(name = "croppedImage", required = false) String croppedImage, RedirectAttributes redirectAttributes) throws IOException {
         if (errors.hasErrors()) {
             return "produtos/cadastro.html";
         } else {
@@ -131,6 +131,15 @@ public class ProdutosController {
                 }
             }
 
+            if (croppedImage != null && !croppedImage.isEmpty()) {
+                // A imagem foi cortada, salve-a diretamente
+                byte[] imageData = decodeBase64Image(croppedImage);
+                String fileExtension = getFileExtension(file);
+                String imageName = generateUniqueFileName(fileExtension);
+                String imagePath = fileStorageService.saveCroppedImage(imageData, imageName);
+                p.setImagemUri(imagePath);
+            }
+
             p.setData_atualizacao(Date.valueOf(LocalDate.now()));
             produtosService.editar(p);
             redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
@@ -138,6 +147,7 @@ public class ProdutosController {
             return "redirect:/meus-produtos";
         }
     }
+
 
     @RequestMapping(value = {"/produtos/catalogo"}, method = RequestMethod.GET)
     public String getCatalogo(Model model, Principal principal) {
