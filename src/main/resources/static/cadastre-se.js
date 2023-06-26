@@ -21,53 +21,28 @@
     return true;
 }
 
-/*window.addEventListener("DOMContentLoaded", function () {
-    var imagemInput = document.getElementById("imagem");
-    var imagemPreview = document.getElementById("imagemPreview");
-    var btnAbrirRecorte = document.getElementById("btnAbrirRecorte");
+ function maskPhone(input) {
+     // Remove todos os caracteres que não são dígitos
+     var phoneNumber = input.value.replace(/\D/g, '');
 
-    imagemInput.addEventListener("change", function () {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            imagemPreview.src = e.target.result;
-            imagemPreview.style.display = "block";
-            btnAbrirRecorte.style.display = "block";
-        };
-        reader.readAsDataURL(this.files[0]);
-    });
+     // Remove espaços, o sinal de adição (+), parênteses e hífen
+     phoneNumber = phoneNumber.replace(/[+\s()-]/g, '');
 
-    btnAbrirRecorte.addEventListener("click", function () {
-        var imagemOriginal = document.getElementById("imagemPreview");
-        var cropper = new Cropper(imagemOriginal, {
-            aspectRatio: 1,
-            crop: function (event) {
-                var coordenadasCorteInput = document.getElementById("coordenadasCorte");
-                coordenadasCorteInput.value = JSON.stringify(event.detail);
+     // Define o formato da máscara
+     var phoneNumberMask = '+__ (__) _____-____';
 
-                var canvas = cropper.getCroppedCanvas();
-                canvas.toBlob(function (blob) {
-                    fotoRecortada = blob;
-                });
-            }
-        });
-    });
+     // Itera sobre os caracteres da máscara e substitui os "_" pelos dígitos do número de telefone
+     var maskedPhoneNumber = '';
+     var j = 0;
+     for (var i = 0; i < phoneNumberMask.length; i++) {
+         if (phoneNumberMask.charAt(i) === '_') {
+             maskedPhoneNumber += phoneNumber.charAt(j) || '_';
+             j++;
+         } else {
+             maskedPhoneNumber += phoneNumberMask.charAt(i);
+         }
+     }
 
-    var form = document.querySelector("form");
-    form.onsubmit = function () {
-        if (fotoRecortada) {
-            var fotoInput = document.getElementById("imagem");
-            fotoInput.files = convertToMultipartFile(fotoRecortada);
-        }
-
-        return validarSenhas();
-    };
-});
-
-function convertToMultipartFile(blob) {
-    var fileName = "image.jpg"; // Nome do arquivo desejado
-
-    var formData = new FormData();
-    formData.append("file", blob, fileName);
-
-    return formData;
-}*/
+     // Atualiza o valor do campo de entrada com a máscara aplicada
+     input.value = maskedPhoneNumber;
+ }
