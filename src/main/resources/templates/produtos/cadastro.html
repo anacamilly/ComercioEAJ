@@ -53,10 +53,9 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="cropper-modal-label">Cortar Imagem</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
                     </div>
                     <div class="modal-body">
-                        <div class="container">
                             <div class="row">
                                 <div class="col-md-8">
                                     <img id="preview" src="" alt="Imagem selecionada">
@@ -65,11 +64,10 @@
                                     <div id="cropper-preview" class="d-flex justify-content-center align-items-center" style="height: 400px;"></div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button id="btn-cortar" type="button" class="btn btn-primary">Cortar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>-->
                     </div>
                 </div>
             </div>
@@ -104,6 +102,12 @@
                 cropBoxResizable: true // Permitir redimensionamento da área de corte
             });
 
+            // Ajustar a largura e altura do quadro de corte
+            var cropBoxData = cropper.getCropBoxData();
+            cropBoxData.width = 300; // Aumentar a largura em 100 pixels (ajuste conforme necessário)
+            cropBoxData.height = 300; // Aumentar a altura em 100 pixels (ajuste conforme necessário)
+            cropper.setCropBoxData(cropBoxData);
+
             // Atualizar a imagem cortada quando o botão for clicado
             document.getElementById('btn-cortar').addEventListener('click', function() {
                 var canvas = cropper.getCroppedCanvas();
@@ -128,6 +132,7 @@
 
         reader.readAsDataURL(input.files[0]);
     });
+
 </script>
 </body>
 </html>
