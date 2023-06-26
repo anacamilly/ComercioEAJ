@@ -18,7 +18,7 @@ import java.util.Collections;
 @Data
 public class Usuarios implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     Long id;
     String nome;
 
