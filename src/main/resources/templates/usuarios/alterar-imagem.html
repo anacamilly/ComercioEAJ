@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
@@ -43,9 +44,89 @@
             <p th:if="${#fields.hasErrors('imagemUri')}" th:errors="*{imagemUri}" class="text-danger"></p>
         </div>
 
+        <div class="modal fade" id="cropper-modal" tabindex="-1" role="dialog" aria-labelledby="cropper-modal-label" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cropper-modal-label">Cortar Imagem</h5>
+                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <img id="preview" src="" alt="Imagem selecionada">
+                            </div>
+                            <div class="col-md-4">
+                                <div id="cropper-preview" class="d-flex justify-content-center align-items-center" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-cortar" type="button" class="btn btn-primary">Cortar</button>
+                        <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <button type="submit" class="btn btn-primary">Finalizar edição</button>
     </form>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script>
+    document.getElementById('imagem').addEventListener('change', function(event) {
+        var input = event.target;
+        var reader = new FileReader();
+
+        reader.onload = function() {
+            var img = document.getElementById('preview');
+            img.src = reader.result;
+
+            // Exibir o modal do cropper
+            var cropperModal = new bootstrap.Modal(document.getElementById('cropper-modal'));
+            cropperModal.show();
+
+            // Inicializar o Cropper.js
+            var cropper = new Cropper(img, {
+                aspectRatio: 1, // Proporção de aspecto desejada (opcional)
+                viewMode: 2, // Modo de visualização (opcional)
+                autoCropArea: 0.8, // Área de corte automático (opcional)
+                responsive: true, // Tornar a área de corte responsiva
+                cropBoxResizable: true // Permitir redimensionamento da área de corte
+            });
+
+            // Ajustar a largura e altura do quadro de corte
+            var cropBoxData = cropper.getCropBoxData();
+            cropBoxData.width = 300; // Aumentar a largura em 100 pixels (ajuste conforme necessário)
+            cropBoxData.height = 300; // Aumentar a altura em 100 pixels (ajuste conforme necessário)
+            cropper.setCropBoxData(cropBoxData);
+
+            // Atualizar a imagem cortada quando o botão for clicado
+            document.getElementById('btn-cortar').addEventListener('click', function() {
+                var canvas = cropper.getCroppedCanvas();
+                var croppedImage = canvas.toDataURL();
+
+                // Crie um campo de entrada oculto para armazenar a imagem cortada
+                var hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'croppedImage';
+                hiddenInput.value = croppedImage;
+                document.getElementById('imagem').parentNode.appendChild(hiddenInput);
+
+                // Exiba a imagem cortada (opcional)
+                var croppedPreview = document.createElement('img');
+                croppedPreview.src = croppedImage;
+                document.getElementById('preview').parentNode.appendChild(croppedPreview);
+
+                // Feche o modal do cropper
+                cropperModal.hide();
+            });
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    });
+</script>
 </body>
 </html>

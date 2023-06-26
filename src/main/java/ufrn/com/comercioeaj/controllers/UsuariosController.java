@@ -145,13 +145,27 @@ public class UsuariosController {
     }
 
     @PostMapping("/cadastre-se/salvar")
-    public String doSalvarUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file") MultipartFile file, RedirectAttributes redirectAttributes){
+    public String doSalvarUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file") MultipartFile file, @RequestParam(name = "croppedImage", required = false) String croppedImage, RedirectAttributes redirectAttributes) throws IOException {
         String whatsapp = u.getWhatsapp().replaceAll("[\\s()+-]", "");
 
         // Define o número de telefone modificado no objeto de usuário
         u.setWhatsapp(whatsapp);
 
-        u.setImagemUri(file.getOriginalFilename());
+        if (croppedImage != null && !croppedImage.isEmpty()) {
+            // A imagem foi cortada, salve-a diretamente
+            byte[] imageData = decodeBase64Image(croppedImage);
+            String fileExtension = getFileExtension(file);
+            String imageName = generateUniqueFileName(fileExtension);
+            String imagePath = fileStorageService.saveCroppedImage(imageData, imageName);
+            u.setImagemUri(imagePath);
+        } else if (file != null && !file.isEmpty()) {
+            // A imagem não foi cortada, salve-a normalmente
+            String fileExtension = getFileExtension(file);
+            String imageName = generateUniqueFileName(fileExtension);
+            String imagePath = fileStorageService.save2(file, imageName);
+            u.setImagemUri(imagePath);
+        }
+
         service.editar(u);
         fileStorageService.save(file);
 
