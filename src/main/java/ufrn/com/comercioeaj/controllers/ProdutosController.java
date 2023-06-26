@@ -1,6 +1,7 @@
 package ufrn.com.comercioeaj.controllers;
 
 import jakarta.validation.Valid;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.security.core.Authentication;
@@ -200,6 +201,9 @@ public class ProdutosController {
         produtosService.excluirProduto(id);
         return "redirect:/meus-produtos";
     }
+
+
+
 
     @GetMapping("/produtos/editar/{id}")
     public String getEditarPage(@PathVariable(name = "id") Long id, Model model){
