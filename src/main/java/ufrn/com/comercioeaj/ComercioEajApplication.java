@@ -27,11 +27,11 @@ public class ComercioEajApplication implements WebMvcConfigurer {
             return args -> {
 
                 List<Usuarios> users = Stream.of(
-                        new Usuarios(1L, "user","Camilly", "camilly@teste.com", "admin", encoder.encode("admin"),
-                                Date.valueOf(LocalDate.parse("2003-09-25", DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
-                                Date.valueOf(LocalDate.parse("2003-09-25", DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
+                        new Usuarios(1L, "Admin","Admin", "admin@teste.com", "admin", encoder.encode("admin"),
+                                Date.valueOf(LocalDate.parse("2000-02-20", DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
+                                Date.valueOf(LocalDate.parse("2023-02-20", DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
                                 true,
-                                "livro.png", "Lojinha", "Lojinha ", "84 9999-9999", "@lojinha")
+                                "perfil1.jpeg", "Loja do Admin", "Entre em contato conosco! ", "5584999999999", "@lojinha_do_admin")
                 ).collect(Collectors.toList());
 
                 for (var e : users) {
