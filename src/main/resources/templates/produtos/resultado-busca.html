@@ -20,9 +20,21 @@
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 <div class="container px-4 px-lg-5 mt-5">
     <form action="/produtos/buscar" method="GET" class="d-flex">
-        <input class="form-control me-2" type="search" name="q" placeholder="Buscar produto" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
+        <div class="input-group">
+            <input class="form-control me-2" type="search" name="q" placeholder="Buscar produto" aria-label="Search">
+            <select class="form-select" name="categoria">
+                <option value="">Todas as categorias</option>
+                <option value="Comida">Comida</option>
+                <option value="Eletronico">Eletronico</option>
+                <option value="Livros">Livros</option>
+                <!-- Adicione mais opções de categoria conforme necessário -->
+            </select>
+            <button class="btn btn-outline-secondary" type="submit">
+                <img src="/lupa.png" width="20" height="20">
+            </button>
+        </div>
     </form>
+
     <div class="container">
         <h1>Resultado da Busca</h1>
 

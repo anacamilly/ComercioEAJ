@@ -31,9 +31,9 @@
             <label for="categoria" class="form-label">Categoria:</label>
             <select id="categoria" th:field="*{categoria}" class="form-select">
                 <option value="">Selecione</option>
-                <option value="1">Comida</option>
-                <option value="2">Eletronico</option>
-                <option value="3">Livros</option>
+                <option value="Comida">Comida</option>
+                <option value="Eletronico">Eletronico</option>
+                <option value="Livros">Livros</option>
                 <!-- Adicione mais opções de categoria aqui -->
             </select>
             <p th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}" class="text-danger"></p>

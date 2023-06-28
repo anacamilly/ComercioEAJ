@@ -15,6 +15,9 @@ public interface ProdutosRepository extends JpaRepository<Produtos, Long> {
     List<Produtos> findByVendedorIdAndDeletedIsNull(Long vendedorId);
 
     List<Produtos> findByTituloContainingIgnoreCase(String nome);
+    @Query("SELECT p FROM Produtos p WHERE (p.titulo) = :titulo AND (p.categoria) = (:categoria)")
+    List<Produtos> findByTituloContainingIgnoreCaseAndCategoria(@Param("titulo") String nome, @Param("categoria") String categoria);
+    List<Produtos> findByCategoriaIgnoreCase(String categoria);
 
     List<Produtos> findByDeletedIsNull();
 
