@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ufrn.com.comercioeaj.models.Produtos;
 import ufrn.com.comercioeaj.models.Usuarios;
 import ufrn.com.comercioeaj.services.FileStorageService;
+import ufrn.com.comercioeaj.services.ProdutosService;
 import ufrn.com.comercioeaj.services.UsuariosService;
 
 import java.io.IOException;
@@ -24,11 +25,13 @@ public class UsuariosController {
 
     UsuariosService service;
 
+    ProdutosService produtosService;
     @Autowired
     private FileStorageService fileStorageService;
 
-    public UsuariosController(UsuariosService service) {
+    public UsuariosController(UsuariosService service, ProdutosService produtosService) {
         this.service = service;
+        this.produtosService = produtosService;
     }
 
     @GetMapping("/meu-perfil")
@@ -180,6 +183,7 @@ public class UsuariosController {
 
         redirectAttributes.addFlashAttribute("mensagem", "Conta excluida com sucesso.");
 
+        produtosService.excluirTodosProdutos(id);
         service.excluirConta(id);
         return "redirect:/logout";
     }
