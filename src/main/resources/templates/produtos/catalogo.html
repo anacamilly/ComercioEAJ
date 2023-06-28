@@ -41,7 +41,7 @@
             <th:block th:if="${listarProdutos != null}">
                 <div class="col mb-5" th:each="produto : ${listarProdutos}" th:object="${produto}">
                     <a class="card-link a-decor">
-                        <div class="card h-100 rounded-3 border-0">
+                        <div class="card h-100 border rounded-3 ">
                             <div class="card-body p-2 align-items-center">
                                 <a th:href="@{'/vendedores/perfil/' + ${produto.vendedor.id}}" class="a-decor">
                                     <div class="d-flex align-items-start vendedor-info">
