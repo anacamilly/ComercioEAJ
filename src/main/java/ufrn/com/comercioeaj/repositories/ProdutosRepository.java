@@ -12,10 +12,9 @@ import java.util.List;
 
 public interface ProdutosRepository extends JpaRepository<Produtos, Long> {
 
+    List<Produtos> findByVendedorIdAndDeletedIsNull(Long vendedorId);
 
     List<Produtos> findByTituloContainingIgnoreCase(String nome);
-
-
 
     List<Produtos> findByDeletedIsNull();
 

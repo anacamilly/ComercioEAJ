@@ -53,6 +53,16 @@ public class ProdutosService {
         }
     }
 
+    public List<Produtos> buscarProdutosPorVendedor(Long vendedorId) {
+        return repository.findByVendedorIdAndDeletedIsNull(vendedorId);
+    }
+
+    public void excluirTodosProdutos(Long usuarioId) {
+        // Lógica para excluir todos os produtos associados ao usuário com o ID fornecido
+        List<Produtos> produtos = repository.findByVendedor_Id(usuarioId);
+        repository.deleteAll(produtos);
+    }
+
     public Produtos editar(Produtos p){
 
         return repository.saveAndFlush(p);

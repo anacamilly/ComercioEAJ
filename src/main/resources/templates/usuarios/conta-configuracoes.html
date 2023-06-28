@@ -61,7 +61,10 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <!-- Coloque aqui o link ou ação para apagar todos os produtos -->
-                    <button type="button" class="btn btn-danger" th:attr="data-url=@{'/produtos/excluirTodos/' + ${usuario.id}}" th:text="'Apagar todos os produtos'" th:onclick="apagarTodosOsProdutos()">Apagar todos os produtos</button>
+
+                    <a th:href="@{'/produtos/excluir-todos/'+ ${#authentication.principal.id}}" class="btn btn-danger">
+                        Apagar todos os produtos
+                    </a>
                 </div>
 
             </div>
@@ -78,12 +81,28 @@
     }
 
     function apagarTodosOsProdutos() {
-        // Lógica para apagar todos os produtos
-        // ...
-        console.log("Todos os produtos foram apagados!");
+        // Fazer a chamada AJAX para excluir todos os produtos
+        $.ajax({
+            url: "/produtos/excluir-todos",
+            type: "POST",
+            success: function(response) {
+                console.log("Todos os produtos foram excluídos!");
+                // Redirecionar o usuário para uma página de confirmação ou exibir uma mensagem de sucesso
+                // ...
+                // Recarregar a página para atualizar a lista de produtos
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.log("Ocorreu um erro ao excluir os produtos.");
+                // Tratar o erro adequadamente
+                // ...
+            }
+        });
+
         // Fechar o modal após a ação ser realizada
         $("#confirmDeleteModalProdutos").modal("hide");
     }
+
 </script>
 </body>
 </html>

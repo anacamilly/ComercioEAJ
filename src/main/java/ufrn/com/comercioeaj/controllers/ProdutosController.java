@@ -18,6 +18,7 @@ import ufrn.com.comercioeaj.services.FileStorageService;
 import ufrn.com.comercioeaj.services.ProdutosService;
 import ufrn.com.comercioeaj.services.UsuariosService;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.Date;
@@ -254,4 +255,12 @@ public class ProdutosController {
             return "produtos/resultado-busca.html";
         }
     }
+
+    // Método para excluir todos os produtos de um usuário
+    @GetMapping("/produtos/excluir-todos/{id}")
+    public String excluirTodosProdutos(@PathVariable Long id) {
+        produtosService.excluirTodosProdutos(id);
+        return "redirect:/meus-produtos";
+    }
+
 }
