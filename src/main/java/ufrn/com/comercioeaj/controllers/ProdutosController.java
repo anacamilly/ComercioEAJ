@@ -258,9 +258,11 @@ public class ProdutosController {
 
     // Método para excluir todos os produtos de um usuário
     @GetMapping("/produtos/excluir-todos/{id}")
-    public String excluirTodosProdutos(@PathVariable Long id) {
+    public String excluirTodosProdutos(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute("mensagem", "Todos os seus produtos foram excluidos com sucesso!");
         produtosService.excluirTodosProdutos(id);
-        return "redirect:/meus-produtos";
+        return "redirect:/home";
     }
 
 }
