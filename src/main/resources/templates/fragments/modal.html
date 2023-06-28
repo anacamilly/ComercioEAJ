@@ -1,0 +1,10 @@
+<div class="modal-overlay" th:if="${mensagem}" th:fragment="modal">
+    <div class="modal-content">
+        <button class="btn text-white btn-close" onclick="closeModal()" style="margin-top: 10px; margin-right: 10px;"></button>
+        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+            <img src="/concluido.svg" width="75" height="75">
+        </div>
+        <p th:text="${mensagem}"></p>
+        <button class="btn btn-dark text-white btn-ok" onclick="closeModal()">OK</button>
+    </div>
+</div>
