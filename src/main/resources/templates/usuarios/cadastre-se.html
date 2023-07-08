@@ -2,33 +2,48 @@
 <html lang="en"  xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de usuários</title>
+    <title>Cadastre-se</title>
+    <link th:replace="/fragments/logo.html ::logo">
+    <link rel="stylesheet" href="/cadastre-se.css">
     <script src="./cadastre-se.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
-    <h1 class="text-center mt-5">Cadastre-se</h1>
+
+    <div style="display: flex; justify-content: center;">
+        <img src="/logo-eaj-tracado.png" alt="Logo" width="275" height="150"/>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+        <span class="h1 fw-bold mb-0">Cadastre-se</span>
+    </div>
+
+    <h5 class="fw-normal mt-4 mb-4 pb-3 text-center" style="letter-spacing: 1px;">Realize seu cadastro no nosso site</h5>
     <form method="post" th:action="@{/cadastre-se/salvar}" th:object="${usuario}" class="mt-5" enctype="multipart/form-data" onsubmit="return validarSenhas()">
         <div class="mb-3">
-            <label for="nome" class="form-label">Nome:</label>
+            <label for="nome" class="form-label">Digite seu nome completo:</label>
             <input type="text" id="nome" th:field="*{nome}" class="form-control">
         </div>
         <div class="mb-3">
-            <label for="NomeSocial" class="form-label">Como você gostaria de ser chamado?:</label>
+            <label for="NomeSocial" class="form-label">Como você gostaria de ser chamado?</label>
             <input type="text" id="nomeSocial" th:field="*{nomeSocial}" class="form-control">
         </div>
         <div class="mb-3">
-            <label for="email" class="form-label">E-mail:</label>
+            <label for="dataNascimento" class="form-label">Digite sua data de Nascimento:</label>
+            <input type="date" id="dataNascimento" th:field="*{dataNascimento}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Digite seu e-mail:</label>
             <input type="text" id="email" th:field="*{email}" class="form-control">
         </div>
         <div class="mb-3">
-            <label for="login" class="form-label">Login:</label>
+            <label for="login" class="form-label">Digite um login para sua conta:</label>
             <input type="text" id="login" th:field="*{login}" class="form-control">
         </div>
         <div class="mb-3">
-            <label for="senha" class="form-label">Senha:</label>
+            <label for="senha" class="form-label">Digite uma senha para sua conta:</label>
             <input type="password" id="senha" th:field="*{senha}" class="form-control">
         </div>
         <div class="mb-3">
@@ -36,39 +51,50 @@
             <input type="password" id="senhaConfirmacao" class="form-control">
         </div>
         <div class="mb-3">
-            <label for="dataNascimento" class="form-label">Data de Nascimento:</label>
-            <input type="date" id="dataNascimento" th:field="*{dataNascimento}"  class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="imagem" class="form-label">Imagem:</label>
+            <label for="imagem" class="form-label">Foto para o perfil:</label>
             <input type="file" id="imagem" name="file" class="form-control">
         </div>
 
         <div class="mb-3">
             <label class="form-label">Sou vendedor:</label><br>
             <div class="form-check form-check-inline">
-                <input type="radio" id="vendSim" th:field="*{isVendedor}" value="true" class="form-check-input" onclick="mostrarCamposAdicionais()">
+                <input type="radio" id="vendSim" th:field="*{isVendedor}" value="true" class="form-check-input form-check-success" onclick="mostrarCamposAdicionais()" required>
                 <label for="vendSim" class="form-check-label">Sim</label>
             </div>
             <div class="form-check form-check-inline">
-                <input type="radio" id="vendNao" th:field="*{isVendedor}" value="false" class="form-check-input" onclick="mostrarCamposAdicionais()" checked>
+                <input type="radio" id="vendNao" th:field="*{isVendedor}" value="false" class="form-check-input" onclick="mostrarCamposAdicionais()" required>
                 <label for="vendNao" class="form-check-label">Não</label>
             </div>
         </div>
 
+
+
         <div id="camposAdicionais" class="form-group" style="display: none;">
-            <label for="razao">Razão Social:</label>
-            <input type="text" id="razao" th:field="*{razao}" class="form-control">
+            </br>
+            <div class="d-flex justify-content-center mt-3">
+                <span class="h2 fw-bold mb-0">Informações de Vendedor</span>
+            </div>
+            </br>
 
-            <label for="biografia">Biografia:</label>
-            <input type="text" id="biografia" th:field="*{biografia}" class="form-control">
+            <div class="mb-3">
+                <label class="form-label" for="razao">Nome da Loja:</label>
+                <input type="text" id="razao" th:field="*{razao}" class="form-control">
+            </div>
 
-            <label for="phone-input">WhatsApp:</label>
-            <input type="text" id="phone-input" th:field="*{whatsapp}" class="form-control" oninput="maskPhone(this)">
+            <div class="mb-3">
+                <label class="form-label" for="biografia">Biografia da Loja:</label>
+                <input type="text" id="biografia" th:field="*{biografia}" class="form-control">
+            </div>
 
+            <div class="mb-3">
+                <label class="form-label" for="phone-input">Número do WhatsApp:</label>
+                <input type="text" id="phone-input" th:field="*{whatsapp}" class="form-control" oninput="maskPhone(this)">
+            </div>
 
-            <label for="instagram">Instagram:</label>
-            <input type="text" id="instagram" th:field="*{instagram}" class="form-control">
+            <div class="mb-3">
+                <label class="form-label" for="instagram">Nome de Úsuario do Instagram:</label>
+                <input type="text" id="instagram" th:field="*{instagram}" class="form-control">
+            </div>
         </div>
 
         <div class="modal fade" id="cropper-modal" tabindex="-1" role="dialog" aria-labelledby="cropper-modal-label" aria-hidden="true">
@@ -89,16 +115,18 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="btn-cortar" type="button" class="btn btn-primary">Cortar</button>
+                        <button id="btn-cortar" type="button" class="btn btn-success">Cortar</button>
                         <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>-->
                     </div>
                 </div>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <button type="submit" class="btn btn-success btn-block  w-100">Cadastrar</button>
     </form>
 </div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/cropper.js"></script>
