@@ -10,41 +10,55 @@
 <body class="back">
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 
-<h1>Meus Produtos</h1>
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
 
-<div th:replace="/fragments/modal.html ::modal"></div>
 
-<div class="row">
-    <!-- Iterar sobre os produtos e exibi-los como cards -->
-    <div class="col-md-4" th:each="produto : ${produtos}">
-        <div class="card">
-            <div class="position-relative">
-                <img th:src="@{'/images/' + ${produto.imagemUri}}" class="card-img-top" alt="Imagem do Produto">
-                <a th:href="@{'/produtos/editar-foto/'+*{produto.id}}" class="btn btn-primary btn-edit-image">Editar Imagem</a>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title" th:text="${produto.titulo}"></h5>
-                <p class="card-text" th:text="${produto.descricao}"></p>
-                <p class="card-text">Categoria: <span th:text="${produto.categoria}"></span></p>
-                <p class="card-text">Preço: <span th:text="${produto.preco}"></span></p>
-            </div>
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                    <td class="card-body">
-                        <a th:href="@{'/produtos/editar/'+*{produto.id}}" class="btn btn-warning">
-                            <img src="https://img.icons8.com/material-sharp/24/undefined/edit--v1.png" alt="Edit" />
-                            Editar
-                        </a>
-                        <a th:href="@{'/produtos/excluir/'+*{produto.id}}" class="btn btn-danger">
-                            <img src="https://img.icons8.com/ios-glyphs/30/undefined/filled-trash.png" alt="Delete" />
-                            Excluir
-                        </a>
-                    </td>
+        <h1 class="text-center fw-bold">Meus Produtos</h1>
+
+        <br><br>
+
+        <div th:replace="/fragments/modal.html ::modal"></div>
+
+        <div class="row">
+            <!-- Iterar sobre os produtos e exibi-los como cards -->
+            <div class="col-md-4" th:each="produto : ${produtos}">
+                <div class="card">
+                    <div class="position-relative">
+                        <img th:src="@{'/images/' + ${produto.imagemUri}}" class="card-img-top" alt="Imagem do Produto">
+                        <a th:href="@{'/produtos/editar-foto/'+*{produto.id}}" class="btn btn-primary btn-edit-image">Editar Imagem</a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${produto.titulo}"></h5>
+                        <p class="card-text" th:text="${produto.descricao}"></p>
+                        <p class="card-text">Categoria: <span th:text="${produto.categoria}"></span></p>
+                        <p class="card-text">Preço: <span th:text="${produto.preco}"></span></p>
+                    </div>
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <td class="card-body">
+                                <a th:href="@{'/produtos/editar/'+*{produto.id}}" class="btn btn-outline-primary">
+                                    <img src="/editar.png" width="30" height="30" alt="Edit" />
+                                    Editar
+                                </a>
+                                <a th:href="@{'/produtos/excluir/'+*{produto.id}}" class="btn btn-outline-danger">
+                                    <img src="/excluir.png" width="30" height="30" alt="Delete" />
+                                    Excluir
+                                </a>
+                            </td>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- Botão fixo no lado direito -->
+    <a th:href="@{/produtos/cadastro}" class="btn btn-success fixed-button">
+        <img src="/adicionar-acrescentar.png" width="20" height="20" alt="Perfil">  Cadastrar Produtos
+    </a>
+
+</section>
 
 <script src="./modal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

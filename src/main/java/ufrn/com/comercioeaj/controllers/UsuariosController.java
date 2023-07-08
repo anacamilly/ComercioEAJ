@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -148,7 +149,11 @@ public class UsuariosController {
     }
 
     @PostMapping("/cadastre-se/salvar")
-    public String doSalvarUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file") MultipartFile file, @RequestParam(name = "croppedImage", required = false) String croppedImage, RedirectAttributes redirectAttributes) throws IOException {
+    public String doSalvarUsuario(@ModelAttribute Usuarios u, Errors errors, @RequestParam(name = "file") MultipartFile file, @RequestParam(name = "croppedImage", required = false) String croppedImage, RedirectAttributes redirectAttributes) throws IOException {
+        if (errors.hasErrors()) {
+            // Se houver erros de validação, retorne para o formulário exibindo os erros
+            return "usuarios/cadastre-se"; // ou o nome do seu template de cadastro de usuário
+        }
         String whatsapp = u.getWhatsapp().replaceAll("[\\s()+-]", "");
 
         // Define o número de telefone modificado no objeto de usuário
