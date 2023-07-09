@@ -14,7 +14,7 @@
         <input type="hidden" th:field="*{id}">
         <div class="mb-3">
             <label for="titulo" class="form-label">Título:</label>
-            <input type="text" id="titulo" th:field="*{titulo}" class="form-control">
+            <input type="text" id="titulo" th:field="*{titulo}" class="form-control" requeired>
             <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" class="text-danger"></p>
         </div>
         <div class="mb-3">
