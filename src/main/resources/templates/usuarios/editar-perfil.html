@@ -8,35 +8,36 @@
 </head>
 <body>
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
-<div class="container mt-5">
+<section class="py-5">
+
+    <div class="container px-4 px-lg-5 mt-5">
+
+        <h1 class="text-center fw-bold">Atualizar meu perfil</h1>
+
+        <br>
 
     <form th:action="@{/meu-perfil/atualizar/salvar}" th:object="${usuario}" method="post" enctype="multipart/form-data">
-        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{id}" th:value="${usuario.id}">
 
         <div class="mb-3">
-            <label for="nome" class="form-label">Nome:</label>
-            <input type="text" id="nome" th:field="*{nome}" class="form-control">
-            <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></p>
+            <label for="nome" class="form-label">Nome Completo:</label>
+            <input type="text" id="nome" th:field="*{nome}" th:value="${usuario.nome}" class="form-control">
         </div>
         <div class="mb-3">
             <label for="nome" class="form-label">Como você gostaria de ser chamado:</label>
-            <input type="text" id="nomeSocial" th:field="*{nomeSocial}" class="form-control">
-            <p th:if="${#fields.hasErrors('nomeSocial')}" th:errors="*{nomeSocial}" class="text-danger"></p>
+            <input type="text" id="nomeSocial" th:field="*{nomeSocial}" th:value="${usuario.nomeSocial}" class="form-control">
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
-            <input type="email" id="email" th:field="*{email}" class="form-control">
-            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></p>
+            <input type="email" id="email" th:field="*{email}" th:value="${usuario.email}" class="form-control">
         </div>
         <div class="mb-3">
             <label for="login" class="form-label">Login:</label>
-            <input type="text" id="login" th:field="*{login}" class="form-control">
-            <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="text-danger"></p>
+            <input type="text" id="login" th:field="*{login}" th:value="${usuario.login}" class="form-control">
         </div>
         <div class="mb-3">
             <label for="dataNascimento" class="form-label">Data de Nascimento:</label>
-            <input type="date" id="dataNascimento" th:field="*{dataNascimento}" class="form-control">
-            <p th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}" class="text-danger"></p>
+            <input type="date" id="dataNascimento" th:field="*{dataNascimento}" th:value="${usuario.dataNascimento}" class="form-control">
         </div>
         <input type="hidden" id="senha" th:field="*{senha}" class="form-control">
         <div class="mb-3">
@@ -52,24 +53,33 @@
         </div>
         <div id="camposAdicionais" class="form-group" style="display: none;">
             <label for="razao">Razão Social:</label>
-            <input type="text" id="razao" th:field="*{razao}" class="form-control">
+            <input type="text" id="razao" th:field="*{razao}" th:value="${usuario.razao}" class="form-control">
 
             <label for="biografia">Biografia:</label>
-            <input type="text" id="biografia" th:field="*{biografia}" class="form-control">
+            <input type="text" id="biografia" th:field="*{biografia}" th:value="${usuario.biografia}" class="form-control">
 
             <label for="phone-input">WhatsApp:</label>
-            <input type="text" id="phone-input" th:field="*{whatsapp}" class="form-control" oninput="maskPhone(this)">
+            <input type="text" id="phone-input" th:field="*{whatsapp}" th:value="${usuario.whatsapp}" class="form-control" oninput="maskPhone(this)">
 
 
             <label for="validationDefaultUsername" class="form-label">Instagram</label>
             <div class="input-group">
                 <span class="input-group-text" id="inputGroupPrepend2">@</span>
-                <input placeholder="username" th:field="*{instagram}" type="text" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required>
+                <input placeholder="username" th:field="*{instagram}" th:value="${usuario.instagram}" type="text" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required>
             </div>
         </div>
+
+        <div class="mb-3">
+            <label for="senha" class="form-label">Senha:</label>
+            <input type="password" id="senha" th:field="*{senha}" class="form-control">
+            <p th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="text-danger"></p>
+            <p th:if="${senha}" class="text-danger" th:text="${senha}"></p>
+        </div>
+
         <button type="submit" class="btn btn-primary">Finalizar Edição</button>
     </form>
 </div>
+</section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
