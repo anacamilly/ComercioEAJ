@@ -22,11 +22,18 @@
     <form action="/produtos/buscar" method="GET" class="d-flex">
         <div class="input-group">
             <input class="form-control me-2" type="search" name="q" placeholder="Buscar produto" aria-label="Search">
+            <select class="form-select" name="tipoBusca">
+                <option value="nome">Buscar por nome</option>
+                <option value="nomeCategoria">Buscar por nome e categoria</option>
+                <option value="categoria">Buscar por categoria</option>
+            </select>
             <select class="form-select" name="categoria">
                 <option value="">Todas as categorias</option>
-                <option value="Comida">Comida</option>
-                <option value="Eletronico">Eletronico</option>
-                <option value="Livros">Livros</option>
+                <option value="acessorios">Acessórios</option>
+                <option value="comida">Alimentos e Bebidas</option>
+                <option value="eletronicos">Eletrônicos</option>
+                <option value="vestuario">Vestuário</option>
+                <option value="livros">Livros</option>
                 <!-- Adicione mais opções de categoria conforme necessário -->
             </select>
             <button class="btn btn-outline-secondary" type="submit">

@@ -260,17 +260,27 @@ public class ProdutosController {
     }
 
     @GetMapping("/produtos/buscar")
-    public String buscarProduto(@RequestParam("q") String query, Model model) {
-        List<Produtos> produtosEncontrados = produtosService.buscarPorNome(query);
+    public String buscarProduto(@RequestParam("q") String query, @RequestParam(value = "tipoBusca", defaultValue = "nome") String tipoBusca, @RequestParam(value = "categoria", required = false) String categoria, Model model) {
+        List<Produtos> produtosEncontrados;
+        if (tipoBusca.equals("nome")) {
+            produtosEncontrados = produtosService.buscarPorNome(query);
+        } else if (tipoBusca.equals("nomeCategoria")) {
+            produtosEncontrados = produtosService.buscarPorNomeECategoria(query, categoria);
+        } else {
+            produtosEncontrados = produtosService.buscarPorCategoria(categoria);
+        }
 
         if (produtosEncontrados.isEmpty()) {
-            model.addAttribute("mensagem", "Ops! Não encontramos produtos com o nome " + query + " por favor, tente realizar outra busca!");
+            String mensagem = "Ops! Não encontramos produtos com os critérios de busca informados. Por favor, tente novamente.";
+            model.addAttribute("mensagem", mensagem);
             return "produtos/catalogo.html";
         } else {
             model.addAttribute("produtos", produtosEncontrados);
             return "produtos/resultado-busca.html";
         }
     }
+
+
 
     // Método para excluir todos os produtos de um usuário
     @GetMapping("/produtos/excluir-todos/{id}")
