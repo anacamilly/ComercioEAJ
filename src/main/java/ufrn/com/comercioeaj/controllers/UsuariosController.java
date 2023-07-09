@@ -149,11 +149,7 @@ public class UsuariosController {
     }
 
     @PostMapping("/cadastre-se/salvar")
-    public String doSalvarUsuario(@ModelAttribute Usuarios u, Errors errors, @RequestParam(name = "file") MultipartFile file, @RequestParam(name = "croppedImage", required = false) String croppedImage, RedirectAttributes redirectAttributes) throws IOException {
-        if (errors.hasErrors()) {
-            // Se houver erros de validação, retorne para o formulário exibindo os erros
-            return "usuarios/cadastre-se"; // ou o nome do seu template de cadastro de usuário
-        }
+    public String doSalvarUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file") MultipartFile file, @RequestParam(name = "croppedImage", required = false) String croppedImage, RedirectAttributes redirectAttributes) throws IOException {
         String whatsapp = u.getWhatsapp().replaceAll("[\\s()+-]", "");
 
         // Define o número de telefone modificado no objeto de usuário
