@@ -146,6 +146,7 @@ public class UsuariosController {
         model.addAttribute("usuario", u);
 
         return "usuarios/cadastre-se";
+
     }
 
     @PostMapping("/cadastre-se/salvar")

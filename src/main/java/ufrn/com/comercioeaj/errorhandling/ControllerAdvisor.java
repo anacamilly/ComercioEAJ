@@ -1,4 +1,4 @@
-/*package ufrn.com.comercioeaj.errorhandling;
+package ufrn.com.comercioeaj.errorhandling;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,5 +40,5 @@ public class ControllerAdvisor {
         }
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+
 }
-*/
