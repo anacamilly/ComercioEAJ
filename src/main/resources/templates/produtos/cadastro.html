@@ -50,13 +50,13 @@
                             <p th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}" class="text-danger"></p>
                         </div>
                         <div class="mb-3 form-check">
-                            <input type="checkbox" id="disponibilidade" th:field="*{disponibilidade}" class="form-check-input">
+                            <input type="checkbox" id="disponibilidade" th:field="*{disponibilidade}" class="form-check-input" >
                             <label for="disponibilidade" class="form-check-label">Disponibilidade</label>
                         </div>
 
                         <div class="mb-3">
                             <label for="imagem" class="form-label">Imagem:</label>
-                            <input type="file" id="imagem" name="file" class="form-control">
+                            <input type="file" id="imagem" name="file" class="form-control" required>
                             <p th:if="${#fields.hasErrors('imagemUri')}" th:errors="*{imagemUri}" class="text-danger"></p>
                         </div>
 
