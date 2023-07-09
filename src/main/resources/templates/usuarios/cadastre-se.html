@@ -128,7 +128,29 @@
     </form>
 </div>
 
+<script>function mostrarCamposAdicionais() {
+    var camposAdicionais = document.getElementById('camposAdicionais');
+    var vendNao = document.getElementById('vendNao');
 
+    if (vendNao.checked) {
+        camposAdicionais.style.display = 'none';
+
+        // Remover a propriedade 'required' dos campos adicionais
+        document.getElementById('razao').removeAttribute('required');
+        document.getElementById('biografia').removeAttribute('required');
+        document.getElementById('phone-input').removeAttribute('required');
+        document.getElementById('instagram').removeAttribute('required');
+    } else {
+        camposAdicionais.style.display = 'block';
+
+        // Adicionar a propriedade 'required' aos campos adicionais
+        document.getElementById('razao').setAttribute('required', 'required');
+        document.getElementById('biografia').setAttribute('required', 'required');
+        document.getElementById('phone-input').setAttribute('required', 'required');
+        document.getElementById('instagram').setAttribute('required', 'required');
+    }
+}
+</script>
 <script src="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/cropper.js"></script>
