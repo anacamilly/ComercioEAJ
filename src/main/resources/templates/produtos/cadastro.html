@@ -11,11 +11,8 @@
 <body class="back">
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 <section class="py-5">
-
     <div class="container px-4 px-lg-5 mt-5">
-
         <h1 class="text-center fw-bold">Cadastro de Produtos</h1>
-
         <div class="container mt-5">
             <div class="card">
                 <div class="card-body">
@@ -25,7 +22,6 @@
                             <input type="text" id="titulo" th:field="*{titulo}" class="form-control" required>
                             <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" class="text-danger"></p>
                         </div>
-
                         <div class="mb-3">
                             <label for="descricao" class="form-label">Descrição:</label>
                             <input type="text" id="descricao" th:field="*{descricao}" class="form-control" required>
@@ -53,7 +49,6 @@
                             <input type="checkbox" id="disponibilidade" th:field="*{disponibilidade}" class="form-check-input">
                             <label for="disponibilidade" class="form-check-label">Disponibilidade</label>
                         </div>
-
                         <div class="mb-3">
                             <label for="imagem" class="form-label">Imagem:</label>
                             <input type="file" id="imagem" name="file" class="form-control" required>
@@ -64,7 +59,6 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="cropper-modal-label">Cortar Imagem</h5>
-                                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
@@ -78,12 +72,26 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button id="btn-cortar" type="button" class="btn btn-primary">Cortar</button>
-                                        <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>-->
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        <div class="modal fade" id="preco-modal" tabindex="-1" aria-labelledby="preco-modal-label" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="preco-modal-label">Erro de Preço</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>O preço deve ser maior que zero.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-success w-100">Cadastrar</button>
                     </form>
                 </div>
@@ -91,38 +99,9 @@
         </div>
     </div>
 </section>
-<!-- Modal de erro de preço -->
-<div class="modal fade" id="preco-modal" tabindex="-1" aria-labelledby="preco-modal-label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="preco-modal-label">Erro de Preço</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>O preço deve ser maior que zero.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    const form = document.querySelector('form');
-    const categoriaSelect = document.querySelector('#categoria');
-    const categoriaError = document.querySelector('#categoria-error');
-
-    form.addEventListener('submit', function(event) {
-        if (categoriaSelect.value === "") {
-            categoriaError.style.display = 'block';
-            event.preventDefault();
-        } else {
-            categoriaError.style.display = 'none';
-        }
-    });
-</script>
-
+<script src="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/cropper.js"></script>
 <script>
     const form = document.querySelector('#form-produto');
     const precoInput = document.querySelector('#preco');
@@ -136,9 +115,5 @@
         }
     });
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/cropper.js"></script>
 </body>
 </html>
