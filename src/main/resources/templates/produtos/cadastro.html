@@ -22,7 +22,7 @@
                     <form id="form-produto" th:action="@{/produtos/cadastro/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="titulo" class="form-label">Título:</label>
-                            <input type="text" id="titulo" th:field="*{titulo}" class="form-control">
+                            <input type="text" id="titulo" th:field="*{titulo}" class="form-control" required>
                             <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" class="text-danger"></p>
                         </div>
 
@@ -56,7 +56,7 @@
 
                         <div class="mb-3">
                             <label for="imagem" class="form-label">Imagem:</label>
-                            <input type="file" id="imagem" name="file" class="form-control">
+                            <input type="file" id="imagem" name="file" class="form-control" required>
                             <p th:if="${#fields.hasErrors('imagemUri')}" th:errors="*{imagemUri}" class="text-danger"></p>
                         </div>
                         <div class="modal fade" id="cropper-modal" tabindex="-1" role="dialog" aria-labelledby="cropper-modal-label" aria-hidden="true">
