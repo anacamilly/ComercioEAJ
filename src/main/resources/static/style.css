@@ -13,3 +13,12 @@
     text-decoration: none;
     color: inherit;
 }
+
+.btn-success {
+    background-color: #1bd741;
+    border-color: #1bd741;
+}
+.btn-success:hover {
+    background-color: #1bd741;
+    border-color: #1bd741;
+}
