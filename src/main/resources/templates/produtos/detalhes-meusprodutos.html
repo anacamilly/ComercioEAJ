@@ -18,6 +18,7 @@
 <div class="container mt-5">
   <h1 class="text-center fw-bold">Detalhes do Produto</h1>
   <div class="card mt-5">
+
     <div class="row g-0">
       <div class="col-md-4">
         <div class="position-relative">
@@ -27,30 +28,33 @@
               <img src="/editar_imagem.png" width="30" height="30">
             </a>
           </div>
+          <div th:class="${produto.disponibilidade ? 'position-absolute bottom-0 start-0 p-2 text-white bg-success w-100 text-center' : 'position-absolute bottom-0 start-0 p-2 text-white bg-danger w-100 text-center'}"
+               style="background-color: rgba(0, 0, 0, 0.5);">
+            <span th:text="${produto.disponibilidade} ? 'Disponível' : 'Indisponível'"></span>
+          </div>
         </div>
       </div>
 
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title" th:text="${produto.titulo}"></h5>
+          <h5 class="card-text" th:text="${produto.titulo}"></h5>
           <p class="card-text" th:text="${produto.descricao}"></p>
-          <p class="card-text">Categoria: <span th:text="${produto.categoria}"></span></p>
-          <p class="card-text">Preço: <span th:text="${produto.preco}"></span></p>
-          <p class="card-text">Disponibilidade: <span th:text="${produto.disponibilidade ? 'Disponível' : 'Indisponível'}"></span></p>
-          <p class="card-text">Data de Cadastro: <span th:text="${produto.data_cadastro}"></span></p>
-          <p class="card-text">Data de Atualização: <span th:text="${produto.data_atualizacao}"></span></p>
-        </div>
-        <div class="card-footer bg-transparent">
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a th:href="@{'/produtos/editar/'+*{produto.id}}" class="btn btn-outline-primary me-md-2">
-              <img src="/editar.png" width="25" height="25" alt="Edit" class="me-1" />
-              Editar
-            </a>
-            <a th:href="@{'/produtos/excluir/'+*{produto.id}}" class="btn btn-outline-danger">
-              <img src="/excluir.png" width="25" height="25" alt="Delete" class="me-1" />
-              Excluir
-            </a>
+          <h3 class="card-text">R$ <span th:text="${produto.preco}"></span></h3>
+          <div class="d-flex">
+            <p class="card-text badge text-bg-success rounded m-2 p-2">Categoria: <span th:text="${produto.categoria}"></span></p>
+            <p class="card-text badge text-bg-warning rounded m-2 p-2">Cadastro: <span th:text="${produto.data_cadastro}"></span></p>
+            <p class="card-text badge text-bg-info rounded m-2 p-2" th:if="${produto.data_atualizacao}">Última Atualização: <span th:text="${produto.data_atualizacao}"></span></p>
           </div>
+        </div>
+        <div class="card-footer bg-transparent d-flex justify-content-end">
+          <a th:href="@{'/produtos/editar/'+*{produto.id}}" class="btn btn-outline-primary me-2">
+            <img src="/editar.png" width="25" height="25" alt="Edit" class="me-1" />
+            Editar
+          </a>
+          <a th:href="@{'/produtos/excluir/'+*{produto.id}}" class="btn btn-outline-danger">
+            <img src="/excluir.png" width="25" height="25" alt="Delete" class="me-1" />
+            Excluir
+          </a>
         </div>
       </div>
     </div>

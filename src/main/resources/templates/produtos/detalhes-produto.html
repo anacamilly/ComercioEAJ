@@ -4,28 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Produto</title>
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <style>
+        .seller-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .seller-info img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .btn-success {
+            background-color: #1bd741;
+            border-color: #1bd741;
+        }
+        .btn-success:hover {
+            background-color: #1bd741;
+            border-color: #1bd741;
+        }
+    </style>
 </head>
-<body>
+<body class="back">
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
 
 <div class="container mt-5">
-
-    <h1 class="text-center">Detalhes do Produto</h1>
+    <h1 class="text-center fw-bold">Detalhes do Produto</h1>
     <div class="card mt-5">
-        <!-- Exibir informações do vendedor -->
-        <h5 class="mt-4">Informações do Vendedor</h5>
-        <p class="card-text"><strong>Razão Social:</strong> <span th:text="${produto.vendedor.razao}"></span></p>
-        <img class="img-fluid" th:src="@{'/images/' + ${produto.vendedor.imagemUri}}" alt="Imagem do Vendedor">
-        <div class="card-body">
-            <img class="card-img-top img-fluid" th:src="@{'/images/' + ${produto.imagemUri}}" alt="..." >
-            <h5 class="card-title" th:text="${produto.titulo}"></h5>
-            <p class="card-text" th:text="${produto.descricao}"></p>
-            <p class="card-text" th:text="${produto.categoria}"></p>
-            <p class="card-text" th:text="${produto.preco}"></p>
-            <p class="card-text" th:text="${produto.disponibilidade ? 'Disponível' : 'Indisponível'}"></p>
-            <p class="card-text" th:text="${produto.data_cadastro}"></p>
-            <p class="card-text" th:text="${produto.data_atualizacao}"></p>
+        <div class="row g-0">
+            <div class="col-md-4">
+                <div class="position-relative">
+                    <img class="product-img img-fluid" th:src="@{'/images/' + ${produto.imagemUri}}" width="500" height="500" alt="Imagem do Produto">
+                    <div th:class="${produto.disponibilidade ? 'position-absolute bottom-0 start-0 p-2 text-white bg-success w-100 text-center' : 'position-absolute bottom-0 start-0 p-2 text-white bg-danger w-100 text-center'}"
+                         style="background-color: rgba(0, 0, 0, 0.5);">
+                        <span th:text="${produto.disponibilidade} ? 'Disponível' : 'Indisponível'"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card-body">
+                    <a th:href="@{'/vendedores/perfil/' + ${produto.vendedor.id}}" class="a-decor">
+                        <div class="seller-info">
+                            <img class="img-fluid" th:src="@{'/images/' + ${produto.vendedor.imagemUri}}" alt="Imagem do Vendedor">
+                            <p class="card-text"><strong><span th:text="${produto.vendedor.razao}"></span></strong></p>
+                        </div>
+                    </a>
+                    <hr>
+                    <h3 class="card-text h4 fw-bold" th:text="${produto.titulo}"></h3>
+                    <p class="card-text" th:text="${produto.descricao}"></p>
+                    <h3 class="card-text h4 fw-bold">R$ <span th:text="${produto.preco}"></span></h3>
+                    <hr>
+                    <div class="d-flex">
+                        <p class="card-text badge text-bg-success rounded m-2 p-2">Categoria: <span th:text="${produto.categoria}"></span></p>
+                        <p class="card-text badge text-bg-warning rounded m-2 p-2">Cadastro: <span th:text="${produto.data_cadastro}"></span></p>
+                        <p class="card-text badge text-bg-info rounded m-2 p-2" th:if="${produto.data_atualizacao}">Última Atualização: <span th:text="${produto.data_atualizacao}"></span></p>
+                    </div>
+                    <div class="col-md-16 d-flex justify-content-center" style="margin-top: 1rem; margin-bottom: 1rem;">
+                        <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp} + '&text=Olá,+eu+vi+este+produto:+' + ${produto.titulo} + '+no+site+Com%C3%A9rcio+EAJ. Gostaria+de+saber+se+ele+ainda+est%C3%A1+dispon%C3%ADvel.'" class="btn btn-success mt-auto btncolor w-100">
+                            <img src="/whats.png" alt="Whats" class="mr-2" width="25" height="25">
+                            Entrar em Contato
+                        </a>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -8,3 +8,8 @@
     right: 50px;
     box-shadow: 0px 4px 60px rgba(0, 0, 0, 0.85);
 }
+
+.a-decor{
+    text-decoration: none;
+    color: inherit;
+}
