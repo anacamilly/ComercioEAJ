@@ -16,6 +16,8 @@ public interface UsuariosRepository extends JpaRepository<Usuarios, String> {
     List<Usuarios> deleteUsuariosById( Long id);
 
     List<Usuarios> findByIsVendedorTrue();
+
+    Optional<Usuarios> findByLogin(String login);
     List<Usuarios> findByNomeContainingIgnoreCaseAndIsVendedorIsTrue(String nome);
 
 

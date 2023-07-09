@@ -5,6 +5,7 @@
     <title>Cadastre-se</title>
     <link th:replace="/fragments/logo.html ::logo">
     <link rel="stylesheet" href="/cadastre-se.css">
+    <link rel="stylesheet" href="/modal.css">
     <script src="./cadastre-se.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -124,10 +125,13 @@
             </div>
         </div>
 
+        <div th:replace="/fragments/modal-error.html ::modal"></div>
+
         <button type="submit" class="btn btn-success btn-block  w-100">Cadastrar</button>
     </form>
 </div>
 
+<script src="/modal.js"></script>
 <script>function mostrarCamposAdicionais() {
     var camposAdicionais = document.getElementById('camposAdicionais');
     var vendNao = document.getElementById('vendNao');

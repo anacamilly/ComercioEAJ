@@ -4,6 +4,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -30,9 +31,12 @@ public class UsuariosController {
     @Autowired
     private FileStorageService fileStorageService;
 
-    public UsuariosController(UsuariosService service, ProdutosService produtosService) {
+    BCryptPasswordEncoder encoder;
+
+    public UsuariosController(UsuariosService service, ProdutosService produtosService, BCryptPasswordEncoder encoder) {
         this.service = service;
         this.produtosService = produtosService;
+        this.encoder = encoder;
     }
 
     @GetMapping("/meu-perfil")
@@ -64,50 +68,67 @@ public class UsuariosController {
     }
 
     @PostMapping("/meu-perfil/atualizar/salvar")
-    public String doSalvarPerfilUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file", required = false) MultipartFile file,  @RequestParam(name = "croppedImage", required = false) String croppedImage, RedirectAttributes redirectAttributes) throws IOException {
-        String whatsapp = u.getWhatsapp().replaceAll("[\\s()+-]", "");
+    public String doSalvarPerfilUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file", required = false) MultipartFile file, @RequestParam(name = "senha") String senha, @RequestParam(name = "croppedImage", required = false) String croppedImage, RedirectAttributes redirectAttributes) throws IOException {
+        Optional<Usuarios> usuarioOptional = service.findById(u.getId());
 
-        // Define o número de telefone modificado no objeto de usuário
-        u.setWhatsapp(whatsapp);
+        if (usuarioOptional.isPresent()) {
+            Usuarios usuario = usuarioOptional.get();
 
-        if (file != null && !file.isEmpty()) {
-            u.setImagemUri(file.getOriginalFilename());
-            fileStorageService.save(file);
-        } else {
-            // Manter o valor existente do campo imagemUri
-            Optional<Usuarios> existingUser = service.findById(u.getId());
-            if (existingUser.isPresent()) {
-                u.setImagemUri(existingUser.get().getImagemUri());
+            if (encoder.matches(senha, usuario.getSenha())) {
+                String whatsapp = u.getWhatsapp().replaceAll("[\\s()+-]", "");
+
+                // Define o número de telefone modificado no objeto de usuário
+                u.setWhatsapp(whatsapp);
+
+                if (file != null && !file.isEmpty()) {
+                    u.setImagemUri(file.getOriginalFilename());
+                    fileStorageService.save(file);
+                } else {
+                    // Manter o valor existente do campo imagemUri
+                    Optional<Usuarios> existingUser = service.findById(u.getId());
+                    if (existingUser.isPresent()) {
+                        u.setImagemUri(existingUser.get().getImagemUri());
+                    }
+                }
+
+                if (croppedImage != null && !croppedImage.isEmpty()) {
+                    // A imagem foi cortada, salve-a diretamente
+                    byte[] imageData = decodeBase64Image(croppedImage);
+                    String fileExtension = getFileExtension(file);
+                    String imageName = generateUniqueFileName(fileExtension);
+                    String imagePath = fileStorageService.saveCroppedImage(imageData, imageName);
+                    u.setImagemUri(imagePath);
+                } else if (file != null && !file.isEmpty()) {
+                    // A imagem não foi cortada, salve-a normalmente
+                    String fileExtension = getFileExtension(file);
+                    String imageName = generateUniqueFileName(fileExtension);
+                    String imagePath = fileStorageService.save2(file, imageName);
+                    u.setImagemUri(imagePath);
+                }
+
+                Usuarios updatedUser = service.editar(u);
+
+                // Atualizar as informações do usuário no objeto Principal do Authentication
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                Usuarios principalUser = (Usuarios) authentication.getPrincipal();
+                principalUser.setNomeSocial(updatedUser.getNomeSocial());
+                principalUser.setImagemUri(updatedUser.getImagemUri());
+                // Atualize outras informações necessárias
+
+                redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
+                return "redirect:/meu-perfil";
+
+            } else {
+                // Senha incorreta
+                redirectAttributes.addFlashAttribute("senha", "Senha incorreta");
+                return "redirect:/meu-perfil/atualizar/" + u.getId();
             }
+        } else {
+            // Usuário não encontrado
+            return "redirect:/meu-perfil";
         }
-
-        if (croppedImage != null && !croppedImage.isEmpty()) {
-            // A imagem foi cortada, salve-a diretamente
-            byte[] imageData = decodeBase64Image(croppedImage);
-            String fileExtension = getFileExtension(file);
-            String imageName = generateUniqueFileName(fileExtension);
-            String imagePath = fileStorageService.saveCroppedImage(imageData, imageName);
-            u.setImagemUri(imagePath);
-        } else if (file != null && !file.isEmpty()) {
-            // A imagem não foi cortada, salve-a normalmente
-            String fileExtension = getFileExtension(file);
-            String imageName = generateUniqueFileName(fileExtension);
-            String imagePath = fileStorageService.save2(file, imageName);
-            u.setImagemUri(imagePath);
-        }
-
-        Usuarios updatedUser = service.editar(u);
-
-        // Atualizar as informações do usuário no objeto Principal do Authentication
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Usuarios principalUser = (Usuarios) authentication.getPrincipal();
-        principalUser.setNomeSocial(updatedUser.getNomeSocial());
-        principalUser.setImagemUri(updatedUser.getImagemUri());
-        // Atualize outras informações necessárias
-
-        redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
-        return "redirect:/meu-perfil";
     }
+
 
     private String getFileExtension(MultipartFile file) {
         String originalFileName = file.getOriginalFilename();
@@ -151,6 +172,22 @@ public class UsuariosController {
 
     @PostMapping("/cadastre-se/salvar")
     public String doSalvarUsuario(@ModelAttribute Usuarios u, @RequestParam(name = "file") MultipartFile file, @RequestParam(name = "croppedImage", required = false) String croppedImage, RedirectAttributes redirectAttributes) throws IOException {
+
+        Optional<Usuarios> existingUserByEmail = service.findByEmail(u.getEmail());
+        if (existingUserByEmail.isPresent()) {
+            redirectAttributes.addFlashAttribute("mensagem", "O email já está cadastrado.");
+            redirectAttributes.addFlashAttribute("usuario", u);
+            return "redirect:/cadastre-se";
+        }
+
+        // Verificar se o login já está cadastrado
+        Optional<Usuarios> existingUserByLogin = service.findByLogin(u.getLogin());
+        if (existingUserByLogin.isPresent()) {
+            redirectAttributes.addFlashAttribute("mensagem", "O login já está cadastrado.");
+            redirectAttributes.addFlashAttribute("usuario", u);
+            return "redirect:/cadastre-se";
+        }
+
         String whatsapp = u.getWhatsapp().replaceAll("[\\s()+-]", "");
 
         // Define o número de telefone modificado no objeto de usuário

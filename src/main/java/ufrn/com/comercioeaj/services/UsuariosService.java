@@ -37,6 +37,17 @@ public class UsuariosService implements UserDetailsService {
         return repository.findById(String.valueOf(id));
     }
 
+    public boolean isSenhaCorreta(Long usuarioId, String senha) {
+        Optional<Usuarios> usuarioOptional = repository.findById(String.valueOf(usuarioId));
+
+        if (usuarioOptional.isPresent()) {
+            Usuarios usuario = usuarioOptional.get();
+            // Comparar a senha fornecida com a senha armazenada no banco de dados
+            return encoder.matches(senha, usuario.getSenha());
+        }
+
+        return false;
+    }
     public Usuarios atualizar(Usuarios u) {
 
         return repository.saveAndFlush(u);
@@ -44,6 +55,10 @@ public class UsuariosService implements UserDetailsService {
 
     public Optional<Usuarios> findByEmail(String email) {
         return Optional.ofNullable(repository.findByEmail(email));
+    }
+
+    public Optional<Usuarios> findByLogin(String login) {
+        return repository.findByLogin(login);
     }
 
     public Usuarios editar(Usuarios u) {
