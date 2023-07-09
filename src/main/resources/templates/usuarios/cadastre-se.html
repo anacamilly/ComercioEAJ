@@ -8,6 +8,7 @@
     <script src="./cadastre-se.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
 </head>
 <body>
 <div class="container">
@@ -24,41 +25,42 @@
     <form method="post" th:action="@{/cadastre-se/salvar}" th:object="${usuario}" class="mt-5" enctype="multipart/form-data" onsubmit="return validarSenhas()">
         <div class="mb-3">
             <label for="nome" class="form-label">Digite seu nome completo:</label>
-            <input type="text" id="nome" th:field="*{nome}" class="form-control">
+            <input type="text" id="nome" th:field="*{nome}" class="form-control" required="required">
+
         </div>
         <div class="mb-3">
             <label for="NomeSocial" class="form-label">Como você gostaria de ser chamado?</label>
-            <input type="text" id="nomeSocial" th:field="*{nomeSocial}" class="form-control">
+            <input type="text" id="nomeSocial" th:field="*{nomeSocial}" class="form-control" required="required">
         </div>
         <div class="mb-3">
             <label for="dataNascimento" class="form-label">Digite sua data de Nascimento:</label>
-            <input type="date" id="dataNascimento" th:field="*{dataNascimento}" class="form-control">
+            <input type="date" id="dataNascimento" th:field="*{dataNascimento}" class="form-control" required>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Digite seu e-mail:</label>
-            <input type="text" id="email" th:field="*{email}" class="form-control">
+            <input type="email" id="email" th:field="*{email}" class="form-control" required="required">
         </div>
         <div class="mb-3">
             <label for="login" class="form-label">Digite um login para sua conta:</label>
-            <input type="text" id="login" th:field="*{login}" class="form-control">
+            <input type="text" id="login" th:field="*{login}" class="form-control"required="required">
         </div>
         <div class="mb-3">
             <label for="senha" class="form-label">Digite uma senha para sua conta:</label>
-            <input type="password" id="senha" th:field="*{senha}" class="form-control">
+            <input type="password" id="senha" th:field="*{senha}" class="form-control"required="required">
         </div>
         <div class="mb-3">
             <label for="senhaConfirmacao" class="form-label">Confirme sua Senha:</label>
-            <input type="password" id="senhaConfirmacao" class="form-control">
+            <input type="password" id="senhaConfirmacao" class="form-control"required="required">
         </div>
         <div class="mb-3">
             <label for="imagem" class="form-label">Foto para o perfil:</label>
-            <input type="file" id="imagem" name="file" class="form-control">
+            <input type="file" id="imagem" name="file" class="form-control"required="required">
         </div>
 
         <div class="mb-3">
             <label class="form-label">Sou vendedor:</label><br>
             <div class="form-check form-check-inline">
-                <input type="radio" id="vendSim" th:field="*{isVendedor}" value="true" class="form-check-input form-check-success" onclick="mostrarCamposAdicionais()" required>
+                <input type="radio" id="vendSim" th:field="*{isVendedor}" value="true" class="form-check-input form-check-success" onclick="mostrarCamposAdicionais()" required="required">
                 <label for="vendSim" class="form-check-label">Sim</label>
             </div>
             <div class="form-check form-check-inline">
@@ -78,22 +80,22 @@
 
             <div class="mb-3">
                 <label class="form-label" for="razao">Nome da Loja:</label>
-                <input type="text" id="razao" th:field="*{razao}" class="form-control">
+                <input type="text" id="razao" th:field="*{razao}" class="form-control" required="required">
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="biografia">Biografia da Loja:</label>
-                <input type="text" id="biografia" th:field="*{biografia}" class="form-control">
+                <input type="text" id="biografia" th:field="*{biografia}" class="form-control" required="required">
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="phone-input">Número do WhatsApp:</label>
-                <input type="text" id="phone-input" th:field="*{whatsapp}" class="form-control" oninput="maskPhone(this)">
+                <input type="text" id="phone-input" th:field="*{whatsapp}" class="form-control" oninput="maskPhone(this)" required="required">
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="instagram">Nome de Úsuario do Instagram:</label>
-                <input type="text" id="instagram" th:field="*{instagram}" class="form-control">
+                <input type="text" id="instagram" th:field="*{instagram}" class="form-control" required="required">
             </div>
         </div>
 
@@ -126,7 +128,29 @@
     </form>
 </div>
 
+<script>function mostrarCamposAdicionais() {
+    var camposAdicionais = document.getElementById('camposAdicionais');
+    var vendNao = document.getElementById('vendNao');
 
+    if (vendNao.checked) {
+        camposAdicionais.style.display = 'none';
+
+        // Remover a propriedade 'required' dos campos adicionais
+        document.getElementById('razao').removeAttribute('required');
+        document.getElementById('biografia').removeAttribute('required');
+        document.getElementById('phone-input').removeAttribute('required');
+        document.getElementById('instagram').removeAttribute('required');
+    } else {
+        camposAdicionais.style.display = 'block';
+
+        // Adicionar a propriedade 'required' aos campos adicionais
+        document.getElementById('razao').setAttribute('required', 'required');
+        document.getElementById('biografia').setAttribute('required', 'required');
+        document.getElementById('phone-input').setAttribute('required', 'required');
+        document.getElementById('instagram').setAttribute('required', 'required');
+    }
+}
+</script>
 <script src="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/cropper.js"></script>
