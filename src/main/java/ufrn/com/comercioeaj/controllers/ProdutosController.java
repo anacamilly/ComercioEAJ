@@ -177,6 +177,22 @@ public class ProdutosController {
         return "produtos/detalhes-produto"; // Nome do arquivo HTML
     }
 
+    @GetMapping("/meus-produtos/detalhes/{id}")
+    public String getDetalhesMeusProduto(@PathVariable Long id, Model model) {
+        Optional<Produtos> produtoOptional = produtosService.findById(id);
+
+        if (produtoOptional.isEmpty()) {
+            return "error"; // Página de erro caso o produto não seja encontrado
+        }
+
+        Produtos produto = produtoOptional.get();
+        Usuarios vendedor = produto.getVendedor(); // Obter o objeto vendedor do produto
+
+        model.addAttribute("produto", produto);
+        model.addAttribute("vendedor", vendedor); // Adicionar o objeto vendedor ao modelo
+
+        return "produtos/detalhes-meusprodutos"; // Nome do arquivo HTML
+    }
 
     @RequestMapping(value = {"/meus-produtos", "/produtos"}, method = RequestMethod.GET)
     public String getProdutos(Model model, Principal principal) {

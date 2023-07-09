@@ -12,43 +12,32 @@
 
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
-
-
         <h1 class="text-center fw-bold">Meus Produtos</h1>
-
         <br><br>
 
         <div th:replace="/fragments/modal.html ::modal"></div>
 
-        <div class="row">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <!-- Iterar sobre os produtos e exibi-los como cards -->
-            <div class="col-md-4" th:each="produto : ${produtos}">
-                <div class="card">
-                    <div class="position-relative">
-                        <img th:src="@{'/images/' + ${produto.imagemUri}}" class="card-img-top" alt="Imagem do Produto">
-                        <a th:href="@{'/produtos/editar-foto/'+*{produto.id}}" class="btn btn-primary btn-edit-image">Editar Imagem</a>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${produto.titulo}"></h5>
-                        <p class="card-text" th:text="${produto.descricao}"></p>
-                        <p class="card-text">Categoria: <span th:text="${produto.categoria}"></span></p>
-                        <p class="card-text">Preço: <span th:text="${produto.preco}"></span></p>
-                    </div>
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center">
-                            <td class="card-body">
-                                <a th:href="@{'/produtos/editar/'+*{produto.id}}" class="btn btn-outline-primary">
-                                    <img src="/editar.png" width="30" height="30" alt="Edit" />
-                                    Editar
-                                </a>
-                                <a th:href="@{'/produtos/excluir/'+*{produto.id}}" class="btn btn-outline-danger">
-                                    <img src="/excluir.png" width="30" height="30" alt="Delete" />
-                                    Excluir
-                                </a>
-                            </td>
+            <div class="col-md-5" th:each="produto : ${produtos}">
+                    <div class="card h-100 border rounded-3">
+                        <div class="card-body p-2 align-items-center">
+                            <div class="position-relative">
+                                <img class="card-img-top" width="250" height="250" th:src="@{'/images/' + ${produto.imagemUri}}">
+                                <div th:class="${produto.disponibilidade} ? 'position-absolute bottom-0 start-0 p-2 text-white bg-success w-100 text-center' : 'position-absolute bottom-0 start-0 p-2 text-white bg-danger w-100 text-center'">
+                                    <span th:text="${produto.disponibilidade ? 'Disponível' : 'Indisponível'}"></span>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${produto.titulo}"></h5>
+                                <p class="card-text" th:text="${produto.descricao}"></p>
+                                <a th:href="@{'/meus-produtos/detalhes/'+*{produto.id}}" class="btn btn-outline-success btn-block w-100">
+                                        Ver produto
+                                    </a>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
