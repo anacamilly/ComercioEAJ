@@ -76,9 +76,11 @@ public class ProdutosService {
 
         return repository.findByTituloContainingIgnoreCase(nome);
     }
+
     public List<Produtos> buscarPorNomeECategoria(String nome, String categoria) {
-        return repository.findByTituloContainingIgnoreCaseAndCategoria(nome, categoria);
+        return repository.findByNomeAndCategoria(nome, categoria);
     }
+
     public List<Produtos> buscarPorCategoria(String categoria) {
         return repository.findByCategoriaIgnoreCase(categoria);
     }
