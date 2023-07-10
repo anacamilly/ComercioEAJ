@@ -14,32 +14,33 @@
         <input type="hidden" th:field="*{id}">
         <div class="mb-3">
             <label for="titulo" class="form-label">Título:</label>
-            <input type="text" id="titulo" th:field="*{titulo}" class="form-control" requeired>
+            <input type="text" id="titulo" th:field="*{titulo}" class="form-control" required>
             <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" class="text-danger"></p>
         </div>
         <div class="mb-3">
             <label for="descricao" class="form-label">Descrição:</label>
-            <input type="text" id="descricao" th:field="*{descricao}" class="form-control">
+            <input type="text" id="descricao" th:field="*{descricao}" class="form-control" required>
             <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="text-danger"></p>
         </div>
         <div class="mb-3">
             <label for="preco" class="form-label">Preço:</label>
-            <input type="text" id="preco" th:field="*{preco}" class="form-control">
-            <p th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}" class="text-danger"></p>
+            <input type="text" id="preco" th:field="*{preco}" class="form-control" required>
         </div>
         <input type="hidden" id="dataCadastro" th:field="*{data_cadastro}" class="form-control">
         <div class="mb-3">
             <label for="categoria" class="form-label">Categoria:</label>
-            <select id="categoria" th:field="*{categoria}" class="form-select">
-                <option value="">Selecione</option>
-                <option value="1">Comida</option>
-                <option value="2">Eletronico</option>
-                <option value="3">Livros</option>
+            <select id="categoria" th:field="*{categoria}" class="form-select" required>
+                <option value="">Selecione uma categoria...</option>
+                <option value="acessorios">Acessórios</option>
+                <option value="comida">Alimentos e Bebidas</option>
+                <option value="eletronicos">Eletrônicos</option>
+                <option value="vestuario">Vestuário</option>
+                <option value="livros">Livros</option>
+                <option value="outro">Outros</option>
                 <!-- Adicione mais opções de categoria aqui -->
             </select>
             <p th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}" class="text-danger"></p>
         </div>
-
         <div class="mb-3 form-check">
             <input type="checkbox" id="disponibilidade" th:field="*{disponibilidade}" class="form-check-input">
             <label for="disponibilidade" class="form-check-label">Disponibilidade</label>
