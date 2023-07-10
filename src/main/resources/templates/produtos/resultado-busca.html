@@ -5,7 +5,7 @@
     <title>Busca</title>
     <link th:replace="/fragments/logo.html ::logo">
     <!-- Incluir os arquivos CSS do Bootstrap -->
-    <link rel="stylesheet" href="/style.css">
+    <link href="/style.css" rel="stylesheet">
     <link href="/catalogo.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
     <style>
@@ -104,24 +104,8 @@
     </div>
 </section>
 
-<script>
-    function toggleCategoriaFilter(selectElement) {
-        var categoriaFilter = document.getElementById('categoriaFilter');
-        categoriaFilter.style.display = (selectElement.value === 'categoria' || selectElement.value === 'nomeCategoria') ? 'block' : 'none';
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const precoElements = document.querySelectorAll('.fw-bold > span');
-        precoElements.forEach(function(element) {
-            const precoValue = parseFloat(element.textContent);
-            const formattedPreco = precoValue.toFixed(2).replace('.', ',');
-            element.textContent = 'R$ ' + formattedPreco;
-        });
-    });
-
-</script>
-
-
+<script src="/categoria.js"></script>
+<script src="/preco.js"></script>
 <!-- Incluir os arquivos JavaScript do Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
