@@ -6,19 +6,22 @@
     <link th:replace="/fragments/logo.html ::logo">
     <link rel="stylesheet" href="/cadastre-se.css">
     <link rel="stylesheet" href="/modal.css">
+    <link rel="stylesheet" href="/style.css">
     <script src="./cadastre-se.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
 </head>
-<body>
-<div class="container">
+<body class="back">
+<section class="py-5">
 
-    <div style="display: flex; justify-content: center;">
-        <img src="/logo-eaj-tracado.png" alt="Logo" width="275" height="150"/>
-    </div>
+    <div class="container px-4 px-lg-5 mt-5">
 
-    <div class="d-flex justify-content-center mt-3">
+        <div style="display: flex; justify-content: center;">
+            <img src="/logo-eaj-tracado.png" alt="Logo" width="275" height="150"/>
+        </div>
+
+        <div class="d-flex justify-content-center mt-3">
         <span class="h1 fw-bold mb-0">Cadastre-se</span>
     </div>
 
@@ -99,25 +102,8 @@
                 <input type="text" id="instagram" th:field="*{instagram}" class="form-control" required="required">
             </div>
         </div>
+
         <!-- Restante do código HTML -->
-        <div class="modal fade" id="age-modal" tabindex="-1" role="dialog" aria-labelledby="age-modal-label" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="age-modal-label">Erro de Cadastro</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="age-modal-message"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <div class="modal fade" id="cropper-modal" tabindex="-1" role="dialog" aria-labelledby="cropper-modal-label" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -148,7 +134,17 @@
         <button type="submit" class="btn btn-success btn-block  w-100">Cadastrar</button>
     </form>
 </div>
-
+</section>
+<div class="modal-overlay" id="age-modal" style="display: none;">
+    <div class="modal-content bg-light rounded">
+        <button class="btn text-white btn-close" onclick="closeModal2()" style="margin-top: 10px; margin-right: 10px;"></button>
+        <div class="d-flex justify-content-center align-items-center mb-3">
+            <img src="/botao-x.png" width="65" height="65">
+        </div>
+        <p id="age-modal-message"></p>
+        <button class="btn btn-dark text-white btn-ok" onclick="closeModal2()">OK</button>
+    </div>
+</div>
 <script src="/modal.js"></script>
 <script>
     function validarFormulario() {
@@ -168,13 +164,17 @@
             var ageModal = document.getElementById('age-modal');
             var ageModalMessage = document.getElementById('age-modal-message');
             ageModalMessage.textContent = mensagem;
-            var modal = new bootstrap.Modal(ageModal);
-            modal.show();
+            ageModal.style.display = 'block';
 
             return false; // Impede o envio do formulário
         }
 
         return true; // Permite o envio do formulário
+    }
+
+    function closeModal2() {
+        var ageModal = document.getElementById('age-modal');
+        ageModal.style.display = 'none';
     }
 
     function mostrarCamposAdicionais() {
@@ -200,6 +200,25 @@
     }
 }
 
+    function validarSenhas() {
+        var senhaInput = document.getElementById('senha');
+        var senhaConfirmacaoInput = document.getElementById('senhaConfirmacao');
+        var senha = senhaInput.value;
+        var senhaConfirmacao = senhaConfirmacaoInput.value;
+
+        if (senha !== senhaConfirmacao) {
+            var mensagem = 'As senhas digitadas não coincidem.';
+
+            var ageModal = document.getElementById('age-modal');
+            var ageModalMessage = document.getElementById('age-modal-message');
+            ageModalMessage.textContent = mensagem;
+            ageModal.style.display = 'block';
+
+            return false;
+        }
+
+        return true;
+    }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.js"></script>
