@@ -5,6 +5,8 @@
     <title>Busca</title>
     <link th:replace="/fragments/logo.html ::logo">
     <!-- Incluir os arquivos CSS do Bootstrap -->
+    <link rel="stylesheet" href="/style.css">
+    <link href="/catalogo.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
     <style>
         .btn-success {
@@ -17,85 +19,109 @@
         }
     </style>
 </head>
-<body>
+<body class="back">
 <nav th:replace="/fragments/navbar.html ::nav"></nav>
-<div class="container px-4 px-lg-5 mt-5">
-    <form action="/produtos/buscar" method="GET" class="d-flex">
-        <div class="input-group">
-            <input class="form-control me-2" type="search" name="q" placeholder="Buscar produto" aria-label="Search">
-            <select class="form-select" name="tipoBusca">
-                <option value="nome">Buscar por nome</option>
-                <option value="nomeCategoria">Buscar por nome e categoria</option>
-                <option value="categoria">Buscar por categoria</option>
-            </select>
-            <select class="form-select" name="categoria">
-                <option selected>Todas as categorias</option>
-                <option value="acessorios">Acessórios</option>
-                <option value="comida">Alimentos e Bebidas</option>
-                <option value="eletronicos">Eletrônicos</option>
-                <option value="vestuario">Vestuário</option>
-                <option value="livros">Livros</option>
-                <!-- Adicione mais opções de categoria conforme necessário -->
-            </select>
-            <button class="btn btn-outline-secondary" type="submit">
-                <img src="/lupa.png" width="20" height="20">
-            </button>
-        </div>
-    </form>
 
-    <div class="container">
-        <h1>Resultado da Busca</h1>
+<section class="py-5">
 
-        <!-- Verificar se há produtos a serem exibidos -->
-        <th:block th:if="${produtos != null}">
-            <div class="row">
-                <th:block th:each="produto : ${produtos}">
-                    <div class="col-md-4">
-                        <div class="card ">
-                            <div class="card-body">
-                                <img class="card-img-top" th:src="@{'/images/' + ${produto.imagemUri}}" alt="imagem do produto">
-                                <h5 class="card-title fw-bolder" th:text="${produto.titulo}" style="text-decoration: none;"></h5>
-                                <p class="card-description" th:text="${produto.descricao}"></p>
+    <div class="container px-4 px-lg-5 mt-5">
 
+        <h1 class="text-center fw-bold">Catálogo de Produtos</h1>
 
-                                <div class="col-md-16 d-flex justify-content-center">
-                                    <div class="row justify-text-center text-muted">
-                                        <div class="col">R$</div>
-                                        <div class="col"><span th:text="${produto.preco}"></span></div>
-                                    </div>
+        <br><br>
 
-                                </div>
+        <form action="/produtos/buscar" method="GET" class="d-flex" th:if="${#authorization.expression('isAuthenticated()')}">
+            <div class="input-group">
+                <input class="form-control me-2" type="search" name="q" placeholder="Buscar produto" aria-label="Search">
+                <select class="form-select" name="tipoBusca" onchange="toggleCategoriaFilter(this)">
+                    <option value="nome">Buscar por nome</option>
+                    <option value="nomeCategoria">Buscar por nome e categoria</option>
+                    <option value="categoria">Buscar por categoria</option>
+                </select>
+                <select class="form-select" name="categoria" id="categoriaFilter" style="display: none;">
+                    <option selected>Todas as categorias</option>
+                    <option value="acessorios">Acessórios</option>
+                    <option value="comida">Alimentos e Bebidas</option>
+                    <option value="eletronicos">Eletrônicos</option>
+                    <option value="vestuario">Vestuário</option>
+                    <option value="livros">Livros</option>
+                    <!-- Adicione mais opções de categoria conforme necessário -->
+                </select>
+                <button class="btn btn-outline-secondary" type="submit">
+                    <img src="/lupa.png" width="20" height="20">
+                </button>
+            </div>
+        </form>
 
-                                <div class="col-md-16 d-flex justify-content-center">
+        <br><br><br>
 
-                                    <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp} + '&text=Olá,+eu+vi+este+produto:+' + ${produto.titulo} + '+no+site+Com%C3%A9rcio+EAJ. Gostaria+de+saber+se+ele+ainda+est%C3%A1+dispon%C3%ADvel.'" class="btn btn-success mt-auto btncolor">
-                                        <img src="/whats.png" alt="Whats" class="mr-2" width="25" height="25">
-                                        Entrar em Contato
+        <div class="row flex-row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <!-- Verificar se há produtos a serem exibidos -->
+            <th:block>
+                <!-- Verificar se há produtos a serem exibidos -->
+                <th:block th:if="${produtos != null}">
+                    <div class="col mb-5" th:each="produto : ${produtos}">
+                        <a class="card-link a-decor">
+                            <div class="card h-100 border rounded-3">
+                                <div class="card-body p-2 align-items-center">
+                                    <a th:href="@{'/vendedores/perfil/' + ${produto.vendedor.id}}" class="a-decor">
+                                        <div class="d-flex align-items-start vendedor-info">
+                                            <img class="img-fluid rounded-circle me-3 circle" th:src="@{'/images/' + ${produto.vendedor.imagemUri}}" alt="Imagem do perfil do vendedor">
+                                            <p class="card-text" style="font-weight: bold;"><span th:text="${produto.vendedor.razao}"></span></p>
+                                        </div>
+                                    </a>
+                                    <a th:href="@{'/produtos/detalhes/' + ${produto.id}}" class="a-decor">
+                                        <div class="text-start">
+                                            <img class="card-img-top" width="250" height="250" th:src="@{'/images/' + ${produto.imagemUri}}" alt="imagem do produto">
+                                            <h5 class="fw-bolder product-title" th:text="${produto.titulo}"></h5>
+
+                                            <div class="d-flex flex-column small text-muted mb-2">
+                                            <div class="row">
+                                                <div class="col">
+                                                        <span class="fw-bold" style="font-size: 18px;">
+                                                            <span th:text="${produto.preco}" id="precoFormatted"></span>
+                                                        </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                            <!-- Product actions -->
+                                            <div class="col-md-16 d-flex justify-content-center">
+                                                <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp} + '&text=Olá,+eu+vi+este+produto:+' + ${produto.titulo} + '+no+site+Com%C3%A9rcio+EAJ. Gostaria+de+saber+se+ele+ainda+est%C3%A1+dispon%C3%ADvel.'" class="btn btn-success mt-auto btncolor w-100">
+                                                    <img src="/whats.png" alt="Whats" class="mr-2" width="25" height="25">
+                                                    Entrar em Contato
+                                                </a>
+                                            </div>
+                                        </div>
                                     </a>
                                 </div>
-                                <br>
-
-                                <div class="col-md-16 d-flex justify-content-center">
-                                    <a th:href="@{'/produtos/detalhes/' + ${produto.id}}" class="btn btn-outline-secondary">
-                                        <span>Ver mais informações</span>
-
-                                    </a>
-                                </div>
-
-
                             </div>
-
-
-                        </div>
-                        <br>
+                        </a>
                     </div>
                 </th:block>
             </div>
-
-        </th:block>
-
+        </div>
     </div>
-</div>
+</section>
+
+<script>
+    function toggleCategoriaFilter(selectElement) {
+        var categoriaFilter = document.getElementById('categoriaFilter');
+        categoriaFilter.style.display = (selectElement.value === 'categoria' || selectElement.value === 'nomeCategoria') ? 'block' : 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const precoElements = document.querySelectorAll('.fw-bold > span');
+        precoElements.forEach(function(element) {
+            const precoValue = parseFloat(element.textContent);
+            const formattedPreco = precoValue.toFixed(2).replace('.', ',');
+            element.textContent = 'R$ ' + formattedPreco;
+        });
+    });
+
+</script>
+
+
 <!-- Incluir os arquivos JavaScript do Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
