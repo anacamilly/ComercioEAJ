@@ -14,77 +14,7 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
 
-        <h1 class="text-center fw-bold">Vendedores</h1>
-
-        <br><br>
-
-        <form action="/vendedor/buscar" method="GET" class="d-flex" th:if="${#authorization.expression('isAuthenticated()')}">
-            <div class="input-group">
-                <input class="form-control me-2" type="search" name="q" placeholder="Buscar vendedor" aria-label="Search">
-                <button class="btn btn-outline-secondary" type="submit">
-                    <img src="./lupa.png" width="20" height="20">
-                </button>
-            </div>
-        </form>
-
-
-        <br><br><br>
-
-    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" th:if="${#authorization.expression('isAuthenticated()')}">
-            <!-- Verificar se há produtos a serem exibidos -->
-            <th:block th:if="${vendedores != null}">
-                <div class="col mb-5" th:each="vendedor : ${vendedores}" th:object="${vendedores}">
-
-
-                        <div class="card h-100">
-                            <div class="card-body p-4 align-items-center">
-                                <div class="text-center">
-                                    <img class="card-img-top rounded-circle mb-3" th:src="${vendedor.imagemUri != null and !vendedor.imagemUri.isEmpty()} ? '/images/' + ${vendedor.imagemUri} : '/images/perfil.png'"  height="210" width="250" alt="foto do vendedor">
-                                    <h5 class="fw-bolder" th:text="${vendedor.nome}"></h5>
-
-                                    <div class="d-flex flex-column small text-muted mb-2">
-                                        <div class="row">
-                                            <div class="col">
-                                                <span class="text-justify" th:text="${vendedor.biografia}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <a th:href="@{'/vendedores/perfil/' + ${vendedor.id}}" class="btn btn-outline-success"> Visualizar perfil
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-
-                </div>
-            </th:block>
-        </div>
-
-        <!-- Verificar se há uma mensagem a ser exibida -->
-        <th:block th:if="${mensagem != null}">
-            <div class="col-md-12">
-                <div class="alert alert-info" role="alert" th:text="${mensagem}"></div>
-            </div>
-        </th:block>
-
-        <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
-            <div class="d-flex align-items-center justify-content-center">
-                <div class="text-center">
-                    <img src="/autenticacao-de-bloqueio.png" width="275" height="200">
-                    <p class="fw-bold h4 mb-4">Por favor, faça login ou cadastre-se para visualizar os vendedores.</p>
-                    <ul class="navbar-nav flex-row justify-content-center">
-                        <li class="nav-item me-2 d-flex align-items-center">
-                            <a class="btn btn-dark" onclick="location.href='/login'">Login</a>
-                        </li>
-                        <li class="nav-item me-2 d-flex align-items-center">
-                            <a class="btn btn-outline-dark text-nowrap" onclick="location.href='/cadastre-se'">Cadastre-se</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </th:block>
+        <div th:replace="/fragments/vendedores/vendedores-frag.html ::lista-vendedores"></div>
     </div>
 </section>
 

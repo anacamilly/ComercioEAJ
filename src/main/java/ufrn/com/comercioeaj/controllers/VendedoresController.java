@@ -56,7 +56,7 @@ public class VendedoresController {
         return "vendedores/perfil-vendedor";
 
     }
-    @GetMapping("/vendedor/buscar")
+    @GetMapping("/vendedores/buscar")
     public String buscarVendedor(@RequestParam("q") String query, Model model) {
         List<Usuarios> vendedorEncontrados = service.buscarVendedor(query);
 
