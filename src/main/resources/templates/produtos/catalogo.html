@@ -19,7 +19,7 @@
 
         <br><br>
 
-        <form action="/produtos/buscar" method="GET" class="d-flex">
+        <form action="/produtos/buscar" method="GET" class="d-flex" th:if="${#authorization.expression('isAuthenticated()')}">
             <div class="input-group">
                 <input class="form-control me-2" type="search" name="q" placeholder="Buscar produto" aria-label="Search">
                 <select class="form-select" name="tipoBusca" onchange="toggleCategoriaFilter(this)">
@@ -44,55 +44,75 @@
 
         <br><br><br>
 
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <!-- Verificar se há produtos a serem exibidos -->
-            <th:block th:if="${listarProdutos != null}">
-                <div class="col mb-5" th:each="produto : ${listarProdutos}" th:object="${produto}">
-                    <a class="card-link a-decor">
-                        <div class="card h-100 border rounded-3 ">
-                            <div class="card-body p-2 align-items-center">
-                                <a th:href="@{'/vendedores/perfil/' + ${produto.vendedor.id}}" class="a-decor">
-                                    <div class="d-flex align-items-start vendedor-info">
-                                        <img class="img-fluid rounded-circle me-3 circle" th:src="@{'/images/' + ${produto.vendedor.imagemUri}}" alt="Imagem do perfil do vendedor">
-                                        <p class="card-text" style="font-weight: bold;"><span th:text="${produto.vendedor.razao}"></span></p>
-                                    </div>
-                                </a>
-                                <a th:href="@{'/produtos/detalhes/' + ${produto.id}}" class="a-decor">
-                                    <div class="text-start">
-                                        <img class="card-img-top" width="250" height="250" th:src="@{'/images/' + ${produto.imagemUri}}" alt="imagem do produto">
-                                        <h5 class="fw-bolder product-title" th:text="${produto.titulo}"></h5>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"  th:if="${#authorization.expression('isAuthenticated()')}">
+            <!-- Verificar se o usuário está autenticado -->
+            <th:block>
+                <!-- Verificar se há produtos a serem exibidos -->
+                <th:block th:if="${listarProdutos != null}">
+                    <div class="col mb-5" th:each="produto : ${listarProdutos}" th:object="${produto}">
+                        <a class="card-link a-decor">
+                            <div class="card h-100 border rounded-3 ">
+                                <div class="card-body p-2 align-items-center">
+                                    <a th:href="@{'/vendedores/perfil/' + ${produto.vendedor.id}}" class="a-decor">
+                                        <div class="d-flex align-items-start vendedor-info">
+                                            <img class="img-fluid rounded-circle me-3 circle" th:src="@{'/images/' + ${produto.vendedor.imagemUri}}" alt="Imagem do perfil do vendedor">
+                                            <p class="card-text" style="font-weight: bold;"><span th:text="${produto.vendedor.razao}"></span></p>
+                                        </div>
+                                    </a>
+                                    <a th:href="@{'/produtos/detalhes/' + ${produto.id}}" class="a-decor">
+                                        <div class="text-start">
+                                            <img class="card-img-top" width="250" height="250" th:src="@{'/images/' + ${produto.imagemUri}}" alt="imagem do produto">
+                                            <h5 class="fw-bolder product-title" th:text="${produto.titulo}"></h5>
 
-                                        <div class="d-flex flex-column small text-muted mb-2">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <span class="fw-bold" style="font-size: 18px;">R$ <span th:text="${produto.preco}"></span></span>
+                                            <div class="d-flex flex-column small text-muted mb-2">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <span class="fw-bold" style="font-size: 18px;">R$ <span th:text="${produto.preco}"></span></span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <!-- Product actions -->
-                                        <div class="col-md-16 d-flex justify-content-center">
-                                            <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp} + '&text=Olá,+eu+vi+este+produto:+' + ${produto.titulo} + '+no+site+Com%C3%A9rcio+EAJ. Gostaria+de+saber+se+ele+ainda+est%C3%A1+dispon%C3%ADvel.'" class="btn btn-success mt-auto btncolor w-100">
-                                                <img src="/whats.png" alt="Whats" class="mr-2" width="25" height="25">
-                                                Entrar em Contato
-                                            </a>
+                                            <!-- Product actions -->
+                                            <div class="col-md-16 d-flex justify-content-center">
+                                                <a th:href="'https://api.whatsapp.com/send?phone=' + ${produto.vendedor.whatsapp} + '&text=Olá,+eu+vi+este+produto:+' + ${produto.titulo} + '+no+site+Com%C3%A9rcio+EAJ. Gostaria+de+saber+se+ele+ainda+est%C3%A1+dispon%C3%ADvel.'" class="btn btn-success mt-auto btncolor w-100">
+                                                    <img src="/whats.png" alt="Whats" class="mr-2" width="25" height="25">
+                                                    Entrar em Contato
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                </th:block>
+                <!-- Verificar se há uma mensagem a ser exibida -->
+                <th:block th:if="${mensagem != null}">
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert" th:text="${mensagem}"></div>
+                    </div>
+                </th:block>
             </th:block>
         </div>
+            <!-- Caso o usuário não esteja autenticado -->
+            <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="text-center">
+                        <img src="/autenticacao-de-bloqueio.png" width="275" height="200">
+                        <p class="fw-bold h4 mb-4">Por favor, faça login ou cadastre-se para visualizar o catálogo de produtos.</p>
+                        <ul class="navbar-nav flex-row justify-content-center">
+                            <li class="nav-item me-2 d-flex align-items-center">
+                                <a class="btn btn-dark" onclick="location.href='/login'">Login</a>
+                            </li>
+                            <li class="nav-item me-2 d-flex align-items-center">
+                                <a class="btn btn-outline-dark text-nowrap" onclick="location.href='/cadastre-se'">Cadastre-se</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </th:block>
 
-        <!-- Verificar se há uma mensagem a ser exibida -->
-        <th:block th:if="${mensagem != null}">
-            <div class="col-md-12">
-                <div class="alert alert-info" role="alert" th:text="${mensagem}"></div>
-            </div>
-        </th:block>
-    </div>
+        </div>
 </section>
 
 <script>
