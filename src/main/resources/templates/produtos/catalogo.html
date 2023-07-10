@@ -98,25 +98,25 @@
                 </th:block>
             </th:block>
         </div>
-            <!-- Caso o usuário não esteja autenticado -->
-            <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
-                <div class="d-flex align-items-center justify-content-center">
-                    <div class="text-center">
-                        <img src="/autenticacao-de-bloqueio.png" width="275" height="200">
-                        <p class="fw-bold h4 mb-4">Por favor, faça login ou cadastre-se para visualizar o catálogo de produtos.</p>
-                        <ul class="navbar-nav flex-row justify-content-center">
-                            <li class="nav-item me-2 d-flex align-items-center">
-                                <a class="btn btn-dark" onclick="location.href='/login'">Login</a>
-                            </li>
-                            <li class="nav-item me-2 d-flex align-items-center">
-                                <a class="btn btn-outline-dark text-nowrap" onclick="location.href='/cadastre-se'">Cadastre-se</a>
-                            </li>
-                        </ul>
-                    </div>
+        <!-- Caso o usuário não esteja autenticado -->
+        <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="text-center">
+                    <img src="/autenticacao-de-bloqueio.png" width="275" height="200">
+                    <p class="fw-bold h4 mb-4">Por favor, faça login ou cadastre-se para visualizar o catálogo de produtos.</p>
+                    <ul class="navbar-nav flex-row justify-content-center">
+                        <li class="nav-item me-2 d-flex align-items-center">
+                            <a class="btn btn-dark" onclick="location.href='/login'">Login</a>
+                        </li>
+                        <li class="nav-item me-2 d-flex align-items-center">
+                            <a class="btn btn-outline-dark text-nowrap" onclick="location.href='/cadastre-se'">Cadastre-se</a>
+                        </li>
+                    </ul>
                 </div>
-            </th:block>
+            </div>
+        </th:block>
 
-        </div>
+    </div>
 </section>
 
 <script>
