@@ -41,7 +41,7 @@
 
         <div class="mb-3">
             <label for="imagem" class="form-label">Imagem:</label>
-            <input type="file" id="imagem" name="file" class="form-control">
+            <input type="file" id="imagem" name="file" class="form-control" required>
             <p th:if="${#fields.hasErrors('imagemUri')}" th:errors="*{imagemUri}" class="text-danger"></p>
         </div>
 
