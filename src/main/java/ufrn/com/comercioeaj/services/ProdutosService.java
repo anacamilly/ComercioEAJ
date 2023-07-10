@@ -27,6 +27,19 @@ public class ProdutosService {
         repository.save(p);
     }
 
+    public List<Produtos> buscarPorNome(String nome) {
+        return repository.findByTituloContainingIgnoreCaseAndDeletedIsNull(nome);
+    }
+
+    public List<Produtos> buscarPorNomeECategoria(String nome, String categoria) {
+        return repository.findByTituloAndCategoriaAndDeletedIsNull(nome, categoria);
+    }
+
+    public List<Produtos> buscarPorCategoria(String categoria) {
+        return repository.findByCategoriaIgnoreCaseAndDeletedIsNull(categoria);
+    }
+
+
     public List<Produtos> listarProdutos() {
         return repository.findByDeletedIsNull();
     }
@@ -72,20 +85,5 @@ public class ProdutosService {
 
         return repository.findById(id);
     }
-    public List<Produtos> buscarPorNome(String nome) {
-
-        return repository.findByTituloContainingIgnoreCase(nome);
-    }
-
-    public List<Produtos> buscarPorNomeECategoria(String nome, String categoria) {
-        return repository.findByNomeAndCategoria(nome, categoria);
-    }
-
-    public List<Produtos> buscarPorCategoria(String categoria) {
-        return repository.findByCategoriaIgnoreCase(categoria);
-    }
-
-
-
 
 }
