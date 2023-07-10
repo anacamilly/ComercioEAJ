@@ -19,6 +19,7 @@ import ufrn.com.comercioeaj.services.UsuariosService;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -74,7 +75,6 @@ public class UsuariosController {
         if (usuarioOptional.isPresent()) {
             Usuarios usuario = usuarioOptional.get();
 
-            if (encoder.matches(senha, usuario.getSenha())) {
                 String whatsapp = u.getWhatsapp().replaceAll("[\\s()+-]", "");
 
                 // Define o número de telefone modificado no objeto de usuário
@@ -117,17 +117,12 @@ public class UsuariosController {
 
                 redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
                 return "redirect:/meu-perfil";
-
-            } else {
-                // Senha incorreta
-                redirectAttributes.addFlashAttribute("senha", "Senha incorreta");
-                return "redirect:/meu-perfil/atualizar/" + u.getId();
-            }
         } else {
             // Usuário não encontrado
             return "redirect:/meu-perfil";
         }
     }
+
 
 
     private String getFileExtension(MultipartFile file) {
@@ -187,7 +182,7 @@ public class UsuariosController {
             redirectAttributes.addFlashAttribute("usuario", u);
             return "redirect:/cadastre-se";
         }
-
+        
         String whatsapp = u.getWhatsapp().replaceAll("[\\s()+-]", "");
 
         // Define o número de telefone modificado no objeto de usuário

@@ -69,12 +69,7 @@
             </div>
         </div>
 
-        <div class="mb-3">
-            <label for="senha" class="form-label">Senha:</label>
-            <input type="password" id="senha" th:field="*{senha}" class="form-control">
-            <p th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="text-danger"></p>
-            <p th:if="${senha}" class="text-danger" th:text="${senha}"></p>
-        </div>
+
 
         <button type="submit" class="btn btn-primary">Finalizar Edição</button>
     </form>
