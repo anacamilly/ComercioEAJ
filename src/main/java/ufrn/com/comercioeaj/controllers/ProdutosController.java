@@ -275,7 +275,7 @@ public class ProdutosController {
             model.addAttribute("mensagem", mensagem);
             return "produtos/catalogo.html";
         } else {
-            model.addAttribute("produtos", produtosEncontrados);
+            model.addAttribute("listarProdutos", produtosEncontrados);
             return "produtos/resultado-busca.html";
         }
     }
