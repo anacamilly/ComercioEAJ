@@ -21,12 +21,12 @@
                     <form id="form-produto" th:action="@{/produtos/cadastro/salvar}" th:object="${produto}" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="titulo" class="form-label">Título:</label>
-                            <input type="text" id="titulo" th:field="*{titulo}" class="form-control" required>
+                            <input placeholder="Digite o nome do produto" type="text" id="titulo" th:field="*{titulo}" class="form-control" required>
                             <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" class="text-danger"></p>
                         </div>
                         <div class="mb-3">
                             <label for="descricao" class="form-label">Descrição:</label>
-                            <textarea type="text" id="descricao" th:field="*{descricao}" class="form-control" required> </textarea>
+                            <textarea placeholder="Digite a descrição do produto" type="text" id="descricao" th:field="*{descricao}" class="form-control" required> </textarea>
                             <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="text-danger"></p>
                         </div>
                         <div class="mb-3">
