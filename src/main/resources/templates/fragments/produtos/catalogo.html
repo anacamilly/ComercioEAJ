@@ -77,14 +77,12 @@
             </a>
           </div>
         </th:block>
-        <!-- Verificar se há uma mensagem a ser exibida -->
-        <th:block th:if="${mensagem != null}">
-          <div class="col-md-12">
-            <div class="alert alert-info" role="alert" th:text="${mensagem}"></div>
-          </div>
-        </th:block>
       </th:block>
     </div>
+
+    <!-- Verificar se há uma mensagem a ser exibida -->
+    <div th:replace="/fragments/nao-encontrado"></div>
+
     <!-- Caso o usuário não esteja autenticado -->
     <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
       <div class="d-flex align-items-center justify-content-center">

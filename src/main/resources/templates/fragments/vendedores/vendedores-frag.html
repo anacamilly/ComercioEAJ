@@ -49,11 +49,7 @@
   </div>
 
   <!-- Verificar se há uma mensagem a ser exibida -->
-  <th:block th:if="${mensagem != null}">
-    <div class="col-md-12">
-      <div class="alert alert-info" role="alert" th:text="${mensagem}"></div>
-    </div>
-  </th:block>
+  <div th:replace="/fragments/nao-encontrado"></div>
 
   <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
     <div class="d-flex align-items-center justify-content-center">

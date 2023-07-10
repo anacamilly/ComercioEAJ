@@ -1,0 +1,12 @@
+<div th:fragment="nao-encontrado">
+  <th:block th:if="${mensagem != null}">
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="text-center">
+        <img src="/nao-encontado.png" width="200" height="200">
+        <p class="fw-bold h4 mb-4" th:text="${mensagem}"></p>
+        <ul class="navbar-nav flex-row justify-content-center">
+        </ul>
+      </div>
+    </div>
+  </th:block>
+</div>
