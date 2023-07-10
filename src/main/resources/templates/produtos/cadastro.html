@@ -26,7 +26,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="descricao" class="form-label">Descrição:</label>
-                            <input type="text" id="descricao" th:field="*{descricao}" class="form-control" required>
+                            <textarea type="text" id="descricao" th:field="*{descricao}" class="form-control" required> </textarea>
                             <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="text-danger"></p>
                         </div>
                         <div class="mb-3">
