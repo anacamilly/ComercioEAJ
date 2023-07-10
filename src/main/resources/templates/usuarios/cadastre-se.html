@@ -23,7 +23,7 @@
     </div>
 
     <h5 class="fw-normal mt-4 mb-4 pb-3 text-center" style="letter-spacing: 1px;">Realize seu cadastro no nosso site</h5>
-    <form method="post" th:action="@{/cadastre-se/salvar}" th:object="${usuario}" class="mt-5" enctype="multipart/form-data" onsubmit="return validarSenhas()">
+    <form method="post" th:action="@{/cadastre-se/salvar}" th:object="${usuario}" class="mt-5" enctype="multipart/form-data" onsubmit="return validarSenhas() && validarFormulario()">
         <div class="mb-3">
             <label for="nome" class="form-label">Digite seu nome completo:</label>
             <input type="text" id="nome" th:field="*{nome}" class="form-control" required="required">
@@ -99,6 +99,24 @@
                 <input type="text" id="instagram" th:field="*{instagram}" class="form-control" required="required">
             </div>
         </div>
+        <!-- Restante do código HTML -->
+        <div class="modal fade" id="age-modal" tabindex="-1" role="dialog" aria-labelledby="age-modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="age-modal-label">Erro de Cadastro</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="age-modal-message"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="modal fade" id="cropper-modal" tabindex="-1" role="dialog" aria-labelledby="cropper-modal-label" aria-hidden="true">
             <div class="modal-dialog modal-xl">
@@ -132,7 +150,34 @@
 </div>
 
 <script src="/modal.js"></script>
-<script>function mostrarCamposAdicionais() {
+<script>
+    function validarFormulario() {
+        var dataNascimentoInput = document.getElementById('dataNascimento');
+        var dataNascimento = new Date(dataNascimentoInput.value);
+        var dataAtual = new Date();
+        var idadeMinima = 13; // Defina a idade mínima permitida
+
+        // Calcula a diferença entre a data atual e a data de nascimento em anos
+        var diferencaAnos = dataAtual.getFullYear() - dataNascimento.getFullYear();
+
+        // Verifica se a diferença de anos é menor que a idade mínima
+        if (diferencaAnos < idadeMinima) {
+            var mensagem = 'É necessário ter pelo menos ' + idadeMinima + ' anos para se cadastrar.';
+
+            // Exibe a mensagem de erro no modal personalizado
+            var ageModal = document.getElementById('age-modal');
+            var ageModalMessage = document.getElementById('age-modal-message');
+            ageModalMessage.textContent = mensagem;
+            var modal = new bootstrap.Modal(ageModal);
+            modal.show();
+
+            return false; // Impede o envio do formulário
+        }
+
+        return true; // Permite o envio do formulário
+    }
+
+    function mostrarCamposAdicionais() {
     var camposAdicionais = document.getElementById('camposAdicionais');
     var vendNao = document.getElementById('vendNao');
 
@@ -154,7 +199,9 @@
         document.getElementById('instagram').setAttribute('required', 'required');
     }
 }
+
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/cropper.js"></script>
