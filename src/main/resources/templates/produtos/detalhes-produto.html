@@ -53,7 +53,7 @@
                 <div class="card-body">
                     <a th:href="@{'/vendedores/perfil/' + ${produto.vendedor.id}}" class="a-decor">
                         <div class="seller-info">
-                            <img class="img-fluid" th:src="@{'/images/' + ${produto.vendedor.imagemUri}}" alt="Imagem do Vendedor">
+                            <img class="img-fluid" th:src="${vendedor.imagemUri != null and !vendedor.imagemUri.isEmpty()} ? '/images/' + ${vendedor.imagemUri} : '/images/perfil.png'" alt="Imagem do Vendedor">
                             <p class="card-text"><strong><span th:text="${produto.vendedor.razao}"></span></strong></p>
                         </div>
                     </a>

@@ -39,7 +39,7 @@
                         <div class="card h-100">
                             <div class="card-body p-4 align-items-center">
                                 <div class="text-center">
-                                    <img class="card-img-top rounded-circle mb-3" th:src="@{'/images/' + ${vendedor.imagemUri}}" height="210" width="250" alt="foto do vendedor">
+                                    <img class="card-img-top rounded-circle mb-3" th:src="${vendedor.imagemUri != null and !vendedor.imagemUri.isEmpty()} ? '/images/' + ${vendedor.imagemUri} : '/images/perfil.png'"  height="210" width="250" alt="foto do vendedor">
                                     <h5 class="fw-bolder" th:text="${vendedor.nome}"></h5>
 
                                     <div class="d-flex flex-column small text-muted mb-2">

@@ -55,7 +55,7 @@
             <a class="nav-link d-sm-flex align-items-sm-center" th:href="@{/meu-perfil}">
               Bem-vindo(a),
               <strong class="d-none d-sm-block ms-1" th:text="${#authentication.principal.nomeSocial}"></strong>
-              <img th:src="@{'/images/' + ${#authentication.principal.imagemUri}}" alt="Profile Image" class="rounded-circle ms-1" height="25" width="25" loading="lazy" />
+              <img th:src="${#authentication.principal.imagemUri != null and !#authentication.principal.imagemUri.isEmpty()} ? '/images/' + ${#authentication.principal.imagemUri} : '/images/perfil.png'"  alt="Profile Image" class="rounded-circle ms-1" height="25" width="25" loading="lazy" />
             </a>
           </li>
 

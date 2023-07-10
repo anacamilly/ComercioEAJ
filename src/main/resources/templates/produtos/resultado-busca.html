@@ -66,7 +66,7 @@
                                 <div class="card-body p-2 align-items-center">
                                     <a th:href="@{'/vendedores/perfil/' + ${produto.vendedor.id}}" class="a-decor">
                                         <div class="d-flex align-items-start vendedor-info">
-                                            <img class="img-fluid rounded-circle me-3 circle" th:src="@{'/images/' + ${produto.vendedor.imagemUri}}" alt="Imagem do perfil do vendedor">
+                                            <img class="img-fluid rounded-circle me-3 circle" th:src="${produto.imagemUri != null and !produto.imagemUri.isEmpty()} ? '/images/' + ${produto.imagemUri} : '/images/produtosemimagem.png'" alt="Imagem do perfil do vendedor">
                                             <p class="card-text" style="font-weight: bold;"><span th:text="${produto.vendedor.razao}"></span></p>
                                         </div>
                                     </a>
