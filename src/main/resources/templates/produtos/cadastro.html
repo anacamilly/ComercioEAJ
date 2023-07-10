@@ -53,7 +53,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="imagem" class="form-label">Imagem:</label>
-                            <input type="file" id="imagem" name="file" class="form-control" required>
+                            <input type="file" id="imagem" name="file" class="form-control">
                             <p th:if="${#fields.hasErrors('imagemUri')}" th:errors="*{imagemUri}" class="text-danger"></p>
                         </div>
                         <div class="modal fade" id="cropper-modal" tabindex="-1" role="dialog" aria-labelledby="cropper-modal-label" aria-hidden="true">

@@ -24,7 +24,7 @@
     <div class="row g-0">
       <div class="col-md-4">
         <div class="position-relative">
-          <img class="product-img img-fluid" th:src="@{'/images/' + ${produto.imagemUri}}" width="500" height="500" alt="Imagem do Produto">
+          <img class="product-img img-fluid" th:src="${produto.imagemUri != null and !produto.imagemUri.isEmpty()} ? '/images/' + ${produto.imagemUri} : '/images/produtosemimagem.png'" width="500" height="500" alt="Imagem do Produto">
           <div class="position-absolute top-0 end-0 m-2">
             <a th:href="@{'/produtos/editar-foto/'+*{produto.id}}" class="btn-edit-image">
               <img src="/editar_imagem.png" width="30" height="30">

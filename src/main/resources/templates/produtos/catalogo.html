@@ -61,7 +61,8 @@
                                     </a>
                                     <a th:href="@{'/produtos/detalhes/' + ${produto.id}}" class="a-decor">
                                         <div class="text-start">
-                                            <img class="card-img-top" width="250" height="250" th:src="@{'/images/' + ${produto.imagemUri}}" alt="imagem do produto">
+                                            <img class="card-img-top" width="250" height="250"
+                                                 th:src="${produto.imagemUri != null and !produto.imagemUri.isEmpty()} ? '/images/' + ${produto.imagemUri} : '/images/produtosemimagem.png'">
                                             <h5 class="fw-bolder product-title" th:text="${produto.titulo}"></h5>
 
                                             <div class="d-flex flex-column small text-muted mb-2">

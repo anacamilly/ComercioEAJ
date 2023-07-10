@@ -41,7 +41,7 @@
         <div class="row g-0">
             <div class="col-md-4">
                 <div class="position-relative">
-                    <img class="product-img img-fluid" th:src="@{'/images/' + ${produto.imagemUri}}" width="500" height="500" alt="Imagem do Produto">
+                <img class="product-img img-fluid" th:src="${produto.imagemUri != null and !produto.imagemUri.isEmpty()} ? '/images/' + ${produto.imagemUri} : '/images/produtosemimagem.png'" width="500" height="500" alt="Imagem do Produto">
                     <div th:class="${produto.disponibilidade ? 'position-absolute bottom-0 start-0 p-2 text-white bg-success w-100 text-center' : 'position-absolute bottom-0 start-0 p-2 text-white bg-danger w-100 text-center'}"
                          style="background-color: rgba(0, 0, 0, 0.5);">
                         <span th:text="${produto.disponibilidade} ? 'Disponível' : 'Indisponível'"></span>
