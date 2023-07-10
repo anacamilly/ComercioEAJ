@@ -46,7 +46,7 @@
             <div class="row g-0">
                 <div class="col-md-4">
                     <div class="d-flex align-items-center justify-content-center  m-3">
-                        <img class="card-img-top rounded-circle" th:src="@{'/images/' + ${vendedor.imagemUri}}" alt="Vendor Image" style="width: 150px; height: 150px; object-fit: contain;">
+                        <img class="card-img-top rounded-circle" th:src="${vendedor.imagemUri != null and !vendedor.imagemUri.isEmpty()} ? '/images/' + ${vendedor.imagemUri} : '/images/perfil.png'" alt="Vendor Image" style="width: 150px; height: 150px; object-fit: contain;">
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -80,7 +80,7 @@
                         <div class="card-body p-2 align-items-center">
                             <a th:href="@{'/produtos/detalhes/' + ${produto.id}}" class="a-decor">
                                 <div class="text-start">
-                                    <img class="card-img-top" width="250" height="250" th:src="@{'/images/' + ${produto.imagemUri}}" alt="imagem do produto">
+                                    <img class="card-img-top" width="250" height="250" th:src="${produto.imagemUri != null and !produto.imagemUri.isEmpty()} ? '/images/' + ${produto.imagemUri} : '/images/produtosemimagem.png'" alt="imagem do produto">
                                     <h5 class="fw-bolder product-title" th:text="${produto.titulo}"></h5>
 
                                     <div class="d-flex flex-column small text-muted mb-2">

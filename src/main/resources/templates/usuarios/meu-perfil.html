@@ -50,7 +50,7 @@
                 <div class="col-md-4">
                     <div class="position-relative profile-image-container">
                         <div class="d-flex align-items-start justify-content-center m-3">
-                            <img class="card-img-top rounded-circle" th:src="@{'/images/' + ${usuario.imagemUri}}" alt="Vendor Image" style="width: 150px; height: 150px; object-fit: contain;">
+                            <img class="card-img-top rounded-circle" th:src="${usuario.imagemUri != null and !usuario.imagemUri.isEmpty()} ? '/images/' + ${usuario.imagemUri} : '/images/perfil.png'"  alt="Vendor Image" style="width: 150px; height: 150px; object-fit: contain;">
                             <a th:href="@{'/usuario/alterar-foto/'+*{usuario.id}}" class="btn btn-edit-image btn-edit-image--margin position-absolute top-0 end-0 m-2">
                                 <img src="/editar_imagem.png" width="30" height="30">
                             </a>

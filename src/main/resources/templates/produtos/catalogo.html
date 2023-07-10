@@ -55,13 +55,14 @@
                                 <div class="card-body p-2 align-items-center">
                                     <a th:href="@{'/vendedores/perfil/' + ${produto.vendedor.id}}" class="a-decor">
                                         <div class="d-flex align-items-start vendedor-info">
-                                            <img class="img-fluid rounded-circle me-3 circle" th:src="@{'/images/' + ${produto.vendedor.imagemUri}}" alt="Imagem do perfil do vendedor">
+                                            <img class="img-fluid rounded-circle me-3 circle" th:src="${produto.vendedor.imagemUri != null and !produto.vendedor.imagemUri.isEmpty()} ? '/images/' + ${produto.vendedor.imagemUri} : '/images/perfil.png'"  alt="Imagem do perfil do vendedor">
                                             <p class="card-text" style="font-weight: bold;"><span th:text="${produto.vendedor.razao}"></span></p>
                                         </div>
                                     </a>
                                     <a th:href="@{'/produtos/detalhes/' + ${produto.id}}" class="a-decor">
                                         <div class="text-start">
-                                            <img class="card-img-top" width="250" height="250" th:src="@{'/images/' + ${produto.imagemUri}}" alt="imagem do produto">
+                                            <img class="card-img-top" width="250" height="250"
+                                                 th:src="${produto.imagemUri != null and !produto.imagemUri.isEmpty()} ? '/images/' + ${produto.imagemUri} : '/images/produtosemimagem.png'">
                                             <h5 class="fw-bolder product-title" th:text="${produto.titulo}"></h5>
 
                                             <div class="d-flex flex-column small text-muted mb-2">
