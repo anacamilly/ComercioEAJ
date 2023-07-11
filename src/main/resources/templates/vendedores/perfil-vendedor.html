@@ -46,13 +46,14 @@
             <div class="row g-0">
                 <div class="col-md-4">
                     <div class="d-flex align-items-center justify-content-center  m-3">
-                        <img class="card-img-top rounded-circle" th:src="${vendedor.imagemUri != null and !vendedor.imagemUri.isEmpty()} ? '/images/' + ${vendedor.imagemUri} : '/images/perfil.png'" alt="Vendor Image" style="width: 150px; height: 150px; object-fit: contain;">
+                        <img class="card-img-top rounded-circle" th:src="${vendedor.imagemUri != null and !vendedor.imagemUri.isEmpty()} ? '/images/' + ${vendedor.imagemUri} : '/images/perfil.png'" alt="Vendor Image" style="width: 250px; height: 250px; object-fit: contain;">
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body px-4 py-3 m-3">
                         <h5 class="card-title h4 fw-bold" th:text="${vendedor.razao}"></h5>
                         <p class="card-text" th:text="${vendedor.biografia}"></p>
+                        <p class="card-text">Nome do Vendedor: <span th:text="${vendedor.nomeSocial}"></span></p>
                         <div class="d-flex align-items-center">
                             <img src="/instagram-icone.png" width="17" height="17" alt="Instagram">
                             <p class="card-text" th:text="${vendedor.instagram}"></p>

@@ -50,7 +50,7 @@
                 <div class="col-md-4">
                     <div class="position-relative profile-image-container">
                         <div class="d-flex align-items-start justify-content-center m-3">
-                            <img class="card-img-top rounded-circle" th:src="${usuario.imagemUri != null and !usuario.imagemUri.isEmpty()} ? '/images/' + ${usuario.imagemUri} : '/images/perfil.png'"  alt="Vendor Image" style="width: 150px; height: 150px; object-fit: contain;">
+                            <img class="card-img-top rounded-circle" th:src="${usuario.imagemUri != null and !usuario.imagemUri.isEmpty()} ? '/images/' + ${usuario.imagemUri} : '/images/perfil.png'"  alt="Vendor Image" style="width: 250px; height: 250px; object-fit: contain;">
                             <a th:href="@{'/usuario/alterar-foto/'+*{usuario.id}}" class="btn btn-edit-image btn-edit-image--margin position-absolute top-0 end-0 m-2">
                                 <img src="/editar_imagem.png" width="30" height="30">
                             </a>
@@ -74,7 +74,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Informações do Vendedor</h5>
                         <p class="card-text">Nome da Loja: <span th:text="${usuario.razao}"></span></p>
-                        <p class="card-text">Biografia: <span th:text="${usuario.biografia}"></span></p>
+                        <p class="card-text">Descrição: <span th:text="${usuario.biografia}"></span></p>
                         <p class="card-text">WhatsApp: <span th:text="${usuario.whatsapp}"></span></p>
                         <div class="d-flex align-items-center">
                             <img src="/instagram-icone.png" width="17" height="17" alt="Instagram">

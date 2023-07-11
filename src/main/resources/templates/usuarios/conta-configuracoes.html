@@ -29,7 +29,7 @@
         </div>
 
         <!-- Botão para apagar todos os produtos -->
-    <div class="container mb-3" th:if="${#authentication.principal.isVendedor}">
+    <div class="container mt-3 mb-3" th:if="${#authentication.principal.isVendedor}">
         <button type="button" class="btn btn-danger" onclick="mostrarModal('confirmDeleteModalProdutos')">Apagar todos os produtos</button>
     </div>
     <br>
