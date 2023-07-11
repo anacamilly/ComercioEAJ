@@ -4,7 +4,7 @@
 
     <h1 class="text-center fw-bold">Catálogo de Produtos</h1>
 
-    <br><br>
+    <br><br><br>
 
     <form action="/produtos/buscar" method="GET" class="d-flex" th:if="${#authorization.expression('isAuthenticated()')}">
       <div class="input-group">
@@ -99,6 +99,9 @@
           </ul>
         </div>
       </div>
+      <br>
+      <br>
+      <br>
     </th:block>
 
   </div>

@@ -1,4 +1,4 @@
-<div th:fragment="nao-encontrado">
+<div th:if="${#authorization.expression('isAuthenticated()')}" th:fragment="nao-encontrado">
   <th:block th:if="${mensagem != null}">
     <div class="d-flex align-items-center justify-content-center">
       <div class="text-center">
@@ -8,5 +8,8 @@
         </ul>
       </div>
     </div>
+    <br>
+    <br>
+    <br>
   </th:block>
 </div>
