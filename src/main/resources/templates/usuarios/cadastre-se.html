@@ -104,31 +104,7 @@
         </div>
 
         <!-- Restante do código HTML -->
-        <div class="modal fade" id="cropper-modal" tabindex="-1" role="dialog" aria-labelledby="cropper-modal-label" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="cropper-modal-label">Cortar Imagem</h5>
-                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <img id="preview" src="" alt="Imagem selecionada">
-                            </div>
-                            <div class="col-md-4">
-                                <div id="cropper-preview" class="d-flex justify-content-center align-items-center" style="height: 400px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="btn-cortar" type="button" class="btn btn-success">Cortar</button>
-                        <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>-->
-                    </div>
-                </div>
-            </div>
-        </div>
-
+       <div th:replace="/fragments/cortar-imagem.html ::corte"></div>
         <div th:replace="/fragments/modal-error.html ::modal"></div>
 
         <button type="submit" class="btn btn-success btn-block  w-100">Cadastrar</button>

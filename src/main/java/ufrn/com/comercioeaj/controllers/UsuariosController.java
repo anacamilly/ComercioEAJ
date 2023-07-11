@@ -232,6 +232,7 @@ public class UsuariosController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long idUsuarioLogado = ((Usuarios) authentication.getPrincipal()).getId();
 
+        System.out.println(idUsuarioLogado);
         // Exemplo fictício de obtenção das informações do usuário com base no id
         Optional<Usuarios> usuario = service.findById(idUsuarioLogado);
 
@@ -239,5 +240,4 @@ public class UsuariosController {
 
         return "/usuarios/conta-configuracoes.html";
     }
-
 }

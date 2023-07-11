@@ -21,45 +21,21 @@
         <div>
             <h5 class="card-title">Informações do Usuário</h5>
             <p class="card-text">Email: <span th:text="${usuario.email}"></span></p>
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#emailModal">Alterar email</button>
         </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="emailModalLabel">Alterar Email</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="newEmail">Novo Email</label>
-                            <input type="email" class="form-control" id="newEmail" placeholder="Digite o novo email">
 
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Salvar</button>
-                </div>
-            </div>
+        <div class="container mt-3">
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#emailModal">Alterar Senha</button>
         </div>
-    </div>
 
-
-    <!-- Botão para apagar todos os produtos -->
+        <!-- Botão para apagar todos os produtos -->
     <div class="container mb-3" th:if="${#authentication.principal.isVendedor}">
         <button type="button" class="btn btn-danger" onclick="mostrarModal('confirmDeleteModalProdutos')">Apagar todos os produtos</button>
     </div>
     <br>
 
     <!-- Botão para abrir a janela modal -->
-    <div class="container">
+    <div class="container mb-3">
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">Apagar permanentemente minha conta</button>
     </div>
 
