@@ -1,0 +1,30 @@
+<div th:fragment="footer">
+
+    <section >
+        <!-- Footer -->
+        <footer class="text-center text-dark" style="background-color: #ffffff;">
+            <!-- Grid container -->
+            <div class="container p-4 pb-0">
+                <!-- Section: CTA -->
+                <section class="">
+                    <p th:unless="${#authorization.expression('isAuthenticated()')}" class="d-flex justify-content-center align-items-center" >
+                        <span class="me-3">Register for free</span>
+                        <a class="btn btn-outline-dark btn-rounded" th:href="@{/login}">
+                            Sign up!
+                        </a>
+                    </p>
+                </section>
+                <!-- Section: CTA -->
+            </div>
+            <!-- Grid container -->
+
+            <!-- Copyright -->
+            <div class="text-center text-dark p-3" style="background-color: #ffffff;">
+                © 2023 Copyright: Comércio EAJ
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+    </section>
+
+</div>

@@ -1,19 +1,13 @@
 package ufrn.com.comercioeaj.services;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ufrn.com.comercioeaj.models.Produtos;
 import ufrn.com.comercioeaj.models.Usuarios;
 import ufrn.com.comercioeaj.repositories.UsuariosRepository;
-
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UsuariosService implements UserDetailsService {
